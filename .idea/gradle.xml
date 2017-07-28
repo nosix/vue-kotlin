@@ -10,6 +10,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/guide" />
+            <option value="$PROJECT_DIR$/guide/index" />
+            <option value="$PROJECT_DIR$/guide/instance" />
             <option value="$PROJECT_DIR$/vuekt" />
           </set>
         </option>
@@ -24,6 +26,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/guide" />
+            <option value="$PROJECT_DIR$/guide/index" />
+            <option value="$PROJECT_DIR$/guide/instance" />
             <option value="$PROJECT_DIR$/vuekt" />
           </set>
         </option>

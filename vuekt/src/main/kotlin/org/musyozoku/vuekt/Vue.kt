@@ -19,12 +19,12 @@ external class Vue(option: VueOption) {
     companion object {
         val config: VueConfig
         fun extend(options: Any)
-        fun nextTick(callback: Function<Unit>?, context: Any?)
+        fun nextTick(callback: Function<Unit>? = definedExternally, context: Any? = definedExternally)
         fun set(target: Any, key: Any, value: Any) // {Object | Array} target, {string | number} key, {any} value
         fun delete(target: Any, key: Any) // {Object | Array} target, {string | number} key/index
-        fun directive(id: String, definition: Any?) // {Function | Object} [definition]
-        fun filter(id: String, definition: Any?) // {Function | Object} [definition]
-        fun component(id: String, definition: Any?) // {Function | Object} [definition]
+        fun directive(id: String, definition: Any? = definedExternally) // {Function | Object} [definition]
+        fun filter(id: String, definition: Any? = definedExternally) // {Function | Object} [definition]
+        fun component(id: String, definition: Any? = definedExternally) // {Function | Object} [definition]
         fun use(plugin: Any) // {Object | Function} plugin
         fun mixin(mixin: Any)
         fun compile(template: String)
@@ -47,20 +47,20 @@ external class Vue(option: VueOption) {
     var `$listeners`: Any // { [key: string]: Function | Array<Function> }
 
     // データ
-    fun `$watch`(expOrFn: Any, callback: Any, options: Any?): () -> Unit // {string | Function} expOrFn, {Function | Object} callback, {Object} [options]
+    fun `$watch`(expOrFn: Any, callback: Any, options: Any? = definedExternally): () -> Unit // {string | Function} expOrFn, {Function | Object} callback, {Object} [options]
     fun `$set`(target: Any, key: Any, value: Any): Any // {Object | Array} target, {string | number} key, {any} value
     fun `$delete`(target: Any, key: Any) // {Object | Array} target, {string | number} key
 
     // イベント
     fun `$on`(event: Any, callback: Function<Unit>) // {string | Array<string>} event
     fun `$once`(event: String, callback: Function<Unit>)
-    fun `$off`(event: String?, callback: Function<Unit>?)
+    fun `$off`(event: String? = definedExternally, callback: Function<Unit>? = definedExternally)
     fun `$emit`(event: String, vararg args: Any)
 
     // ライフサイクル
-    fun `$mount`(elementOrSelector: Any?, hydrating: Boolean?) // {Element | string} [elementOrSelector]
+    fun `$mount`(elementOrSelector: Any? = definedExternally, hydrating: Boolean? = definedExternally) // {Element | string} [elementOrSelector]
     fun `$forceUpdate`()
-    fun `$nextTick`(callback: Function<Unit>?)
+    fun `$nextTick`(callback: Function<Unit>? = definedExternally)
     fun `$destroy`()
 }
 

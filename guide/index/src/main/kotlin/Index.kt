@@ -1,5 +1,3 @@
-package guide
-
 import org.musyozoku.vuekt.ComponentDefinition
 import org.musyozoku.vuekt.JsObject
 import org.musyozoku.vuekt.Vue
