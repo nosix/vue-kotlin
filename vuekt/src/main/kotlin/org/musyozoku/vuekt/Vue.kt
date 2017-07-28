@@ -1,5 +1,7 @@
 // Vue 2.x [https://jp.vuejs.org/v2/api/]
 
+@file:Suppress("NOTHING_TO_INLINE", "UnsafeCastFromDynamic", "unused")
+
 package org.musyozoku.vuekt
 
 import org.w3c.dom.HTMLElement
