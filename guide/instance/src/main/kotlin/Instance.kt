@@ -1,4 +1,5 @@
 import org.musyozoku.vuekt.JsObject
+import org.musyozoku.vuekt.JsThis
 import org.musyozoku.vuekt.Vue
 import kotlin.browser.document
 
@@ -19,18 +20,51 @@ external interface Model {
 }
 
 fun main(args: Array<String>) {
-    val data = JsObject<Model> {
+    val model = JsObject<Model> {
         a = 1
     }
     val vm = Vue {
         el = "#example"
-        this.data = data
+        data = model
+        beforeCreate = {
+            val self = JsThis<Model>()
+            println("beforeCreate: ${self.a}")
+        }
+        created = {
+            val self = JsThis<Model>()
+            println("created: ${self.a}")
+        }
+        beforeMount = {
+            val self = JsThis<Model>()
+            println("beforeMount: ${self.a}")
+        }
+        mounted = {
+            val self = JsThis<Model>()
+            println("mounted: ${self.a}")
+        }
+        beforeUpdate = {
+            val self = JsThis<Model>()
+            println("beforeUpdate: ${self.a}")
+        }
+        updated = {
+            val self = JsThis<Model>()
+            println("updated: ${self.a}")
+        }
+        beforeDestroy = {
+            val self = JsThis<Model>()
+            println("beforeDestroy: ${self.a}")
+        }
+        destroyed = {
+            val self = JsThis<Model>()
+            println("destroyed: ${self.a}")
+        }
     }
-    println("vm.data: ${vm.`$data` === data}")
+    println("vm.data: ${vm.`$data` === model}")
     println("vm.el: ${vm.`$el` === document.getElementById("example")}")
     vm.`$watch`("a", {
         newVal: Int, oldVal: Int ->
         println("vm.watch: $newVal -> $oldVal")
+        JsThis<Vue>().`$destroy`()
     })
-    data.a = 2
+    model.a = 2
 }
