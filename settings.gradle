@@ -1,4 +1,4 @@
-rootProject.name = 'vue-sample'
+rootProject.name = 'vue-kotlin'
 include 'vuekt', 'guide'
 include 'guide:index'
 include 'guide:instance'
