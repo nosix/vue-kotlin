@@ -1,0 +1,2 @@
+rootProject.name = 'vue-sample'
+include 'vuekt', 'guide'

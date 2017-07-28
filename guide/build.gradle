@@ -1,0 +1,37 @@
+apply plugin: 'kotlin2js'
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs "${rootProject.projectDir}/vuekt/build/libs"
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
+}
+
+compileKotlin2Js {
+    kotlinOptions {
+        outputFile = "${projectDir}/build/js/guide.js"
+        //moduleKind = "umd"
+        sourceMap = true
+    }
+}
+
+build.doLast() {
+    // Copy kotlin.js and kotlin-meta.js from jar into build directory
+    configurations.compile.each { File file ->
+        copy {
+            includeEmptyDirs = false
+
+            from zipTree(file.absolutePath)
+            into "${projectDir}/build/js"
+            include { fileTreeElement ->
+                def path = fileTreeElement.path
+                path.endsWith(".js")
+            }
+        }
+    }
+}
