@@ -1,23 +1,36 @@
-apply plugin: 'kotlin2js'
+def outputDir = "${projectDir}/build/js/" as Object
+
+subprojects {
+
+    repositories {
+        flatDir {
+            dirs "${rootProject.projectDir}/vuekt/build/libs"
+        }
+    }
+
+    dependencies {
+        compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
+    }
+
+    compileKotlin2Js {
+        afterEvaluate { project ->
+            kotlinOptions {
+                outputFile = outputDir + project.outputFile
+                //moduleKind = "umd"
+                sourceMap = true
+            }
+        }
+    }
+}
 
 repositories {
-    mavenCentral()
     flatDir {
         dirs "${rootProject.projectDir}/vuekt/build/libs"
     }
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
-}
-
-compileKotlin2Js {
-    kotlinOptions {
-        outputFile = "${projectDir}/build/js/guide.js"
-        //moduleKind = "umd"
-        sourceMap = true
-    }
 }
 
 build.doLast() {
@@ -27,7 +40,7 @@ build.doLast() {
             includeEmptyDirs = false
 
             from zipTree(file.absolutePath)
-            into "${projectDir}/build/js"
+            into outputDir
             include { fileTreeElement ->
                 def path = fileTreeElement.path
                 path.endsWith(".js")

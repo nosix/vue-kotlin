@@ -1,16 +1,6 @@
 group 'org.musyozoku'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'kotlin2js'
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-}
-
 compileKotlin2Js {
     kotlinOptions {
         outputFile = "${projectDir}/build/js/vuekt.js"
