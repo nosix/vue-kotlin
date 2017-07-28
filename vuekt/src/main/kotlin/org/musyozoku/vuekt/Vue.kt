@@ -1,4 +1,4 @@
-// Vue 2.x [https://jp.vuejs.org/v2/api/]
+// Vue 2.x [https://vuejs.org/v2/api/]
 
 @file:Suppress("NOTHING_TO_INLINE", "UnsafeCastFromDynamic", "unused")
 
@@ -6,7 +6,7 @@ package org.musyozoku.vuekt
 
 import org.w3c.dom.HTMLElement
 
-inline fun <T> this_(): T = js("this")
+inline fun <T> JsThis(): T = js("this")
 
 inline fun <T> JsObject(): T = js("({})")
 
@@ -17,7 +17,9 @@ inline fun Vue(option: VueOption.() -> Unit) = Vue(JsObject(option))
 external class Vue(option: VueOption) {
 
     companion object {
+        // Global Config
         val config: VueConfig
+        // Global API
         fun extend(options: Any)
         fun nextTick(callback: Function<Unit>? = definedExternally, context: Any? = definedExternally)
         fun set(target: Any, key: Any, value: Any) // {Object | Array} target, {string | number} key, {any} value
@@ -31,7 +33,7 @@ external class Vue(option: VueOption) {
         val version: String
     }
 
-    // プロパティ
+    // Instance Properties
     var `$data`: Any // Object
     var `$props`: Any  // Object
     var `$el`: HTMLElement
@@ -46,24 +48,25 @@ external class Vue(option: VueOption) {
     var `$attrs`: Any // { [key: string]: string }
     var `$listeners`: Any // { [key: string]: Function | Array<Function> }
 
-    // データ
+    // Instance Methods / Data
     fun `$watch`(expOrFn: Any, callback: Any, options: Any? = definedExternally): () -> Unit // {string | Function} expOrFn, {Function | Object} callback, {Object} [options]
     fun `$set`(target: Any, key: Any, value: Any): Any // {Object | Array} target, {string | number} key, {any} value
     fun `$delete`(target: Any, key: Any) // {Object | Array} target, {string | number} key
 
-    // イベント
+    // Instance Methods / Event
     fun `$on`(event: Any, callback: Function<Unit>) // {string | Array<string>} event
     fun `$once`(event: String, callback: Function<Unit>)
     fun `$off`(event: String? = definedExternally, callback: Function<Unit>? = definedExternally)
     fun `$emit`(event: String, vararg args: Any)
 
-    // ライフサイクル
+    // Instance Methods / Lifecycle
     fun `$mount`(elementOrSelector: Any? = definedExternally, hydrating: Boolean? = definedExternally) // {Element | string} [elementOrSelector]
     fun `$forceUpdate`()
     fun `$nextTick`(callback: Function<Unit>? = definedExternally)
     fun `$destroy`()
 }
 
+// Global Config
 external interface VueConfig {
 
     val silent: Boolean
@@ -77,8 +80,9 @@ external interface VueConfig {
     val productionTip: Boolean
 }
 
+// Options
 external interface VueOption {
-    // データ
+    // Data
     var data: Any // Object | Function
     var props: Any // Array<string> | Object
     var propsData: Any // { [key: string]: any }
@@ -90,7 +94,7 @@ external interface VueOption {
     var template: String
     var render: Any // (createElement: () => VNode) => VNode
     var rendarError: Any // (createElement: () => VNode, error: Error) => VNode
-    // ライフサイクルフック
+    // Lifecycle Hooks
     var beforeCreate: Any // Function
     var created: Any // Function
     var beforeMount: Any // Function
@@ -101,17 +105,17 @@ external interface VueOption {
     var deactivated: Any // Function
     var beforeDestroy: Any // Function
     var destroyed: Any // Funtion
-    // アセット
+    // Assets
     var directives: Any
     var filters: Any
     var components: Any
-    // 構成
+    // Composition
     var parent: Vue
     var mixins: Array<Any>
     var extends: Any // Object | Function
     var provide: Any // Object | () => Object
     var inject: Any // Array<string> | { [key: string]: string | Symbol }
-    // その他
+    // Misc
     var name: String
     var delimiters: Array<String>
     var functional: Boolean

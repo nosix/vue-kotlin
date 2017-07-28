@@ -1,7 +1,4 @@
-import org.musyozoku.vuekt.ComponentDefinition
-import org.musyozoku.vuekt.JsObject
-import org.musyozoku.vuekt.Vue
-import org.musyozoku.vuekt.this_
+import org.musyozoku.vuekt.*
 import kotlin.js.Date
 
 external interface AppModel {
@@ -102,7 +99,7 @@ val app5 = Vue {
     }
     methods = JsObject<AppModel> {
         reverseMessage = {
-            val self = this_<AppModel>()
+            val self = JsThis<AppModel>()
             self.message = self.message.split("").reversed().joinToString("")
         }
     }
