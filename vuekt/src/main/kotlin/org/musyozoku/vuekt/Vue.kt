@@ -95,16 +95,16 @@ external interface VueOption {
     var render: Any // (createElement: () => VNode) => VNode
     var rendarError: Any // (createElement: () => VNode, error: Error) => VNode
     // Lifecycle Hooks
-    var beforeCreate: Any // Function
-    var created: Any // Function
-    var beforeMount: Any // Function
-    var mounted: Any // Function
-    var beforeUpdate: Any // Function
-    var updated: Any // Function
-    var activated: Any // Function
-    var deactivated: Any // Function
-    var beforeDestroy: Any // Function
-    var destroyed: Any // Funtion
+    var beforeCreate: () -> Unit
+    var created: () -> Unit
+    var beforeMount: () -> Unit
+    var mounted: () -> Unit
+    var beforeUpdate: () -> Unit
+    var updated: () -> Unit
+    var activated: () -> Unit // Function
+    var deactivated: () -> Unit // Function
+    var beforeDestroy: () -> Unit
+    var destroyed: () -> Unit
     // Assets
     var directives: Any
     var filters: Any

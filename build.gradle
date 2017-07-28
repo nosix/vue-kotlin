@@ -10,6 +10,19 @@ buildscript {
     }
 }
 
+configure(':guide') {
+    apply plugin: 'kotlin2js'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+        compile project(':vuekt')
+    }
+}
+
 subprojects {
     apply plugin: 'kotlin2js'
 
@@ -19,13 +32,5 @@ subprojects {
 
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    }
-}
-
-configure(':guide') {
-    apply plugin: 'kotlin2js'
-
-    dependencies {
-        compile project(':vuekt')
     }
 }
