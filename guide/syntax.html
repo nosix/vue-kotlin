@@ -11,6 +11,8 @@
 <ul id="example">
     {{ message }} -> {{ message | capitalize }}<br>
     <input input="text" v-bind:value="rawId"> -> <input input="text" v-bind:value="rawId | formatId(3)"><br>
+    <a :href="url">Vue.js</a><br>
+    <a @click="doSomething">do something</a>
 </ul>
 
 <script src="https://unpkg.com/vue"></script>
