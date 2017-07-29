@@ -12,6 +12,11 @@ subprojects {
         compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
     }
 
+    sourceSets {
+        main.kotlin.srcDirs += "main"
+        test.kotlin.srcDirs += "test"
+    }
+
     compileKotlin2Js {
         afterEvaluate { project ->
             kotlinOptions {
