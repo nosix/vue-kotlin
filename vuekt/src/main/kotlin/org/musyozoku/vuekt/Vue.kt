@@ -5,16 +5,17 @@
 package org.musyozoku.vuekt
 
 import org.w3c.dom.HTMLElement
+import kotlin.js.Json
 
-external interface JsObject
+inline fun <T> thisOf(): T = js("this")
 
-inline fun <T> JsThis(): T = js("this")
+inline fun <T : Json> Json(): T = js("({})")
 
-inline fun <T: JsObject> JsObject(): T = js("({})")
+inline fun <T : Json> Json(init: T.() -> Unit): T = Json<T>().apply(init)
 
-inline fun <T: JsObject> JsObject(init: T.() -> Unit): T = JsObject<T>().apply(init)
+inline fun Json(init: Json.() -> Unit): Json = Json<Json>().apply(init)
 
-inline fun Vue(option: VueOption.() -> Unit) = Vue(JsObject(option))
+inline fun Vue(option: VueOption.() -> Unit) = Vue(Json(option))
 
 external class Vue(option: VueOption) {
 
@@ -36,22 +37,22 @@ external class Vue(option: VueOption) {
     }
 
     // Instance Properties
-    var `$data`: JsObject
-    var `$props`: JsObject
+    var `$data`: Json
+    var `$props`: Json
     var `$el`: HTMLElement
-    var `$options`: JsObject
+    var `$options`: Json
     var `$parent`: Vue
     var `$root`: Vue
     var `$children`: Array<Vue>
-    var `$slots`: JsObject // { [name: string]: ?Array<VNode> }
-    var `$scopedSlots`: JsObject // { [name: string]: props => VNode | Array<VNode> }
-    var `$refs`: JsObject
+    var `$slots`: Json // { [name: string]: ?Array<VNode> }
+    var `$scopedSlots`: Json // { [name: string]: props => VNode | Array<VNode> }
+    var `$refs`: Json
     var `$isServer`: Boolean
-    var `$attrs`: JsObject // { [key: string]: string }
-    var `$listeners`: JsObject // { [key: string]: Function | Array<Function> }
+    var `$attrs`: Json // { [key: string]: string }
+    var `$listeners`: Json // { [key: string]: Function | Array<Function> }
 
     // Instance Methods / Data
-    fun `$watch`(expOrFn: Any, callback: Any, options: JsObject? = definedExternally): () -> Unit // {string | Function} expOrFn, {Function | Object} callback, {Object} [options]
+    fun `$watch`(expOrFn: Any, callback: Any, options: Json? = definedExternally): () -> Unit // {string | Function} expOrFn, {Function | Object} callback, {Object} [options]
     fun `$set`(target: Any, key: Any, value: Any): Any // {Object | Array} target, {string | number} key, {any} value
     fun `$delete`(target: Any, key: Any) // {Object | Array} target, {string | number} key
 
@@ -69,28 +70,28 @@ external class Vue(option: VueOption) {
 }
 
 // Global Config
-external interface VueConfig: JsObject {
+external interface VueConfig : Json {
 
     val silent: Boolean
-    val optionMergeStrategies: JsObject // { [key: string]: Function }
+    val optionMergeStrategies: Json // { [key: string]: Function }
     val devtools: Boolean
     val errorHandler: (Any, Vue, String) -> Unit
     val warnHandler: (String, Vue, String) -> Unit
     val ignoredElements: Array<String>
-    val keyCodes: JsObject // { [key: string]: number | Array<number> }
+    val keyCodes: Json // { [key: string]: number | Array<number> }
     val performance: Boolean
     val productionTip: Boolean
 }
 
 // Options
-external interface VueOption: JsObject {
+external interface VueOption : Json {
     // Data
     var data: Any // Object | Function
     var props: Any // Array<string> | Object
-    var propsData: JsObject // { [key: string]: any }
-    var computed: JsObject // { [key: string]: Function | { get: Function, set: Function } }
-    var methods: JsObject // { [key: string]: Function }
-    var watch: JsObject // { [key: string]: string | Function | Object }
+    var propsData: Json // { [key: string]: any }
+    var computed: Json // { [key: string]: Function | { get: Function, set: Function } }
+    var methods: Json // { [key: string]: Function }
+    var watch: Json // { [key: string]: string | Function | Object }
     // DOM
     var el: Any // string | HTMLElement
     var template: String
@@ -108,12 +109,12 @@ external interface VueOption: JsObject {
     var beforeDestroy: () -> Unit
     var destroyed: () -> Unit
     // Assets
-    var directives: JsObject
-    var filters: JsObject
-    var components: JsObject
+    var directives: Json
+    var filters: Json
+    var components: Json
     // Composition
     var parent: Vue
-    var mixins: Array<JsObject>
+    var mixins: Array<Json>
     var extends: Any // Object | Function
     var provide: Any // Object | () => Object
     var inject: Any // Array<string> | { [key: string]: string | Symbol }
@@ -126,13 +127,13 @@ external interface VueOption: JsObject {
     var comments: Boolean
 }
 
-external interface ModelOption: JsObject {
+external interface ModelOption : Json {
 
     var prop: String
     var event: String
 }
 
-external interface ComponentDefinition: JsObject {
+external interface ComponentDefinition : Json {
 
     var template: String
     var props: Array<String>
