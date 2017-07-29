@@ -1,7 +1,7 @@
 import org.musyozoku.vuekt.ComponentDefinition
 import org.musyozoku.vuekt.Json
 import org.musyozoku.vuekt.Vue
-import org.musyozoku.vuekt.thisOf
+import org.musyozoku.vuekt.thisAs
 import kotlin.js.Date
 import kotlin.js.Json
 
@@ -102,7 +102,7 @@ val app5 = Vue {
     }
     methods = Json {
         set("reverseMessage") {
-            val self = thisOf<AppModel>()
+            val self = thisAs<AppModel>()
             self.message = self.message.split("").reversed().joinToString("")
         }
     }

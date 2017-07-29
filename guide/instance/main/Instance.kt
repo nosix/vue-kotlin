@@ -1,6 +1,6 @@
 import org.musyozoku.vuekt.Json
 import org.musyozoku.vuekt.Vue
-import org.musyozoku.vuekt.thisOf
+import org.musyozoku.vuekt.thisAs
 import kotlin.browser.document
 import kotlin.js.Json
 
@@ -28,35 +28,35 @@ fun main(args: Array<String>) {
         el = "#example"
         data = model
         beforeCreate = {
-            val self = thisOf<Model>()
+            val self = thisAs<Model>()
             println("beforeCreate: ${self.a}")
         }
         created = {
-            val self = thisOf<Model>()
+            val self = thisAs<Model>()
             println("created: ${self.a}")
         }
         beforeMount = {
-            val self = thisOf<Model>()
+            val self = thisAs<Model>()
             println("beforeMount: ${self.a}")
         }
         mounted = {
-            val self = thisOf<Model>()
+            val self = thisAs<Model>()
             println("mounted: ${self.a}")
         }
         beforeUpdate = {
-            val self = thisOf<Model>()
+            val self = thisAs<Model>()
             println("beforeUpdate: ${self.a}")
         }
         updated = {
-            val self = thisOf<Model>()
+            val self = thisAs<Model>()
             println("updated: ${self.a}")
         }
         beforeDestroy = {
-            val self = thisOf<Model>()
+            val self = thisAs<Model>()
             println("beforeDestroy: ${self.a}")
         }
         destroyed = {
-            val self = thisOf<Model>()
+            val self = thisAs<Model>()
             println("destroyed: ${self.a}")
         }
     }
@@ -65,7 +65,7 @@ fun main(args: Array<String>) {
     vm.`$watch`("a", {
         newVal: Int, oldVal: Int ->
         println("vm.watch: $newVal -> $oldVal")
-        thisOf<Vue>().`$destroy`()
+        thisAs<Vue>().`$destroy`()
     })
     model.a = 2
 }
