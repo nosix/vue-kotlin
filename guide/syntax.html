@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>テンプレート構文</title>
+</head>
+<body>
+
+<!-- https://jp.vuejs.org/v2/guide/syntax.html -->
+
+<ul id="example">
+    {{ message }} -> {{ message | capitalize }}<br>
+    <input input="text" v-bind:value="rawId"> -> <input input="text" v-bind:value="rawId | formatId(3)"><br>
+</ul>
+
+<script src="https://unpkg.com/vue"></script>
+
+<script src="build/js/kotlin.js"></script>
+<script src="build/js/vuekt.js"></script>
+<script src="build/js/syntax.js"></script>
+
+</body>
+</html>
