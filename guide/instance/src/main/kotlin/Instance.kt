@@ -15,7 +15,7 @@ import kotlin.browser.document
 //      // このコールバックは `vm.a` の値が変わる時に呼ばれます
 //  })
 
-external interface Model {
+external interface Model: JsObject {
     var a: Int
 }
 

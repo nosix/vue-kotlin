@@ -1,7 +1,7 @@
 import org.musyozoku.vuekt.*
 import kotlin.js.Date
 
-external interface AppModel {
+external interface AppModel: JsObject {
     var message: String
     var reverseMessage: () -> Unit
 }
@@ -41,7 +41,7 @@ val app2 = Vue {
 //      }
 //  })
 
-external interface App3Model {
+external interface App3Model: JsObject {
     var seen: Boolean
 }
 
@@ -63,7 +63,7 @@ val app3 = Vue {
 //      }
 //  })
 
-external interface App4Model {
+external interface App4Model: JsObject {
     var todos: Array<Text>
 }
 
@@ -137,7 +137,7 @@ val app6 = Vue {
 
 class Item(var id: Int, var text: String)
 
-external interface App7Model {
+external interface App7Model: JsObject {
     var groceryList: Array<Item>
 }
 
