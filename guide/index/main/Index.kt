@@ -1,9 +1,12 @@
-import org.musyozoku.vuekt.*
+import org.musyozoku.vuekt.ComponentDefinition
+import org.musyozoku.vuekt.Json
+import org.musyozoku.vuekt.Vue
+import org.musyozoku.vuekt.thisOf
 import kotlin.js.Date
+import kotlin.js.Json
 
-external interface AppModel: JsObject {
+external interface AppModel : Json {
     var message: String
-    var reverseMessage: () -> Unit
 }
 
 //  var app = new Vue({
@@ -15,7 +18,7 @@ external interface AppModel: JsObject {
 
 val app = Vue {
     el = "#app"
-    data = JsObject<AppModel> {
+    data = Json<AppModel> {
         message = "Hello Vue!"
     }
 }
@@ -29,7 +32,7 @@ val app = Vue {
 
 val app2 = Vue {
     el = "#app-2"
-    data = JsObject<AppModel> {
+    data = Json<AppModel> {
         message = "You loaded this page on ${Date()}"
     }
 }
@@ -41,13 +44,13 @@ val app2 = Vue {
 //      }
 //  })
 
-external interface App3Model: JsObject {
+external interface App3Model : Json {
     var seen: Boolean
 }
 
 val app3 = Vue {
     el = "#app-3"
-    data = JsObject<App3Model> {
+    data = Json<App3Model> {
         seen = true
     }
 }
@@ -63,7 +66,7 @@ val app3 = Vue {
 //      }
 //  })
 
-external interface App4Model: JsObject {
+external interface App4Model : Json {
     var todos: Array<Text>
 }
 
@@ -71,7 +74,7 @@ class Text(var text: String)
 
 val app4 = Vue {
     el = "#app-4"
-    data = JsObject<App4Model> {
+    data = Json<App4Model> {
         todos = arrayOf(
                 Text("Learn JavaScript"),
                 Text("Learn Vue"),
@@ -94,12 +97,12 @@ val app4 = Vue {
 
 val app5 = Vue {
     el = "#app-5"
-    data = JsObject<AppModel> {
+    data = Json<AppModel> {
         message = "Hello Vue.js!"
     }
-    methods = JsObject<AppModel> {
-        reverseMessage = {
-            val self = JsThis<AppModel>()
+    methods = Json {
+        set("reverseMessage") {
+            val self = thisOf<AppModel>()
             self.message = self.message.split("").reversed().joinToString("")
         }
     }
@@ -114,7 +117,7 @@ val app5 = Vue {
 
 val app6 = Vue {
     el = "#app-6"
-    data = JsObject<AppModel> {
+    data = Json<AppModel> {
         message = "Hello Vue!"
     }
 }
@@ -137,18 +140,18 @@ val app6 = Vue {
 
 class Item(var id: Int, var text: String)
 
-external interface App7Model: JsObject {
+external interface App7Model : Json {
     var groceryList: Array<Item>
 }
 
-val TodoItem = Vue.component("todo-item", JsObject<ComponentDefinition> {
+val TodoItem = Vue.component("todo-item", Json<ComponentDefinition> {
     props = arrayOf("todo")
     template = "<li>{{ todo.text }}</li>"
 })
 
 val app7 = Vue {
     el = "#app-7"
-    data = JsObject<App7Model> {
+    data = Json<App7Model> {
         groceryList = arrayOf(
                 Item(0, "Vegetables"),
                 Item(1, "Cheese"),
