@@ -2,7 +2,7 @@
 
 import org.musyozoku.vuekt.Json
 import org.musyozoku.vuekt.Vue
-import org.musyozoku.vuekt.thisOf
+import org.musyozoku.vuekt.thisAs
 import kotlin.js.Json
 
 external interface Model : Json {
@@ -31,7 +31,7 @@ fun main(args: Array<String>) {
         }
         methods = Json {
             set("doSomething") {
-                val self = thisOf<Model>()
+                val self = thisAs<Model>()
                 self.message = "do something"
             }
         }

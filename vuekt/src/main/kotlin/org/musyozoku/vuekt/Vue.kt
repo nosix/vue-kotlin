@@ -7,7 +7,7 @@ package org.musyozoku.vuekt
 import org.w3c.dom.HTMLElement
 import kotlin.js.Json
 
-inline fun <T> thisOf(): T = js("this")
+inline fun <T> thisAs(): T = js("this")
 
 inline fun <T : Json> Json(): T = js("({})")
 
@@ -68,6 +68,9 @@ external class Vue(option: VueOption) {
     fun `$nextTick`(callback: Function<Unit>? = definedExternally)
     fun `$destroy`()
 }
+
+@Suppress("UNCHECKED_CAST")
+inline fun <T> Vue.proxyOf(): T = this as T
 
 // Global Config
 external interface VueConfig : Json {
@@ -133,9 +136,14 @@ external interface ModelOption : Json {
     var event: String
 }
 
+external interface Accessor<T> : Json {
+
+    var get: () -> T
+    var set: (T) -> Unit
+}
+
 external interface ComponentDefinition : Json {
 
     var template: String
     var props: Array<String>
 }
-

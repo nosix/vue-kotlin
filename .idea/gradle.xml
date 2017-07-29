@@ -26,6 +26,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/guide" />
+            <option value="$PROJECT_DIR$/guide/computed" />
             <option value="$PROJECT_DIR$/guide/index" />
             <option value="$PROJECT_DIR$/guide/instance" />
             <option value="$PROJECT_DIR$/guide/syntax" />
