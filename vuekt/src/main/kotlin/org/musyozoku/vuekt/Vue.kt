@@ -11,12 +11,14 @@ inline fun <T> thisAs(): T = js("this")
 
 inline fun <T : Json> Json(): T = js("({})")
 
-inline fun <T : Json> Json(init: T.() -> Unit): T = Json<T>().apply(init)
+fun <T : Json> Json(init: T.() -> Unit): T = Json<T>().apply(init)
 
-inline fun Json(init: Json.() -> Unit): Json = Json<Json>().apply(init)
+fun Json(init: Json.() -> Unit): Json = Json<Json>().apply(init)
 
-inline fun Vue(option: VueOption.() -> Unit) = Vue(Json(option))
+fun Vue(option: VueOption.() -> Unit) = Vue(Json(option))
 
+@JsNonModule
+@JsModule("vue")
 external class Vue(option: VueOption) {
 
     companion object {
