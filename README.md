@@ -9,3 +9,4 @@ Open the following in a browser
 - `guide/index.html`
 - `guide/instance.html`
 - `guide/syntax.html`
+- `guide/computed.html`
