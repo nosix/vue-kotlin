@@ -13,11 +13,32 @@
     <p>Computed reversed message: "{{ reversedMessage }}"</p>
 </ul>
 
-<script src="https://unpkg.com/vue"></script>
+<!-- https://jp.vuejs.org/v2/guide/computed.html#ウォッチャ -->
 
-<script src="build/js/kotlin.js"></script>
-<script src="build/js/vuekt.js"></script>
-<script src="build/js/computed.js"></script>
+<div id="watch-example">
+    <p>
+        Ask a yes/no question:
+        <input v-model="question">
+    </p>
+    <p>{{ answer }}</p>
+</div>
+
+<script src="require-config.js"></script>
+<script src="build/js/require.js"></script>
+
+<script>
+require(['computed'], function () {});
+</script>
+
+<!--<script src="https://unpkg.com/vue"></script>-->
+
+<!--<script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>-->
+<!--<script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>-->
+<!--<script>lodash = _</script>-->
+
+<!--<script src="build/js/kotlin.js"></script>-->
+<!--<script src="build/js/vuekt.js"></script>-->
+<!--<script src="build/js/computed.js"></script>-->
 
 </body>
 </html>

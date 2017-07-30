@@ -21,7 +21,7 @@ subprojects {
         afterEvaluate { project ->
             kotlinOptions {
                 outputFile = outputDir + project.outputFile
-                //moduleKind = "umd"
+                moduleKind = "umd"
                 sourceMap = true
             }
         }
@@ -35,20 +35,23 @@ repositories {
 }
 
 dependencies {
-    compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
+    compile 'org.webjars:requirejs:2.3.3'
+    compile 'org.webjars:vue:2.1.3'
+    compile 'org.musyozoku:vuekt:1.0-SNAPSHOT'
 }
 
 build.doLast() {
-    // Copy kotlin.js and kotlin-meta.js from jar into build directory
+    // Copy *.js from jar into build directory
     configurations.compile.each { File file ->
         copy {
             includeEmptyDirs = false
 
             from zipTree(file.absolutePath)
             into outputDir
-            include { fileTreeElement ->
-                def path = fileTreeElement.path
-                path.endsWith(".js")
+            include '**/*.js'
+            eachFile { details ->
+                def names = details.path.split('/')
+                details.path = names.getAt(names.length - 1)
             }
         }
     }
