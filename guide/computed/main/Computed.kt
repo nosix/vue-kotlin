@@ -1,6 +1,10 @@
 import org.musyozoku.vuekt.*
 import kotlin.js.Json
 
+@JsNonModule
+@JsModule("axios")
+external val axios: dynamic
+
 external interface ModelComputed : Json {
     var message: String
     val reversedMessage: String
@@ -77,15 +81,16 @@ fun main(args: Array<String>) {
                             self.answer = "Thinking..."
                             axios.get("https://yesno.wtf/api")
                                     .then({
-                                        response: dynamic ->
-                                        self.answer = lodash.capitalize(response.data.answer)
-                                        null
+                                        response ->
+                                        self.answer = lodash.capitalize(response.data.answer as String)
+                                        Unit // return value of dynamic type
                                     })
                                     .catch({
                                         error: String ->
                                         self.answer = "Error! Could not reach the API. " + error
-                                        null
+                                        Unit // return value of dynamic type
                                     })
+                            Unit // suppress UnsafeCaseFromDynamic
                         }
                     },
                     500
