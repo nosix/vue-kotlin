@@ -18,13 +18,16 @@ configure(':guide') {
     }
 
     dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
         compile project(':vuekt')
     }
 }
 
 subprojects {
     apply plugin: 'kotlin2js'
+
+    ext {
+        vuektLibDir = "${project(':vuekt').buildDir}/libs"
+    }
 
     repositories {
         mavenCentral()

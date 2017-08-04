@@ -1,10 +1,12 @@
-def outputDir = "${projectDir}/build/js/" as Object
+ext {
+    outputDir = "$buildDir/js/"
+}
 
 subprojects {
 
     repositories {
         flatDir {
-            dirs "${rootProject.projectDir}/vuekt/build/libs"
+            dirs vuektLibDir
         }
     }
 
@@ -20,17 +22,28 @@ subprojects {
     compileKotlin2Js {
         afterEvaluate { project ->
             kotlinOptions {
-                outputFile = outputDir + project.outputFile
+                outputFile = "$buildDir/${project.name}.js"
                 moduleKind = "umd"
                 sourceMap = true
             }
         }
     }
+
+    build.doLast {
+        copy {
+            from buildDir
+            into outputDir
+            include '*.js'
+            include '*.map'
+        }
+
+        delete buildDir
+    }
 }
 
 repositories {
     flatDir {
-        dirs "${rootProject.projectDir}/vuekt/build/libs"
+        dirs vuektLibDir
     }
 }
 
