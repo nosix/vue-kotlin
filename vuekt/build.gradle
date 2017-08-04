@@ -3,7 +3,7 @@ version '1.0-SNAPSHOT'
 
 compileKotlin2Js {
     kotlinOptions {
-        outputFile = "${projectDir}/build/js/vuekt.js"
+        outputFile = "$buildDir/js/${project.name}.js"
         moduleKind = "umd"
     }
 }
