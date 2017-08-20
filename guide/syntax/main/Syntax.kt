@@ -1,6 +1,6 @@
 @file:Suppress("UnsafeCastFromDynamic")
 
-import org.musyozoku.vuekt.Json
+import org.musyozoku.vuekt.json
 import org.musyozoku.vuekt.Vue
 import org.musyozoku.vuekt.thisAs
 import kotlin.js.Json
@@ -14,12 +14,12 @@ external interface Model : Json {
 fun main(args: Array<String>) {
     Vue {
         el = "#example"
-        data = Json<Model> {
+        data = json<Model> {
             message = "hello"
             rawId = 1
             url = "https://jp.vuejs.org/"
         }
-        filters = Json {
+        filters = json {
             set("capitalize") {
                 it: String ->
                 it.capitalize()
@@ -29,7 +29,7 @@ fun main(args: Array<String>) {
                 it.asDynamic().toFixed(digits) // JavaScript の関数を実行
             }
         }
-        methods = Json {
+        methods = json {
             set("doSomething") {
                 val self = thisAs<Model>()
                 self.message = "do something"

@@ -9,13 +9,13 @@ import kotlin.js.Json
 
 inline fun <T> thisAs(): T = js("this")
 
-inline fun <T : Json> Json(): T = js("({})")
+inline fun <T : Json> json(): T = js("({})")
 
-fun <T : Json> Json(init: T.() -> Unit): T = Json<T>().apply(init)
+fun <T : Json> json(init: T.() -> Unit): T = json<T>().apply(init)
 
-fun Json(init: Json.() -> Unit): Json = Json<Json>().apply(init)
+fun json(init: Json.() -> Unit): Json = json<Json>().apply(init)
 
-fun Vue(option: VueOption.() -> Unit) = Vue(Json(option))
+fun Vue(option: VueOption.() -> Unit) = Vue(json(option))
 
 @JsNonModule
 @JsModule("vue")

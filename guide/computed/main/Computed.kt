@@ -23,17 +23,17 @@ external interface ModelWatch : Json {
 fun main(args: Array<String>) {
     val vm = Vue {
         el = "#example"
-        data = Json<ModelComputed> {
+        data = json<ModelComputed> {
             message = "Hello"
             firstName = "Foo"
             lastName = "Bar"
         }
-        computed = Json {
+        computed = json {
             set("reversedMessage") {
                 val self = thisAs<ModelComputed>()
                 self.message.split("").reversed().joinToString("")
             }
-            set("fullName", Json<Accessor<String>> {
+            set("fullName", json<Accessor<String>> {
                 get = {
                     val self = thisAs<ModelComputed>()
                     "${self.firstName} ${self.lastName}"
@@ -60,18 +60,18 @@ fun main(args: Array<String>) {
 
     Vue {
         el = "#watch-example"
-        data = Json<ModelWatch> {
+        data = json<ModelWatch> {
             question = ""
             answer = "I cannot give you an answer until you ask a question!"
         }
-        watch = Json {
+        watch = json {
             set("question") {
                 val self = thisAs<ModelWatch>()
                 self.answer = "Waiting for you to stop typing..."
                 self.getAnswer()
             }
         }
-        methods = Json {
+        methods = json {
             set("getAnswer", lodash.debounce(
                     {
                         val self = thisAs<ModelWatch>()
