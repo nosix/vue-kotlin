@@ -10,3 +10,4 @@ Open the following in a browser
 - `guide/instance.html`
 - `guide/syntax.html`
 - `guide/computed.html`
+- `guide/class-and-style.html`
