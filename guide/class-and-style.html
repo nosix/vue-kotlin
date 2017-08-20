@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>クラスとスタイルのバインディング</title>
+    <style>
+        .active {
+          background-color: #ffffaa;
+        }
+        .text-danger {
+          color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+<!-- https://jp.vuejs.org/v2/guide/class-and-style.html -->
+
+<div id="example">
+    <div v-bind:class="classObject">Hello</div>
+    <div v-bind:style="styleObject">World</div>
+</div>
+
+<!-- Try following code on Chrome console:
+vm = require('class-and-style').vm
+vm.isActive = false
+vm.error = {type: 'fatal'}
+-->
+
+<script src="require-config.js"></script>
+<script src="build/js/require.js"></script>
+<script>require(['class-and-style'])</script>
+
+</body>
+</html>
