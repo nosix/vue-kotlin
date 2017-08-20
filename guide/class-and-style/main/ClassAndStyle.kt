@@ -1,4 +1,4 @@
-import org.musyozoku.vuekt.Json
+import org.musyozoku.vuekt.json
 import org.musyozoku.vuekt.Vue
 import org.musyozoku.vuekt.thisAs
 import kotlin.js.Json
@@ -17,18 +17,18 @@ external interface Styles : Json {
 
 val vm = Vue {
     el = "#example"
-    data = Json<Model> {
+    data = json<Model> {
         isActive = true
         error = null
-        styleObject = Json<Styles> {
+        styleObject = json<Styles> {
             color = "red"
             fontSize = "13px"
         }
     }
-    computed = Json {
+    computed = json {
         set("classObject") {
             val self = thisAs<Model>()
-            Json {
+            json {
                 set("active", self.isActive && self.error == null)
                 set("text-danger", self.error != null && self.error.type == "fatal")
             }

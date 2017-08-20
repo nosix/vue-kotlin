@@ -1,5 +1,5 @@
 import org.musyozoku.vuekt.ComponentDefinition
-import org.musyozoku.vuekt.Json
+import org.musyozoku.vuekt.json
 import org.musyozoku.vuekt.Vue
 import org.musyozoku.vuekt.thisAs
 import kotlin.js.Date
@@ -18,7 +18,7 @@ external interface AppModel : Json {
 
 val app = Vue {
     el = "#app"
-    data = Json<AppModel> {
+    data = json<AppModel> {
         message = "Hello Vue!"
     }
 }
@@ -32,7 +32,7 @@ val app = Vue {
 
 val app2 = Vue {
     el = "#app-2"
-    data = Json<AppModel> {
+    data = json<AppModel> {
         message = "You loaded this page on ${Date()}"
     }
 }
@@ -50,7 +50,7 @@ external interface App3Model : Json {
 
 val app3 = Vue {
     el = "#app-3"
-    data = Json<App3Model> {
+    data = json<App3Model> {
         seen = true
     }
 }
@@ -74,7 +74,7 @@ class Text(var text: String)
 
 val app4 = Vue {
     el = "#app-4"
-    data = Json<App4Model> {
+    data = json<App4Model> {
         todos = arrayOf(
                 Text("Learn JavaScript"),
                 Text("Learn Vue"),
@@ -97,10 +97,10 @@ val app4 = Vue {
 
 val app5 = Vue {
     el = "#app-5"
-    data = Json<AppModel> {
+    data = json<AppModel> {
         message = "Hello Vue.js!"
     }
-    methods = Json {
+    methods = json {
         set("reverseMessage") {
             val self = thisAs<AppModel>()
             self.message = self.message.split("").reversed().joinToString("")
@@ -117,7 +117,7 @@ val app5 = Vue {
 
 val app6 = Vue {
     el = "#app-6"
-    data = Json<AppModel> {
+    data = json<AppModel> {
         message = "Hello Vue!"
     }
 }
@@ -144,14 +144,14 @@ external interface App7Model : Json {
     var groceryList: Array<Item>
 }
 
-val TodoItem = Vue.component("todo-item", Json<ComponentDefinition> {
+val TodoItem = Vue.component("todo-item", json<ComponentDefinition> {
     props = arrayOf("todo")
     template = "<li>{{ todo.text }}</li>"
 })
 
 val app7 = Vue {
     el = "#app-7"
-    data = Json<App7Model> {
+    data = json<App7Model> {
         groceryList = arrayOf(
                 Item(0, "Vegetables"),
                 Item(1, "Cheese"),

@@ -1,4 +1,4 @@
-import org.musyozoku.vuekt.Json
+import org.musyozoku.vuekt.json
 import org.musyozoku.vuekt.Vue
 import org.musyozoku.vuekt.thisAs
 import kotlin.browser.document
@@ -21,7 +21,7 @@ external interface Model : Json {
 }
 
 fun main(args: Array<String>) {
-    val model = Json<Model> {
+    val model = json<Model> {
         a = 1
     }
     val vm = Vue {
