@@ -11,3 +11,4 @@ Open the following in a browser
 - `guide/syntax.html`
 - `guide/computed.html`
 - `guide/class-and-style.html`
+- `guide/list.html`
