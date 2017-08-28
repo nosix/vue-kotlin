@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>イベントハンドリング</title>
+</head>
+<body>
+
+<!-- https://jp.vuejs.org/v2/guide/events.html#イベントの購読 -->
+
+<div id="example-1">
+    <button v-on:click="counter += 1">Add 1</button>
+    <p>The button above has been clicked {{ counter }} times.</p>
+</div>
+
+<!-- https://jp.vuejs.org/v2/guide/events.html#メソッドイベントハンドラ -->
+
+<div id="example-2">
+    <button v-on:click="greet">Greet</button>
+</div>
+
+<!-- https://jp.vuejs.org/v2/guide/events.html#インラインメソッドハンドラ -->
+
+<div id="example-3">
+    <button v-on:click="say('hi')">Say hi</button>
+    <button v-on:click="say('what')">Say what</button>
+    <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+        Submit
+    </button>
+</div>
+
+<script src="require-config.js"></script>
+<script src="build/js/require.js"></script>
+<script>require(['events'])</script>
+
+</body>
+</html>
