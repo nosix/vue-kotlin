@@ -13,3 +13,4 @@ Open the following in a browser
 - `guide/class-and-style.html`
 - `guide/list.html`
 - `guide/events.html`
+- `guide/forms.html`
