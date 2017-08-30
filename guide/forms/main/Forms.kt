@@ -3,12 +3,14 @@ import org.musyozoku.vuekt.json
 import kotlin.js.Json
 
 external interface Example1Model : Json {
+    var message: String
     var checkedNames: Array<String>
 }
 
 val example1 = Vue {
     el = "#example-1"
     data = json<Example1Model> {
+        message = ""
         checkedNames = emptyArray()
     }
 }

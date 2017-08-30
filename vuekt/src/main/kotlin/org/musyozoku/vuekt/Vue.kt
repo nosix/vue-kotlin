@@ -145,7 +145,24 @@ external interface Accessor<T> : Json {
 }
 
 external interface ComponentDefinition : Json {
-
+    // Data
+    var data: () -> Json
+    var props: Any // Array<string> | Object
+    //var propsData: Json // { [key: string]: any }
+    var computed: Json // { [key: string]: Function | { get: Function, set: Function } }
+    var methods: Json // { [key: string]: Function }
+    //var watch: Json // { [key: string]: string | Function | Object }
+    // DOM
     var template: String
-    var props: Array<String>
+    // Lifecycle Hooks
+    var beforeCreate: () -> Unit
+    var created: () -> Unit
+    var beforeMount: () -> Unit
+    var mounted: () -> Unit
+    var beforeUpdate: () -> Unit
+    var updated: () -> Unit
+    var activated: () -> Unit
+    var deactivated: () -> Unit
+    var beforeDestroy: () -> Unit
+    var destroyed: () -> Unit
 }
