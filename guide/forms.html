@@ -6,9 +6,14 @@
 </head>
 <body>
 
-<!-- https://jp.vuejs.org/v2/guide/forms.html#チェックボックス -->
-
 <div id="example-1">
+    <!-- https://jp.vuejs.org/v2/guide/forms.html#テキスト -->
+
+    <input v-model="message" placeholder="edit me">
+    <p>Message is: {{ message }}</p>
+
+    <!-- https://jp.vuejs.org/v2/guide/forms.html#チェックボックス -->
+
     <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
     <label for="jack">Jack</label>
     <input type="checkbox" id="john" value="John" v-model="checkedNames">

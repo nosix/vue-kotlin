@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>コンポーネント</title>
+</head>
+<body>
+
+<!-- https://jp.vuejs.org/v2/guide/components.html#ローカル登録 -->
+
+<div id="example">
+    <my-component></my-component>
+</div>
+
+<!-- https://jp.vuejs.org/v2/guide/components.html#data-は関数でなければならない -->
+
+<div id="example-2">
+    <simple-counter></simple-counter>
+    <simple-counter></simple-counter>
+    <simple-counter></simple-counter>
+</div>
+
+<!-- https://jp.vuejs.org/v2/guide/components.html#キャメルケース-vs-ケバブケース -->
+
+<div id="example-3">
+    <!-- HTML ではケバブケース -->
+    <child my-message="hello!"></child>
+    <br>
+    <input v-model="parentMsg">
+    <child v-bind:my-message="parentMsg"></child>
+</div>
+
+<!-- https://jp.vuejs.org/v2/guide/components.html#プロパティ検証 -->
+
+<!-- TODO -->
+
+<!-- https://jp.vuejs.org/v2/guide/components.html#カスタムイベントとの-v-on-の使用 -->
+
+<div id="counter-event-example">
+    <p>{{ total }}</p>
+    <button-counter v-on:increment="incrementTotal"></button-counter>
+    <button-counter v-on:increment="incrementTotal"></button-counter>
+</div>
+
+<!-- https://jp.vuejs.org/v2/guide/components.html#カスタムイベントを使用したフォーム入力コンポーネント -->
+
+<div id="app">
+    <currency-input label="Price" v-model="price"></currency-input>
+    <currency-input label="Shipping" v-model="shipping"></currency-input>
+    <currency-input label="Handling" v-model="handling"></currency-input>
+    <currency-input label="Discount" v-model="discount"></currency-input>
+    <p>Total: ${{ total }}</p>
+</div>
+
+<script src="require-config.js"></script>
+<script src="build/js/require.js"></script>
+<script>require(['components'])</script>
+
+</body>
+</html>

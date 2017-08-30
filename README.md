@@ -14,3 +14,4 @@ Open the following in a browser
 - `guide/list.html`
 - `guide/events.html`
 - `guide/forms.html`
+- `guide/components.html`
