@@ -1,6 +1,22 @@
 group 'org.musyozoku'
 version '1.0-SNAPSHOT'
 
+apply plugin: 'com.moowork.node'
+
+node {
+    download = true
+}
+
+task ts2kt(type: NodeTask) {
+    String nodeDir = "${project.projectDir}/node_modules"
+    script = file("$nodeDir/ts2kt/ts2kt.js")
+
+    String destDir = 'src/main/kotlin/org/vuejs'
+    file(destDir).mkdir()
+
+    args = ['-d', destDir] + file("$nodeDir/vue/types").listFiles().collect { it.absolutePath }
+}
+
 compileKotlin2Js {
     kotlinOptions {
         outputFile = "$buildDir/js/${project.name}.js"
