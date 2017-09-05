@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>リストレンダリング</title>
+    <title>List Rendering / リストレンダリング</title>
 </head>
 <body>
 
-<!-- https://jp.vuejs.org/v2/guide/list.html#基本的な使い方 -->
+<!-- https://vuejs.org/v2/guide/list.html#Mapping-an-Array-to-Elements-with-v-for -->
+<!-- https://jp.vuejs.org/v2/guide/list.html#v-for-で配列に要素をマッピングする -->
 
 <ul id="example-1">
     <li v-for="item in items">{{ item.message }}</li>
@@ -18,6 +19,7 @@
     </li>
 </ul>
 
+<!-- https://vuejs.org/v2/guide/list.html#v-for-with-an-Object -->
 <!-- https://jp.vuejs.org/v2/guide/list.html#オブジェクトの-v-for -->
 
 <ul id="repeat-object" class="demo">
@@ -26,6 +28,7 @@
     </li>
 </ul>
 
+<!-- https://vuejs.org/v2/guide/list.html#v-for-with-a-Component -->
 <!-- https://jp.vuejs.org/v2/guide/list.html#コンポーネントと-v-for -->
 
 <div id="todo-list-example">
@@ -33,14 +36,14 @@
            v-on:keyup.enter="addNewTodo"
            placeholder="Add a todo">
     <ul>
-        <!-- todos can not be used.
+        <!-- FIXME: todos can not be used.
              MutableList has properties other than array. -->
         <li is="todo-item"
             v-for="(todo, index) in todo_array"
             v-bind:key="todo.id"
             v-bind:title="todo.title"
             v-on:remove="removeTodo(index)"></li>
-        <!-- todos.removeAt(index) can not be used.
+        <!-- FIXME: todos.removeAt(index) can not be used.
              A suffix is appended to the function name on Kotlin standard library. -->
     </ul>
 </div>

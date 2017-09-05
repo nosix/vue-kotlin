@@ -2,16 +2,18 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>コンポーネント</title>
+    <title>Components / コンポーネント</title>
 </head>
 <body>
 
+<!-- https://vuejs.org/v2/guide/components.html#Local-Registration -->
 <!-- https://jp.vuejs.org/v2/guide/components.html#ローカル登録 -->
 
 <div id="example">
     <my-component></my-component>
 </div>
 
+<!-- https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function -->
 <!-- https://jp.vuejs.org/v2/guide/components.html#data-は関数でなければならない -->
 
 <div id="example-2">
@@ -20,20 +22,23 @@
     <simple-counter></simple-counter>
 </div>
 
+<!-- https://vuejs.org/v2/guide/components.html#camelCase-vs-kebab-case -->
 <!-- https://jp.vuejs.org/v2/guide/components.html#キャメルケース-vs-ケバブケース -->
 
 <div id="example-3">
-    <!-- HTML ではケバブケース -->
+    <!-- kebab-case in HTML / HTML ではケバブケース -->
     <child my-message="hello!"></child>
     <br>
     <input v-model="parentMsg">
     <child v-bind:my-message="parentMsg"></child>
 </div>
 
+<!-- https://vuejs.org/v2/guide/components.html#Prop-Validation -->
 <!-- https://jp.vuejs.org/v2/guide/components.html#プロパティ検証 -->
 
 <!-- TODO -->
 
+<!-- https://vuejs.org/v2/guide/components.html#Using-v-on-with-Custom-Events -->
 <!-- https://jp.vuejs.org/v2/guide/components.html#カスタムイベントとの-v-on-の使用 -->
 
 <div id="counter-event-example">
@@ -42,6 +47,7 @@
     <button-counter v-on:increment="incrementTotal"></button-counter>
 </div>
 
+<!-- https://vuejs.org/v2/guide/components.html#Form-Input-Components-using-Custom-Events -->
 <!-- https://jp.vuejs.org/v2/guide/components.html#カスタムイベントを使用したフォーム入力コンポーネント -->
 
 <div id="app">

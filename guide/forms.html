@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>フォーム入力バインディング</title>
+    <title>Form Input Bindings / フォーム入力バインディング</title>
 </head>
 <body>
 
 <div id="example-1">
+    <!-- https://vuejs.org/v2/guide/forms.html#Text -->
     <!-- https://jp.vuejs.org/v2/guide/forms.html#テキスト -->
 
     <input v-model="message" placeholder="edit me">
     <p>Message is: {{ message }}</p>
 
+    <!-- https://vuejs.org/v2/guide/forms.html#Checkbox -->
     <!-- https://jp.vuejs.org/v2/guide/forms.html#チェックボックス -->
 
     <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
@@ -24,6 +26,7 @@
     <span>Checked names: {{ checkedNames }}</span>
 </div>
 
+<!-- https://vuejs.org/v2/guide/forms.html#Select -->
 <!-- https://jp.vuejs.org/v2/guide/forms.html#選択 -->
 
 <div id="example-2">

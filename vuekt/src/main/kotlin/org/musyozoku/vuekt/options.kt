@@ -95,7 +95,7 @@ external interface ModelOption {
 }
 
 /**
- * T | () -> T
+ * `T | () -> T`
  */
 external interface ObjectOrFactory<T>
 
@@ -106,7 +106,7 @@ inline fun <T> ObjectOrFactory<T>.toObject(): T = this.asDynamic()
 inline fun <T> ObjectOrFactory<T>.toFactory(): () -> T = this.asDynamic()
 
 /**
- * Array<String> | { [propertyName: String]: PropOptions | Constructor | Array<Constructor> }
+ * `Array<String> | { [propertyName: String]: PropOptions | Constructor | Array<Constructor> }`
  */
 external interface PropListOrPropMap
 
@@ -117,7 +117,7 @@ inline fun PropListOrPropMap.toPropList(): Array<String> = this.asDynamic()
 inline fun PropListOrPropMap.toPropMap(): PropMap = this.asDynamic()
 
 /**
- * { [propertyName: String]: PropOptions | Constructor | Array<Constructor> }
+ * `{ [propertyName: String]: PropOptions | Constructor | Array<Constructor> }`
  */
 external interface PropMap
 
@@ -127,7 +127,7 @@ inline operator fun PropMap.set(propertyName: String, value: PropOptionsOrConstr
 }
 
 /**
- * PropOptions | Constructor | Array<Constructor>
+ * `PropOptions | Constructor | Array<Constructor>`
  */
 external interface PropOptionsOrConstructor
 
@@ -140,7 +140,7 @@ inline fun PropOptionsOrConstructor.toConstructor(): Constructor = this.asDynami
 inline fun PropOptionsOrConstructor.toArrayConstructor(): Array<Constructor> = this.asDynamic()
 
 /**
- * { [propertyName: String]: () -> T | ComputedOptions<T> }
+ * `{ [propertyName: String]: () -> T | ComputedOptions<T> }`
  */
 external interface ComputedMap
 
@@ -150,7 +150,7 @@ inline operator fun <T> ComputedMap.set(propertyName: String, value: ComputedOpt
 }
 
 /**
- * ComputedOptions<T> | () -> T
+ * `ComputedOptions<T> | () -> T`
  */
 external interface ComputedOptionsOrFactory<T>
 
@@ -161,7 +161,7 @@ inline fun <T> ComputedOptionsOrFactory<T>.toFactory(): () -> T = this.asDynamic
 inline fun <T> ComputedOptionsOrFactory<T>.toComputedOptions(): ComputedOptions<T> = this.asDynamic()
 
 /**
- * { [propertyName: String]: (varargs args: Any) -> Any? }
+ * `{ [propertyName: String]: (varargs args: Any) -> Any? }`
  */
 external interface FunctionMap
 

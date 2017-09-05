@@ -124,7 +124,7 @@ external interface CompileResult {
 }
 
 /**
- * { [propertyName: String]: Vue | Element | Array<Vue> | Array<Element> }
+ * `{ [propertyName: String]: Vue | Element | Array<Vue> | Array<Element> }`
  */
 external interface RefMap
 
@@ -134,7 +134,7 @@ inline operator fun RefMap.set(propertyName: String, value: VueOrElement) {
 }
 
 /**
- * Vue | Element | Array<Vue> | Array<Element>
+ * `Vue | Element | Array<Vue> | Array<Element>`
  */
 external interface VueOrElement
 

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>イベントハンドリング</title>
+    <title>Event Handling / イベントハンドリング</title>
 </head>
 <body>
 
+<!-- https://vuejs.org/v2/guide/events.html#Listening-to-Events -->
 <!-- https://jp.vuejs.org/v2/guide/events.html#イベントの購読 -->
 
 <div id="example-1">
@@ -13,12 +14,14 @@
     <p>The button above has been clicked {{ counter }} times.</p>
 </div>
 
+<!-- https://vuejs.org/v2/guide/events.html#Method-Event-Handlers -->
 <!-- https://jp.vuejs.org/v2/guide/events.html#メソッドイベントハンドラ -->
 
 <div id="example-2">
     <button v-on:click="greet">Greet</button>
 </div>
 
+<!-- https://vuejs.org/v2/guide/events.html#Methods-in-Inline-Handlers -->
 <!-- https://jp.vuejs.org/v2/guide/events.html#インラインメソッドハンドラ -->
 
 <div id="example-3">

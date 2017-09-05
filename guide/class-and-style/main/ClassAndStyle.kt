@@ -6,7 +6,7 @@ import kotlin.js.Json
 @JsName("Vue")
 external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
     var isActive: Boolean
-    var error: dynamic
+    var error: dynamic // FIXME
     var styleObject: Styles
 }
 
