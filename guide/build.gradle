@@ -24,7 +24,7 @@ subprojects {
             kotlinOptions {
                 outputFile = "$buildDir/${project.name}.js"
                 moduleKind = "umd"
-                sourceMap = true
+                sourceMap = false
             }
         }
     }

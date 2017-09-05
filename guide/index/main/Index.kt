@@ -152,10 +152,10 @@ external class App7Vue(options: ComponentOptions<App7Vue>) : Vue {
 
 class Item(var id: Int, var text: String)
 
-val TodoItem = Vue.component("todo-item", json<ComponentOptions<App7Vue>> {
-    props = PropsListOrPropsMap(arrayOf("todo"))
+val TodoItem = Vue.component("todo-item", ComponentOrAsyncComponent(Component(json<ComponentOptions<App7Vue>> {
+    props = PropListOrPropMap(arrayOf("todo"))
     template = "<li>{{ todo.text }}</li>"
-})
+})))
 
 val app7 = App7Vue(json {
     el = "#app-7"
