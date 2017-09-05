@@ -16,11 +16,11 @@ typealias Constructor = Function<Any>
  */
 external interface Component
 
-inline fun Component(value: Any): Component = value.asDynamic()
+inline fun Component(value: Any): Component = value.asDynamic() // TODO change Any
 inline fun <V : Vue> Component(value: ComponentOptions<V>): Component = value.asDynamic()
 inline fun Component(value: FunctionalComponentOptions): Component = value.asDynamic()
 
-inline fun Component.toTypeOfVue(): Any = this.asDynamic()
+inline fun Component.toTypeOfVue(): Any = this.asDynamic() // TODO change Any
 inline fun <V : Vue> Component.toComponentOptions(): ComponentOptions<V> = this.asDynamic()
 inline fun Component.toFunctionalComponentOptions(): FunctionalComponentOptions = this.asDynamic()
 
@@ -40,11 +40,11 @@ inline fun AsyncComponentResult.toComponent(): Component = this.asDynamic()
 external interface ComponentOptions<V : Vue> {
     // Data
     var data: ObjectOrFactory<V>? // Object | V.() -> Object
-    var props: PropListOrPropMap? // Array<String> | { [key: String]: PropOptions | Constructor | Array<Constructor> }
+    var props: Props? // Array<String> | { [key: String]: PropOptions | Constructor | Array<Constructor> }
     var propsData: Json? // Object
     var computed: ComputedMap? // { [key: String]: V.() -> Any | ComputedOptions }
     var methods: FunctionMap? // { [key: String]: V.(args: Array<Any>) -> Any }
-    var watch: Json // { [key: String]: String | WatchHandler<V, Any> | ({ handler: WatchHandler<V, Any> } & WatchOptions) }
+    var watch: WatchMap? // { [key: String]: String | WatchHandler<V, Any> | ({ handler: WatchHandler<V, Any> } & WatchOptions) }
     // DOM
     var el: Any? // String | Element
     var template: String?
@@ -64,7 +64,7 @@ external interface ComponentOptions<V : Vue> {
     var destroyed: LifecycleHookFunction?
     // Assets
     var directives: Json? // { [key: String]: DirectiveOptions | DirectiveFunction }
-    var components: Json? // { [key: String]: Component | AsyncComponent }
+    var components: ComponentMap? // { [key: String]: Component | AsyncComponent }
     var transitions: Json? // { [key: String]: Object }
     var filters: FunctionMap? // { [key: String]: Function }
     // Composition
@@ -96,11 +96,6 @@ external interface RenderContext {
     var parent: Vue
     var injections: Any
 }
-
-/**
- * `??? -> VNode`
- */
-typealias CreateElement = Function<Any>
 
 /**
  * `V.(value: T, oldValue: T) -> Unit`
@@ -159,57 +154,57 @@ inline fun <T> ObjectOrFactory<T>.toFactory(): () -> T = this.asDynamic()
 /**
  * `Array<String> | { [propertyName: String]: PropOptions | Constructor | Array<Constructor> }`
  */
-external interface PropListOrPropMap
+external interface Props
 
-inline fun PropListOrPropMap(value: Array<String>): PropListOrPropMap = value.asDynamic()
-inline fun PropListOrPropMap(value: PropMap): PropListOrPropMap = value.asDynamic()
+inline fun Props(value: Array<String>): Props = value.asDynamic()
+inline fun Props(value: PropMap): Props = value.asDynamic()
 
-inline fun PropListOrPropMap.toPropList(): Array<String> = this.asDynamic()
-inline fun PropListOrPropMap.toPropMap(): PropMap = this.asDynamic()
+inline fun Props.toList(): Array<String> = this.asDynamic()
+inline fun Props.toMap(): PropMap = this.asDynamic()
 
 /**
  * `{ [propertyName: String]: PropOptions | Constructor | Array<Constructor> }`
  */
 external interface PropMap
 
-inline operator fun PropMap.get(propertyName: String): PropOptionsOrConstructor = this.asDynamic()[propertyName]
-inline operator fun PropMap.set(propertyName: String, value: PropOptionsOrConstructor) {
+inline operator fun PropMap.get(propertyName: String): PropConfig = this.asDynamic()[propertyName]
+inline operator fun PropMap.set(propertyName: String, value: PropConfig) {
     this.asDynamic()[propertyName] = value
 }
 
 /**
  * `PropOptions | Constructor | Array<Constructor>`
  */
-external interface PropOptionsOrConstructor
+external interface PropConfig
 
-inline fun PropOptionsOrConstructor(value: PropOptions): PropOptionsOrConstructor = value.asDynamic()
-inline fun PropOptionsOrConstructor(value: Constructor): PropOptionsOrConstructor = value.asDynamic()
-inline fun PropOptionsOrConstructor(value: Array<Constructor>): PropOptionsOrConstructor = value.asDynamic()
+inline fun PropConfig(value: PropOptions): PropConfig = value.asDynamic()
+inline fun PropConfig(value: Constructor): PropConfig = value.asDynamic()
+inline fun PropConfig(value: Array<Constructor>): PropConfig = value.asDynamic()
 
-inline fun PropOptionsOrConstructor.toPropOptions(): PropOptions = this.asDynamic()
-inline fun PropOptionsOrConstructor.toConstructor(): Constructor = this.asDynamic()
-inline fun PropOptionsOrConstructor.toArrayConstructor(): Array<Constructor> = this.asDynamic()
+inline fun PropConfig.toOptions(): PropOptions = this.asDynamic()
+inline fun PropConfig.toConstructor(): Constructor = this.asDynamic()
+inline fun PropConfig.toConstructors(): Array<Constructor> = this.asDynamic()
 
 /**
  * `{ [propertyName: String]: () -> T | ComputedOptions<T> }`
  */
 external interface ComputedMap
 
-inline operator fun <T> ComputedMap.get(propertyName: String): ComputedOptionsOrFactory<T>? = this.asDynamic()[propertyName]
-inline operator fun <T> ComputedMap.set(propertyName: String, value: ComputedOptionsOrFactory<T>?) {
+inline operator fun <T> ComputedMap.get(propertyName: String): ComputedConfig<T>? = this.asDynamic()[propertyName]
+inline operator fun <T> ComputedMap.set(propertyName: String, value: ComputedConfig<T>?) {
     this.asDynamic()[propertyName] = value
 }
 
 /**
  * `ComputedOptions<T> | () -> T`
  */
-external interface ComputedOptionsOrFactory<T>
+external interface ComputedConfig<T>
 
-inline fun <T> ComputedOptionsOrFactory(value: () -> T): ComputedOptionsOrFactory<T> = value.asDynamic()
-inline fun <T> ComputedOptionsOrFactory(value: ComputedOptions<T>): ComputedOptionsOrFactory<T> = value.asDynamic()
+inline fun <T> ComputedConfig(value: () -> T): ComputedConfig<T> = value.asDynamic()
+inline fun <T> ComputedConfig(value: ComputedOptions<T>): ComputedConfig<T> = value.asDynamic()
 
-inline fun <T> ComputedOptionsOrFactory<T>.toFactory(): () -> T = this.asDynamic()
-inline fun <T> ComputedOptionsOrFactory<T>.toComputedOptions(): ComputedOptions<T> = this.asDynamic()
+inline fun <T> ComputedConfig<T>.toFactory(): () -> T = this.asDynamic()
+inline fun <T> ComputedConfig<T>.toOptions(): ComputedOptions<T> = this.asDynamic()
 
 /**
  * `{ [propertyName: String]: (varargs args: Any) -> Any? }`
@@ -220,3 +215,54 @@ inline operator fun FunctionMap.get(propertyName: String): Function<Any?>? = thi
 inline operator fun FunctionMap.set(propertyName: String, value: Function<Any?>?) {
     this.asDynamic()[propertyName] = value
 }
+
+/**
+ * `{ [propertyName: String]: String | WatchHandler<V, Any> | ({ handler: WatchHandler<V, Any> } & WatchOptions) }`
+ */
+external interface WatchMap
+
+inline operator fun WatchMap.get(propertyName: String): Watcher = this.asDynamic()[propertyName]
+inline operator fun WatchMap.set(propertyName: String, value: Watcher) {
+    this.asDynamic()[propertyName] = value
+}
+
+/**
+ * `String | WatchHandler<V, Any> | ({ handler: WatchHandler<V, Any> } & WatchOptions)`
+ */
+external interface Watcher
+
+inline fun Watcher(value: String): Watcher = value.asDynamic()
+inline fun <T> Watcher(value: WatchHandler<T>): Watcher = value.asDynamic()
+inline fun <T> Watcher(value: WatchHandlerOptions<T>): Watcher = value.asDynamic()
+
+inline fun Watcher.toName(): String = this.asDynamic()
+inline fun <T> Watcher.toHandler(): WatchHandler<T> = this.asDynamic()
+inline fun <T> Watcher.toOptions(): WatchHandlerOptions<T> = this.asDynamic()
+
+/**
+ * `{ handler: WatchHandler<V, Any> } & WatchOptions`
+ */
+external interface WatchHandlerOptions<T> : WatchOptions {
+    var handler: WatchHandler<T>
+}
+
+/**
+ * `{ [propertyName: String]: Component | AsyncComponent }`
+ */
+external interface ComponentMap
+
+inline operator fun ComponentMap.get(propertyName: String): ComponentOrAsyncComponent? = this.asDynamic()[propertyName]
+inline operator fun ComponentMap.set(propertyName: String, value: ComponentOrAsyncComponent?) {
+    this.asDynamic()[propertyName] = value
+}
+
+/**
+ * `Component | AsyncComponent`
+ */
+external interface ComponentOrAsyncComponent
+
+inline fun ComponentOrAsyncComponent(value: Component): ComponentOrAsyncComponent = value.asDynamic()
+inline fun ComponentOrAsyncComponent(value: AsyncComponent): ComponentOrAsyncComponent = value.asDynamic()
+
+inline fun ComponentOrAsyncComponent.toComponent(): Component = this.asDynamic()
+inline fun ComponentOrAsyncComponent.toAsyncComponent(): Component = this.asDynamic()

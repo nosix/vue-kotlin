@@ -24,7 +24,7 @@ fun main(args: Array<String>) {
     val data = json<ExampleVue> {
         a = 1
     }
-    val vm = ExampleVue(json {
+    val vm = ExampleVue(ComponentOptions {
         el = "#example"
         this.data = ObjectOrFactory(data)
         beforeCreate = {

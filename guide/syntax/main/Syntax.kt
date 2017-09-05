@@ -12,25 +12,25 @@ external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
 }
 
 fun main(args: Array<String>) {
-    ExampleVue(json {
+    ExampleVue(ComponentOptions {
         el = "#example"
         data = ObjectOrFactory(json<ExampleVue> {
             message = "hello"
             rawId = 1
             url = "https://jp.vuejs.org/"
         })
-        filters = json {
-            set("capitalize") {
+        filters = FunctionMap {
+            this["capitalize"] = {
                 it: String ->
                 it.capitalize()
             }
-            set("formatId") {
+            this["formatId"] = {
                 it: Int, digits: Int ->
                 it.asDynamic().toFixed(digits) // FIXME: JavaScript の関数を実行
             }
         }
-        methods = json {
-            set("doSomething") {
+        methods = FunctionMap {
+            this["doSomething"] = {
                 val self = thisAs<ExampleVue>()
                 self.message = "do something"
             }

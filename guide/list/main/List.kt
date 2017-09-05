@@ -11,14 +11,14 @@ external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
 
 class Item(val message: String)
 
-val example1 = ExampleVue(json {
+val example1 = ExampleVue(ComponentOptions {
     el = "#example-1"
     data = ObjectOrFactory(json<ExampleVue> {
         items = arrayOf(Item("Foo"), Item("Bar"))
     })
 })
 
-val example2 = ExampleVue(json {
+val example2 = ExampleVue(ComponentOptions {
     el = "#example-2"
     data = ObjectOrFactory(json<ExampleVue> {
         parentMessage = "Parent"
@@ -31,22 +31,22 @@ class Person(
         val lastName: String,
         val age: Int)
 
-val example3 = ExampleVue(json {
+val example3 = ExampleVue(ComponentOptions {
     el = "#repeat-object"
     data = ObjectOrFactory(json<ExampleVue> {
         `object` = Person("John", "Doe", 30)
     })
 })
 
-val todoItem = Vue.component("todo-item", ComponentOrAsyncComponent(Component(json<ComponentOptions<ExampleVue>> {
+val todoItem = Vue.component("todo-item", Component(ComponentOptions<ExampleVue> {
     template = """
         <li>
           {{ title }}
           <button v-on:click="${'$'}emit('remove')">X</button>
         </li>
         """
-    props = PropListOrPropMap(arrayOf("title"))
-})))
+    props = Props(arrayOf("title"))
+}))
 
 class TodoItem(val id: Int, val title: String)
 
@@ -59,7 +59,7 @@ external class TodoListVue(options: ComponentOptions<TodoListVue>) : Vue {
     var nextTodoId: Int
 }
 
-val todoListExample = TodoListVue(json {
+val todoListExample = TodoListVue(ComponentOptions {
     el = "#todo-list-example"
     data = ObjectOrFactory(json<TodoListVue> {
         newTodoText = ""
@@ -70,7 +70,7 @@ val todoListExample = TodoListVue(json {
         )
         nextTodoId = 4
     })
-    methods = json {
+    methods = FunctionMap {
         this["addNewTodo"] = {
             val self = thisAs<TodoListVue>()
             self.todos.add(TodoItem(self.nextTodoId++, self.newTodoText))
@@ -82,8 +82,8 @@ val todoListExample = TodoListVue(json {
             self.todos.removeAt(index)
         }
     }
-    computed = json {
-        this["todo_array"] = ComputedOptionsOrFactory {
+    computed = ComputedMap {
+        this["todo_array"] = ComputedConfig {
             val self = thisAs<TodoListVue>()
             self.todos.toTypedArray()
         }

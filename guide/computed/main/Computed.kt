@@ -26,19 +26,19 @@ external class WatchExampleVue(options: ComponentOptions<WatchExampleVue>) : Vue
 }
 
 fun main(args: Array<String>) {
-    val vm = ExampleVue(json {
+    val vm = ExampleVue(ComponentOptions {
         el = "#example"
         data = ObjectOrFactory(json<ExampleVue> {
             message = "Hello"
             firstName = "Foo"
             lastName = "Bar"
         })
-        computed = json {
-            this["reversedMessage"] = ComputedOptionsOrFactory {
+        computed = ComputedMap {
+            this["reversedMessage"] = ComputedConfig {
                 val self = thisAs<ExampleVue>()
                 self.message.split("").reversed().joinToString("")
             }
-            this["fullName"] = ComputedOptionsOrFactory(json<ComputedOptions<String>> {
+            this["fullName"] = ComputedConfig(ComputedOptions<String> {
                 get = {
                     val self = thisAs<ExampleVue>()
                     "${self.firstName} ${self.lastName}"
@@ -62,20 +62,20 @@ fun main(args: Array<String>) {
     println(vm.firstName)
     println(vm.lastName)
 
-    WatchExampleVue(json {
+    WatchExampleVue(ComponentOptions {
         el = "#watch-example"
         data = ObjectOrFactory(json<WatchExampleVue> {
             question = ""
             answer = "I cannot give you an answer until you ask a question!"
         })
-        watch = json {
-            set("question") {
+        watch = WatchMap {
+            this["question"] = Watcher<String> { _, _ ->
                 val self = thisAs<WatchExampleVue>()
                 self.answer = "Waiting for you to stop typing..."
                 self.getAnswer()
             }
         }
-        methods = json {
+        methods = FunctionMap {
             this["getAnswer"] = lodash.debounce(
                     {
                         val self = thisAs<WatchExampleVue>()

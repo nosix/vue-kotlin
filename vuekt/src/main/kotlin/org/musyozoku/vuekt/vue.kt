@@ -11,9 +11,10 @@ external val `this`: dynamic
 
 inline fun <T : Any> thisAs(): T = `this`
 
-inline fun <T : Any> json(): T = js("({})")
-
-fun <T : Any> json(init: T.() -> Unit): T = json<T>().apply(init)
+/**
+ * `??? -> VNode`
+ */
+typealias CreateElement = Function<VNode>
 
 /**
  * Example:
@@ -45,7 +46,8 @@ external open class Vue(options: ComponentOptions<Vue>? = definedExternally) {
         fun <T> delete(target: Array<T>, key: Int)
         fun directive(id: String, definition: Any? /* DirectiveOption | DirectiveFunction */ = definedExternally): DirectiveOptions
         fun filter(id: String, definition: Function<Unit>? = definedExternally): Function<Unit>
-        fun component(id: String, definition: ComponentOrAsyncComponent? = definedExternally): Any // typeof Vue
+        fun component(id: String, definition: Component? = definedExternally): Any // typeof Vue
+        fun component(id: String, definition: AsyncComponent? = definedExternally): Any // typeof Vue
         fun <T> use(plugin: Any /* PluginObject | PluginFunction */, options: T?)
         fun mixin(mixin: Any /* typeof Vue | ComponentOptions */)
         fun compile(template: String)
@@ -147,14 +149,3 @@ inline fun VueOrElement.toVue(): Vue = this.asDynamic()
 inline fun VueOrElement.toHTMLElement(): HTMLElement = this.asDynamic()
 inline fun VueOrElement.toArrayVue(): Array<Vue> = this.asDynamic()
 inline fun VueOrElement.toArrayHTMLElement(): Array<HTMLElement> = this.asDynamic()
-
-/**
- * `Component | AsyncComponent`
- */
-external interface ComponentOrAsyncComponent
-
-inline fun ComponentOrAsyncComponent(value: Component): ComponentOrAsyncComponent = value.asDynamic()
-inline fun ComponentOrAsyncComponent(value: AsyncComponent): ComponentOrAsyncComponent = value.asDynamic()
-
-inline fun ComponentOrAsyncComponent.toComponent(): Component = this.asDynamic()
-inline fun ComponentOrAsyncComponent.toAsyncComponent(): Component = this.asDynamic()
