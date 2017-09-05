@@ -10,7 +10,7 @@ external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
 }
 
 val example1 = Example1Vue(ComponentOptions {
-    el = "#example-1"
+    el = ElementConfig("#example-1")
     data = ObjectOrFactory(json<Example1Vue> {
         counter = 0
     })
@@ -33,7 +33,7 @@ fun EventTarget?.preventDefault() {
 }
 
 val example2 = Example2Vue(ComponentOptions {
-    el = "#example-2"
+    el = ElementConfig("#example-2")
     data = ObjectOrFactory(json<Example2Vue> {
         name = "Vue.js"
     })
@@ -49,7 +49,7 @@ val example2 = Example2Vue(ComponentOptions {
 })
 
 val example3 = Example2Vue(ComponentOptions {
-    el = "#example-3"
+    el = ElementConfig("#example-3")
     methods = FunctionMap {
         this["say"] = { message: String ->
             alert(message)

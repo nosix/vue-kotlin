@@ -1,7 +1,4 @@
-import org.musyozoku.vuekt.ComponentOptions
-import org.musyozoku.vuekt.ObjectOrFactory
-import org.musyozoku.vuekt.Vue
-import org.musyozoku.vuekt.json
+import org.musyozoku.vuekt.*
 
 @JsModule("vue")
 @JsNonModule
@@ -12,7 +9,7 @@ external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
 }
 
 val example1 = Example1Vue(ComponentOptions {
-    el = "#example-1"
+    el = ElementConfig("#example-1")
     data = ObjectOrFactory(json<Example1Vue> {
         message = ""
         checkedNames = emptyArray()
@@ -30,7 +27,7 @@ external class Example2Vue(options: ComponentOptions<Example2Vue>) : Vue {
 class OptionItem(val text: String, val value: String)
 
 val example2 = Example2Vue(ComponentOptions {
-    el = "#example-2"
+    el = ElementConfig("#example-2")
     data = ObjectOrFactory(json<Example2Vue> {
         selected = "A"
         options = arrayOf(

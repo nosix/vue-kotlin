@@ -7,10 +7,6 @@ package org.musyozoku.vuekt
 import org.w3c.dom.HTMLElement
 import kotlin.js.*
 
-external val `this`: dynamic
-
-inline fun <T : Any> thisAs(): T = `this`
-
 /**
  * `??? -> VNode`
  */
@@ -44,11 +40,11 @@ external open class Vue(options: ComponentOptions<Vue>? = definedExternally) {
         fun <T> set(target: Array<T>, key: Int, value: T): T
         fun delete(target: Json, key: String)
         fun <T> delete(target: Array<T>, key: Int)
-        fun directive(id: String, definition: Any? /* DirectiveOption | DirectiveFunction */ = definedExternally): DirectiveOptions
+        fun directive(id: String, definition: DirectiveConfig? = definedExternally): DirectiveOptions
         fun filter(id: String, definition: Function<Unit>? = definedExternally): Function<Unit>
         fun component(id: String, definition: Component? = definedExternally): Any // typeof Vue
         fun component(id: String, definition: AsyncComponent? = definedExternally): Any // typeof Vue
-        fun <T> use(plugin: Any /* PluginObject | PluginFunction */, options: T?)
+        fun <T> use(plugin: PluginConfig, options: T?)
         fun mixin(mixin: Any /* typeof Vue | ComponentOptions */)
         fun compile(template: String)
         val version: String
@@ -61,15 +57,15 @@ external open class Vue(options: ComponentOptions<Vue>? = definedExternally) {
     val `$parent`: Vue
     val `$root`: Vue
     val `$children`: Array<Vue>
-    val `$refs`: RefMap // { [key: String]: Vue | Element | Array<Vue> | Array<Element>}
-    val `$slots`: Json // { [key: String]: Array<VNode> }
-    val `$scopedSlots`: Json // { [key: String]: ScopedSlot }
+    val `$refs`: RefMap
+    val `$slots`: SlotMap
+    val `$scopedSlots`: ScopedSlotMap
     val `$isServer`: Boolean
     val `$ssrContext`: Any
     val `$props`: Any
     val `$vnode`: VNode
-    val `$attrs`: Any // { [key: String]: String } | Unit
-    val `$listeners`: Any // { [key: String]: Function | Array<Function> } | Unit
+    val `$attrs`: Any // { [key: String]: String } | void
+    val `$listeners`: Any // { [key: String]: Function | Array<Function> } | void
 
     var `$createElement`: CreateElement
 
@@ -110,7 +106,7 @@ external open class Vue(options: ComponentOptions<Vue>? = definedExternally) {
 external interface VueConfig {
 
     val silent: Boolean
-    val optionMergeStrategies: Any // { [key: String]: Function }
+    val optionMergeStrategies: FunctionMap // { [key: String]: Function }
     val devtools: Boolean
     val productionTip: Boolean
     val performance: Boolean
@@ -128,12 +124,7 @@ external interface CompileResult {
 /**
  * `{ [propertyName: String]: Vue | Element | Array<Vue> | Array<Element> }`
  */
-external interface RefMap
-
-inline operator fun RefMap.get(propertyName: String): Ref? = this.asDynamic()[propertyName]
-inline operator fun RefMap.set(propertyName: String, value: Ref?) {
-    this.asDynamic()[propertyName] = value
-}
+external interface RefMap : TypedMap<Ref?>
 
 /**
  * `Vue | Element | Array<Vue> | Array<Element>`
@@ -149,3 +140,18 @@ inline fun Ref.toVue(): Vue = this.asDynamic()
 inline fun Ref.toHTMLElement(): HTMLElement = this.asDynamic()
 inline fun Ref.toVueList(): Array<Vue> = this.asDynamic()
 inline fun Ref.toHTMLElementList(): Array<HTMLElement> = this.asDynamic()
+
+/**
+ * `{ [propertyName: String]: Array<VNode> }`
+ */
+external interface SlotMap : TypedMap<Array<VNode>?>
+
+/**
+ * `{ [propertyName: String]: ScopedSlot }`
+ */
+external interface ScopedSlotMap : TypedMap<ScopedSlot?>
+
+/**
+ * `{ [key: String]: Number }`
+ */
+external interface NumberMap : TypedMap<Int?>

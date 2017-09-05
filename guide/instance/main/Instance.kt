@@ -25,7 +25,7 @@ fun main(args: Array<String>) {
         a = 1
     }
     val vm = ExampleVue(ComponentOptions {
-        el = "#example"
+        el = ElementConfig("#example")
         this.data = ObjectOrFactory(data)
         beforeCreate = {
             val self = thisAs<ExampleVue>()

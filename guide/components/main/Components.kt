@@ -16,7 +16,7 @@ val Child = ComponentOptions<ExampleVue> {
 }
 
 val example = ExampleVue(ComponentOptions {
-    el = "#example"
+    el = ElementConfig("#example")
     components = ComponentMap {
         this["my-component"] = ComponentOrAsyncComponent(Component(Child))
     }
@@ -32,7 +32,7 @@ val simpleCounter = Vue.component("simple-counter", Component(ComponentOptions<E
 }))
 
 val example2 = ExampleVue(ComponentOptions {
-    el = "#example-2"
+    el = ElementConfig("#example-2")
 })
 
 val child = Vue.component("child", Component(ComponentOptions<ExampleVue> {
@@ -42,7 +42,7 @@ val child = Vue.component("child", Component(ComponentOptions<ExampleVue> {
 }))
 
 val example3 = ExampleVue(ComponentOptions {
-    el = "#example-3"
+    el = ElementConfig("#example-3")
     data = ObjectOrFactory(json<ExampleVue> {
         parentMsg = ""
     })
@@ -79,7 +79,7 @@ external class CounterEventExampleVue(options: ComponentOptions<CounterEventExam
 }
 
 val counterEventExample = CounterEventExampleVue(ComponentOptions {
-    el = "#counter-event-example"
+    el = ElementConfig("#counter-event-example")
     data = ObjectOrFactory(json<CounterEventExampleVue> {
         total = 0
     })
@@ -112,11 +112,11 @@ val currencyInput = Vue.component("currency-input", Component(ComponentOptions<C
     """.trimIndent()
     props = Props(json<PropMap> {
         this["value"] = PropConfig(json<PropOptions> {
-            type = js.Number
+            type = TypeConfig(js.Number)
             default = 0
         })
         this["label"] = PropConfig(json<PropOptions> {
-            type = js.String
+            type = TypeConfig(js.String)
             default = ""
         })
     })
@@ -167,7 +167,7 @@ external class AppVue(options: ComponentOptions<AppVue>) : Vue {
 }
 
 val app = AppVue(ComponentOptions {
-    el = "#app"
+    el = ElementConfig("#app")
     data = ObjectOrFactory(json<AppVue> {
         price = 0
         shipping = 0
@@ -202,7 +202,7 @@ val MyCheckbox = Vue.component("my-checkbox", Component(ComponentOptions<MyCheck
 }))
 
 val example4 = ExampleVue(ComponentOptions {
-    el = "#example-4"
+    el = ElementConfig("#example-4")
     data = ObjectOrFactory(json<ExampleVue> {
         foo = ""
     })
