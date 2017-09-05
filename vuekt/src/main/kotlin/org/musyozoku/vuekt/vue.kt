@@ -130,22 +130,22 @@ external interface CompileResult {
  */
 external interface RefMap
 
-inline operator fun RefMap.get(propertyName: String): VueOrElement = this.asDynamic()[propertyName]
-inline operator fun RefMap.set(propertyName: String, value: VueOrElement) {
+inline operator fun RefMap.get(propertyName: String): Ref? = this.asDynamic()[propertyName]
+inline operator fun RefMap.set(propertyName: String, value: Ref?) {
     this.asDynamic()[propertyName] = value
 }
 
 /**
  * `Vue | Element | Array<Vue> | Array<Element>`
  */
-external interface VueOrElement
+external interface Ref
 
-inline fun VueOrElement(value: Vue): VueOrElement = value.asDynamic()
-inline fun VueOrElement(value: HTMLElement): VueOrElement = value.asDynamic()
-inline fun VueOrElement(value: Array<Vue>): VueOrElement = value.asDynamic()
-inline fun VueOrElement(value: Array<HTMLElement>): VueOrElement = value.asDynamic()
+inline fun Ref(value: Vue): Ref = value.asDynamic()
+inline fun Ref(value: HTMLElement): Ref = value.asDynamic()
+inline fun Ref(value: Array<Vue>): Ref = value.asDynamic()
+inline fun Ref(value: Array<HTMLElement>): Ref = value.asDynamic()
 
-inline fun VueOrElement.toVue(): Vue = this.asDynamic()
-inline fun VueOrElement.toHTMLElement(): HTMLElement = this.asDynamic()
-inline fun VueOrElement.toArrayVue(): Array<Vue> = this.asDynamic()
-inline fun VueOrElement.toArrayHTMLElement(): Array<HTMLElement> = this.asDynamic()
+inline fun Ref.toVue(): Vue = this.asDynamic()
+inline fun Ref.toHTMLElement(): HTMLElement = this.asDynamic()
+inline fun Ref.toVueList(): Array<Vue> = this.asDynamic()
+inline fun Ref.toHTMLElementList(): Array<HTMLElement> = this.asDynamic()

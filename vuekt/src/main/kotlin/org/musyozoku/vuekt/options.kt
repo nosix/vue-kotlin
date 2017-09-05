@@ -74,7 +74,7 @@ external interface ComponentOptions<V : Vue> {
     var mixins: Array<Any>? // Array<ComponentOptions | typeof Vue>
     var extends: Any? // ComponentOptions | typeof Vue
     // Misc
-    var model: ModelOption?
+    var model: ModelOptions?
     var name: String?
     var delimiters: Array<String> // [String, String]
     var comments: Boolean?
@@ -97,18 +97,6 @@ external interface RenderContext {
     var injections: Any
 }
 
-/**
- * `V.(value: T, oldValue: T) -> Unit`
- */
-typealias WatchHandler<T> = (value: T, oldValue: T) -> Unit
-
-typealias DirectiveFunction = (el: HTMLElement, binding: VNodeDirective, vnode: VNode, oldVnode: VNode) -> Unit
-
-/**
- * `V.() -> Unit`
- */
-typealias LifecycleHookFunction = () -> Unit
-
 external interface PropOptions {
     var type: Any? // Constructor | Array<Constructor> | null
     var required: Boolean?
@@ -122,10 +110,17 @@ external interface ComputedOptions<T> { // <V : Vue>
     var cache: Boolean?
 }
 
+/**
+ * `V.(value: T, oldValue: T) -> Unit`
+ */
+typealias WatchHandler<T> = (value: T, oldValue: T) -> Unit
+
 external interface WatchOptions {
     var deep: Boolean?
     var immediate: Boolean?
 }
+
+typealias DirectiveFunction = (el: HTMLElement, binding: VNodeDirective, vnode: VNode, oldVnode: VNode) -> Unit
 
 external interface DirectiveOptions {
     var bind: DirectiveFunction?
@@ -133,11 +128,6 @@ external interface DirectiveOptions {
     var update: DirectiveFunction?
     var componentUpdated: DirectiveFunction?
     var unbind: DirectiveFunction?
-}
-
-external interface ModelOption {
-    var prop: String?
-    var event: String?
 }
 
 /**
@@ -183,7 +173,7 @@ inline fun PropConfig(value: Array<Constructor>): PropConfig = value.asDynamic()
 
 inline fun PropConfig.toOptions(): PropOptions = this.asDynamic()
 inline fun PropConfig.toConstructor(): Constructor = this.asDynamic()
-inline fun PropConfig.toConstructors(): Array<Constructor> = this.asDynamic()
+inline fun PropConfig.toConstructorList(): Array<Constructor> = this.asDynamic()
 
 /**
  * `{ [propertyName: String]: () -> T | ComputedOptions<T> }`
@@ -247,6 +237,11 @@ external interface WatchHandlerOptions<T> : WatchOptions {
 }
 
 /**
+ * `V.() -> Unit`
+ */
+typealias LifecycleHookFunction = () -> Unit
+
+/**
  * `{ [propertyName: String]: Component | AsyncComponent }`
  */
 external interface ComponentMap
@@ -266,3 +261,8 @@ inline fun ComponentOrAsyncComponent(value: AsyncComponent): ComponentOrAsyncCom
 
 inline fun ComponentOrAsyncComponent.toComponent(): Component = this.asDynamic()
 inline fun ComponentOrAsyncComponent.toAsyncComponent(): Component = this.asDynamic()
+
+external interface ModelOptions {
+    var prop: String?
+    var event: String?
+}
