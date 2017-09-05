@@ -1,11 +1,13 @@
 import org.musyozoku.vuekt.*
-import kotlin.js.Json
 
 @JsNonModule
 @JsModule("axios")
 external val axios: dynamic
 
-external interface ModelComputed : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
     var message: String
     val reversedMessage: String
 
@@ -14,67 +16,69 @@ external interface ModelComputed : Json {
     var fullName: String
 }
 
-external interface ModelWatch : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class WatchExampleVue(options: ComponentOptions<WatchExampleVue>) : Vue {
     var question: String
     var answer: String
-    fun getAnswer(): Unit
+    fun getAnswer()
 }
 
 fun main(args: Array<String>) {
-    val vm = Vue {
+    val vm = ExampleVue(json {
         el = "#example"
-        data = json<ModelComputed> {
+        data = ObjectOrFactory(json<ExampleVue> {
             message = "Hello"
             firstName = "Foo"
             lastName = "Bar"
-        }
+        })
         computed = json {
-            set("reversedMessage") {
-                val self = thisAs<ModelComputed>()
+            this["reversedMessage"] = ComputedOptionsOrFactory {
+                val self = thisAs<ExampleVue>()
                 self.message.split("").reversed().joinToString("")
             }
-            set("fullName", json<Accessor<String>> {
+            this["fullName"] = ComputedOptionsOrFactory(json<ComputedOptions<String>> {
                 get = {
-                    val self = thisAs<ModelComputed>()
+                    val self = thisAs<ExampleVue>()
                     "${self.firstName} ${self.lastName}"
                 }
                 set = {
                     newValue ->
                     val (firstName, lastName) = newValue.split(" ")
-                    val self = thisAs<ModelComputed>()
+                    val self = thisAs<ExampleVue>()
                     self.firstName = firstName
                     self.lastName = lastName
                 }
             })
         }
-    }
-    val model = vm.proxyOf<ModelComputed>()
-    println(model.reversedMessage)
-    model.message = "Goodbye"
-    println(model.reversedMessage)
-    println(model.fullName)
-    model.fullName = "John Doe"
-    println(model.fullName)
-    println(model.firstName)
-    println(model.lastName)
+    })
+    println(vm.reversedMessage)
+    vm.message = "Goodbye"
+    println(vm.reversedMessage)
+    println(vm.fullName)
+    vm.fullName = "John Doe"
+    println(vm.fullName)
+    println(vm.firstName)
+    println(vm.lastName)
 
-    Vue {
+    WatchExampleVue(json {
         el = "#watch-example"
-        data = json<ModelWatch> {
+        data = ObjectOrFactory(json<WatchExampleVue> {
             question = ""
             answer = "I cannot give you an answer until you ask a question!"
-        }
+        })
         watch = json {
             set("question") {
-                val self = thisAs<ModelWatch>()
+                val self = thisAs<WatchExampleVue>()
                 self.answer = "Waiting for you to stop typing..."
                 self.getAnswer()
             }
         }
         methods = json {
-            set("getAnswer", lodash.debounce(
+            this["getAnswer"] = lodash.debounce(
                     {
-                        val self = thisAs<ModelWatch>()
+                        val self = thisAs<WatchExampleVue>()
                         if (self.question.indexOf("?") == -1) {
                             self.answer = "Questions usually contain a question mark. ;-)"
                         } else {
@@ -94,7 +98,7 @@ fun main(args: Array<String>) {
                         }
                     },
                     500
-            ))
+            )
         }
-    }
+    })
 }

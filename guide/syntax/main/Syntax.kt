@@ -1,24 +1,24 @@
 @file:Suppress("UnsafeCastFromDynamic")
 
-import org.musyozoku.vuekt.json
-import org.musyozoku.vuekt.Vue
-import org.musyozoku.vuekt.thisAs
-import kotlin.js.Json
+import org.musyozoku.vuekt.*
 
-external interface Model : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
     var message: String
     var rawId: Int
     var url: String
 }
 
 fun main(args: Array<String>) {
-    Vue {
+    ExampleVue(json {
         el = "#example"
-        data = json<Model> {
+        data = ObjectOrFactory(json<ExampleVue> {
             message = "hello"
             rawId = 1
             url = "https://jp.vuejs.org/"
-        }
+        })
         filters = json {
             set("capitalize") {
                 it: String ->
@@ -31,9 +31,9 @@ fun main(args: Array<String>) {
         }
         methods = json {
             set("doSomething") {
-                val self = thisAs<Model>()
+                val self = thisAs<ExampleVue>()
                 self.message = "do something"
             }
         }
-    }
+    })
 }

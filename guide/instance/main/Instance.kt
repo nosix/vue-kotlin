@@ -1,8 +1,5 @@
-import org.musyozoku.vuekt.json
-import org.musyozoku.vuekt.Vue
-import org.musyozoku.vuekt.thisAs
+import org.musyozoku.vuekt.*
 import kotlin.browser.document
-import kotlin.js.Json
 
 //  var data = { a: 1 }
 //  var vm = new Vue({
@@ -16,56 +13,59 @@ import kotlin.js.Json
 //      // このコールバックは `vm.a` の値が変わる時に呼ばれます
 //  })
 
-external interface Model : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class ExampleVue(options: ComponentOptions<ExampleVue>?) : Vue {
     var a: Int
 }
 
 fun main(args: Array<String>) {
-    val model = json<Model> {
+    val data = json<ExampleVue> {
         a = 1
     }
-    val vm = Vue {
+    val vm = ExampleVue(json {
         el = "#example"
-        data = model
+        this.data = ObjectOrFactory(data)
         beforeCreate = {
-            val self = thisAs<Model>()
+            val self = thisAs<ExampleVue>()
             println("beforeCreate: ${self.a}")
         }
         created = {
-            val self = thisAs<Model>()
+            val self = thisAs<ExampleVue>()
             println("created: ${self.a}")
         }
         beforeMount = {
-            val self = thisAs<Model>()
+            val self = thisAs<ExampleVue>()
             println("beforeMount: ${self.a}")
         }
         mounted = {
-            val self = thisAs<Model>()
+            val self = thisAs<ExampleVue>()
             println("mounted: ${self.a}")
         }
         beforeUpdate = {
-            val self = thisAs<Model>()
+            val self = thisAs<ExampleVue>()
             println("beforeUpdate: ${self.a}")
         }
         updated = {
-            val self = thisAs<Model>()
+            val self = thisAs<ExampleVue>()
             println("updated: ${self.a}")
         }
         beforeDestroy = {
-            val self = thisAs<Model>()
+            val self = thisAs<ExampleVue>()
             println("beforeDestroy: ${self.a}")
         }
         destroyed = {
-            val self = thisAs<Model>()
+            val self = thisAs<ExampleVue>()
             println("destroyed: ${self.a}")
         }
-    }
-    println("vm.data: ${vm.`$data` === model}")
+    })
+    println("vm.data: ${vm.`$data` === data}")
     println("vm.el: ${vm.`$el` === document.getElementById("example")}")
     vm.`$watch`("a", {
         newVal: Int, oldVal: Int ->
         println("vm.watch: $newVal -> $oldVal")
         thisAs<Vue>().`$destroy`()
     })
-    model.a = 2
+    data.a = 2
 }
