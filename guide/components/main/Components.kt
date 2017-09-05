@@ -112,11 +112,11 @@ val currencyInput = Vue.component("currency-input", Component(ComponentOptions<C
     """.trimIndent()
     props = Props(json<PropMap> {
         this["value"] = PropConfig(json<PropOptions> {
-            type = js("Number") // FIXME
+            type = js.Number
             default = 0
         })
         this["label"] = PropConfig(json<PropOptions> {
-            type = String
+            type = js.String
             default = ""
         })
     })
@@ -185,15 +185,13 @@ val app = AppVue(ComponentOptions {
 external class MyCheckboxComponent : Vue
 
 val MyCheckbox = Vue.component("my-checkbox", Component(ComponentOptions<MyCheckboxComponent> {
-    model = json {
+    model = ModelOptions {
         prop = "checked"
         event = "change"
     }
     props = Props(json<PropMap> {
-        val booleanConstructor: Constructor = js("Boolean") // FIXME
-        this["checked"] = PropConfig(booleanConstructor)
-        val stringConstructor: Constructor = js("String") // FIXME
-        this["value"] = PropConfig(stringConstructor)
+        this["checked"] = PropConfig(js.Boolean)
+        this["value"] = PropConfig(js.String)
     })
     template = """
         <ul>
