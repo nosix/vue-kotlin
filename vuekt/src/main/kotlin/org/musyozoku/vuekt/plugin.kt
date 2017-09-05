@@ -4,7 +4,7 @@ package org.musyozoku.vuekt
 
 typealias PluginFunction<T> = (Vue: Any /* typeof Vue */, options: T?) -> Unit
 
-external interface PluginObject<T> : TypedMap<Any?> {
+external interface PluginObject<T> : JsonOf<Any?> {
     var install: PluginFunction<T>
 }
 

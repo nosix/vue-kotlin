@@ -105,7 +105,7 @@ val app5 = AppVue(ComponentOptions {
     data = ObjectOrFactory(json<AppVue> {
         message = "Hello Vue.js!"
     })
-    methods = FunctionMap {
+    methods = json {
         this["reverseMessage"] = {
             val self = thisAs<AppVue>()
             self.message = self.message.split("").reversed().joinToString("")

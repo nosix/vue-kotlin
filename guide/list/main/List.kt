@@ -70,7 +70,7 @@ val todoListExample = TodoListVue(ComponentOptions {
         )
         nextTodoId = 4
     })
-    methods = FunctionMap {
+    methods = json {
         this["addNewTodo"] = {
             val self = thisAs<TodoListVue>()
             self.todos.add(TodoItem(self.nextTodoId++, self.newTodoText))
@@ -82,7 +82,7 @@ val todoListExample = TodoListVue(ComponentOptions {
             self.todos.removeAt(index)
         }
     }
-    computed = ComputedMap {
+    computed = json {
         this["todo_array"] = ComputedConfig {
             val self = thisAs<TodoListVue>()
             self.todos.toTypedArray()

@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
             rawId = 1
             url = "https://jp.vuejs.org/"
         })
-        filters = FunctionMap {
+        filters = json {
             this["capitalize"] = {
                 it: String ->
                 it.capitalize()
@@ -29,7 +29,7 @@ fun main(args: Array<String>) {
                 it.asDynamic().toFixed(digits) // FIXME: JavaScript の関数を実行
             }
         }
-        methods = FunctionMap {
+        methods = json {
             this["doSomething"] = {
                 val self = thisAs<ExampleVue>()
                 self.message = "do something"

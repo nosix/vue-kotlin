@@ -48,9 +48,9 @@ external interface ComponentOptions<V : Vue> {
     var data: ObjectOrFactory<V>? // Object | V.() -> Object
     var props: Props?
     var propsData: Json?
-    var computed: ComputedMap? // { [key: String]: V.() -> Any | ComputedOptions }
-    var methods: FunctionMap? // { [key: String]: V.(args: Array<Any>) -> Any }
-    var watch: WatchMap?
+    var computed: JsonOf<ComputedConfig<*>>? // { [key: String]: V.() -> Any | ComputedOptions }
+    var methods: JsonOf<Function<Any?>?>? // { [key: String]: V.(args: Array<Any>) -> Any }
+    var watch: JsonOf<Watcher?>? // { [key: String]: String | WatchHandler<V, Any> | ({ handler: WatchHandler<V, Any> } & WatchOptions) }
     // DOM
     var el: ElementConfig?
     var template: String?
@@ -69,10 +69,10 @@ external interface ComponentOptions<V : Vue> {
     var beforeDestroy: LifecycleHookFunction?
     var destroyed: LifecycleHookFunction?
     // Assets
-    var directives: DirectiveMap?
-    var components: ComponentMap?
-    var transitions: ObjectMap?
-    var filters: FunctionMap? // { [key: String]: Function }
+    var directives: JsonOf<DirectiveConfig?>? // { [key: String]: DirectiveOptions | DirectiveFunction }
+    var components: JsonOf<ComponentOrAsyncComponent?>? // { [key: String]: Component | AsyncComponent }
+    var transitions: JsonOf<Json>? // { [key: String]: Object }
+    var filters: JsonOf<Function<Any>?>? // { [key: String]: Function }
     // Composition
     var provide: ObjectOrFactory<Json>? // Object | () -> Object
     var inject: Any? // Array<String> | { [key: String]: String | Symbol }
@@ -153,15 +153,10 @@ inline fun <T> ObjectOrFactory<T>.toFactory(): () -> T = this.asDynamic()
 external interface Props
 
 inline fun Props(value: Array<String>): Props = value.asDynamic()
-inline fun Props(value: PropMap): Props = value.asDynamic()
+inline fun Props(value: JsonOf<PropConfig?>): Props = value.asDynamic()
 
 inline fun Props.toList(): Array<String> = this.asDynamic()
-inline fun Props.toMap(): PropMap = this.asDynamic()
-
-/**
- * `{ [propertyName: String]: PropOptions | Constructor | Array<Constructor> }`
- */
-external interface PropMap : TypedMap<PropConfig?>
+inline fun Props.toMap(): JsonOf<PropConfig?> = this.asDynamic()
 
 /**
  * `PropOptions | Constructor | Array<Constructor>`
@@ -177,11 +172,6 @@ inline fun PropConfig.toConstructor(): Constructor = this.asDynamic()
 inline fun PropConfig.toConstructorList(): Array<Constructor> = this.asDynamic()
 
 /**
- * `{ [propertyName: String]: () -> T | ComputedOptions<T> }`
- */
-external interface ComputedMap : TypedMap<ComputedConfig<*>>
-
-/**
  * `ComputedOptions<T> | () -> T`
  */
 external interface ComputedConfig<T>
@@ -191,16 +181,6 @@ inline fun <T> ComputedConfig(value: ComputedOptions<T>): ComputedConfig<T> = va
 
 inline fun <T> ComputedConfig<T>.toFactory(): () -> T = this.asDynamic()
 inline fun <T> ComputedConfig<T>.toOptions(): ComputedOptions<T> = this.asDynamic()
-
-/**
- * `{ [propertyName: String]: (varargs args: Any) -> Any? }`
- */
-external interface FunctionMap : TypedMap<Function<Any?>?>
-
-/**
- * `{ [propertyName: String]: String | WatchHandler<V, Any> | ({ handler: WatchHandler<V, Any> } & WatchOptions) }`
- */
-external interface WatchMap : TypedMap<Watcher?>
 
 /**
  * `String | WatchHandler<V, Any> | ({ handler: WatchHandler<V, Any> } & WatchOptions)`
@@ -249,11 +229,6 @@ typealias RenderErrorFunction = (createElement: CreateElement, error: Error) -> 
 typealias LifecycleHookFunction = () -> Unit
 
 /**
- * `{ [propertyName: String]: DirectiveOptions | DirectiveFunction }`
- */
-external interface DirectiveMap : TypedMap<DirectiveConfig?>
-
-/**
  * `DirectiveOptions | DirectiveFunction`
  */
 external interface DirectiveConfig
@@ -263,11 +238,6 @@ inline fun DirectiveConfig(value: DirectiveFunction): DirectiveConfig = value.as
 
 inline fun DirectiveConfig.toOptions(): DirectiveOptions = this.asDynamic()
 inline fun DirectiveConfig.toFunction(): DirectiveFunction = this.asDynamic()
-
-/**
- * `{ [propertyName: String]: Component | AsyncComponent }`
- */
-external interface ComponentMap : TypedMap<ComponentOrAsyncComponent?>
 
 /**
  * `Component | AsyncComponent`
@@ -284,11 +254,6 @@ external interface ModelOptions {
     var prop: String?
     var event: String?
 }
-
-/**
- * `{ [propertyName: String]: Object }`
- */
-external interface ObjectMap : TypedMap<Json>
 
 /**
  * `[String, String]`
