@@ -16,7 +16,7 @@ external class AppVue(options: ComponentOptions<AppVue>) : Vue {
 //  })
 
 val app = AppVue(ComponentOptions {
-    el = "#app"
+    el = ElementConfig("#app")
     data = ObjectOrFactory(json<AppVue> {
         message = "Hello Vue!"
     })
@@ -30,7 +30,7 @@ val app = AppVue(ComponentOptions {
 //  })
 
 val app2 = AppVue(ComponentOptions {
-    el = "#app-2"
+    el = ElementConfig("#app-2")
     data = ObjectOrFactory(json<AppVue> {
         message = "You loaded this page on ${Date()}"
     })
@@ -51,7 +51,7 @@ external class App3Vue(options: ComponentOptions<App3Vue>) : Vue {
 }
 
 val app3 = App3Vue(ComponentOptions {
-    el = "#app-3"
+    el = ElementConfig("#app-3")
     data = ObjectOrFactory(json<App3Vue> {
         seen = true
     })
@@ -78,7 +78,7 @@ external class App4Vue(options: ComponentOptions<App4Vue>) : Vue {
 class Text(var text: String)
 
 val app4 = App4Vue(ComponentOptions {
-    el = "#app-4"
+    el = ElementConfig("#app-4")
     data = ObjectOrFactory(json<App4Vue> {
         todos = arrayOf(
                 Text("Learn JavaScript"),
@@ -101,7 +101,7 @@ val app4 = App4Vue(ComponentOptions {
 //  })
 
 val app5 = AppVue(ComponentOptions {
-    el = "#app-5"
+    el = ElementConfig("#app-5")
     data = ObjectOrFactory(json<AppVue> {
         message = "Hello Vue.js!"
     })
@@ -121,7 +121,7 @@ val app5 = AppVue(ComponentOptions {
 //  })
 
 val app6 = AppVue(ComponentOptions {
-    el = "#app-6"
+    el = ElementConfig("#app-6")
     data = ObjectOrFactory(json<AppVue> {
         message = "Hello Vue!"
     })
@@ -158,7 +158,7 @@ val TodoItem = Vue.component("todo-item", Component(ComponentOptions<App7Vue> {
 }))
 
 val app7 = App7Vue(ComponentOptions {
-    el = "#app-7"
+    el = ElementConfig("#app-7")
     data = ObjectOrFactory(json<App7Vue> {
         groceryList = arrayOf(
                 Item(0, "Vegetables"),

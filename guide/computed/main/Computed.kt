@@ -27,7 +27,7 @@ external class WatchExampleVue(options: ComponentOptions<WatchExampleVue>) : Vue
 
 fun main(args: Array<String>) {
     val vm = ExampleVue(ComponentOptions {
-        el = "#example"
+        el = ElementConfig("#example")
         data = ObjectOrFactory(json<ExampleVue> {
             message = "Hello"
             firstName = "Foo"
@@ -63,7 +63,7 @@ fun main(args: Array<String>) {
     println(vm.lastName)
 
     WatchExampleVue(ComponentOptions {
-        el = "#watch-example"
+        el = ElementConfig("#watch-example")
         data = ObjectOrFactory(json<WatchExampleVue> {
             question = ""
             answer = "I cannot give you an answer until you ask a question!"

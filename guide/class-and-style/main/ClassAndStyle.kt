@@ -16,7 +16,7 @@ external interface Styles {
 }
 
 val vm = ExampleVue(ComponentOptions {
-    el = "#example"
+    el = ElementConfig("#example")
     data = ObjectOrFactory(json<ExampleVue> {
         isActive = true
         error = null

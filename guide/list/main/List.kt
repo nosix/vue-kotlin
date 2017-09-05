@@ -12,14 +12,14 @@ external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
 class Item(val message: String)
 
 val example1 = ExampleVue(ComponentOptions {
-    el = "#example-1"
+    el = ElementConfig("#example-1")
     data = ObjectOrFactory(json<ExampleVue> {
         items = arrayOf(Item("Foo"), Item("Bar"))
     })
 })
 
 val example2 = ExampleVue(ComponentOptions {
-    el = "#example-2"
+    el = ElementConfig("#example-2")
     data = ObjectOrFactory(json<ExampleVue> {
         parentMessage = "Parent"
         items = arrayOf(Item("Foo"), Item("Bar"))
@@ -32,7 +32,7 @@ class Person(
         val age: Int)
 
 val example3 = ExampleVue(ComponentOptions {
-    el = "#repeat-object"
+    el = ElementConfig("#repeat-object")
     data = ObjectOrFactory(json<ExampleVue> {
         `object` = Person("John", "Doe", 30)
     })
@@ -60,7 +60,7 @@ external class TodoListVue(options: ComponentOptions<TodoListVue>) : Vue {
 }
 
 val todoListExample = TodoListVue(ComponentOptions {
-    el = "#todo-list-example"
+    el = ElementConfig("#todo-list-example")
     data = ObjectOrFactory(json<TodoListVue> {
         newTodoText = ""
         todos = mutableListOf(

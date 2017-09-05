@@ -13,7 +13,7 @@ external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
 
 fun main(args: Array<String>) {
     ExampleVue(ComponentOptions {
-        el = "#example"
+        el = ElementConfig("#example")
         data = ObjectOrFactory(json<ExampleVue> {
             message = "hello"
             rawId = 1
