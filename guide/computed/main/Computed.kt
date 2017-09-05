@@ -33,7 +33,7 @@ fun main(args: Array<String>) {
             firstName = "Foo"
             lastName = "Bar"
         })
-        computed = ComputedMap {
+        computed = json {
             this["reversedMessage"] = ComputedConfig {
                 val self = thisAs<ExampleVue>()
                 self.message.split("").reversed().joinToString("")
@@ -68,14 +68,14 @@ fun main(args: Array<String>) {
             question = ""
             answer = "I cannot give you an answer until you ask a question!"
         })
-        watch = WatchMap {
+        watch = json {
             this["question"] = Watcher<String> { _, _ ->
                 val self = thisAs<WatchExampleVue>()
                 self.answer = "Waiting for you to stop typing..."
                 self.getAnswer()
             }
         }
-        methods = FunctionMap {
+        methods = json {
             this["getAnswer"] = lodash.debounce(
                     {
                         val self = thisAs<WatchExampleVue>()

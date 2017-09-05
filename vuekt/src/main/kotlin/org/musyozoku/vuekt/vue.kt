@@ -57,8 +57,8 @@ external open class Vue(options: ComponentOptions<Vue>? = definedExternally) {
     val `$parent`: Vue
     val `$root`: Vue
     val `$children`: Array<Vue>
-    val `$refs`: RefMap
-    val `$slots`: SlotMap
+    val `$refs`: JsonOf<Ref?> // { [key: String]: Vue | Element | Array<Vue> | Array<Element> }
+    val `$slots`: JsonOf<Array<VNode>?> // { [key: String]: Array<VNode> }
     val `$scopedSlots`: ScopedSlotMap
     val `$isServer`: Boolean
     val `$ssrContext`: Any
@@ -106,7 +106,7 @@ external open class Vue(options: ComponentOptions<Vue>? = definedExternally) {
 external interface VueConfig {
 
     val silent: Boolean
-    val optionMergeStrategies: FunctionMap // { [key: String]: Function }
+    val optionMergeStrategies: JsonOf<Function<Any>?> // { [key: String]: Function }
     val devtools: Boolean
     val productionTip: Boolean
     val performance: Boolean
@@ -122,11 +122,6 @@ external interface CompileResult {
 }
 
 /**
- * `{ [propertyName: String]: Vue | Element | Array<Vue> | Array<Element> }`
- */
-external interface RefMap : TypedMap<Ref?>
-
-/**
  * `Vue | Element | Array<Vue> | Array<Element>`
  */
 external interface Ref
@@ -140,18 +135,3 @@ inline fun Ref.toVue(): Vue = this.asDynamic()
 inline fun Ref.toHTMLElement(): HTMLElement = this.asDynamic()
 inline fun Ref.toVueList(): Array<Vue> = this.asDynamic()
 inline fun Ref.toHTMLElementList(): Array<HTMLElement> = this.asDynamic()
-
-/**
- * `{ [propertyName: String]: Array<VNode> }`
- */
-external interface SlotMap : TypedMap<Array<VNode>?>
-
-/**
- * `{ [propertyName: String]: ScopedSlot }`
- */
-external interface ScopedSlotMap : TypedMap<ScopedSlot?>
-
-/**
- * `{ [key: String]: Number }`
- */
-external interface NumberMap : TypedMap<Int?>

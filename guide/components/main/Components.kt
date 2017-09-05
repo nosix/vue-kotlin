@@ -17,7 +17,7 @@ val Child = ComponentOptions<ExampleVue> {
 
 val example = ExampleVue(ComponentOptions {
     el = ElementConfig("#example")
-    components = ComponentMap {
+    components = json {
         this["my-component"] = ComponentOrAsyncComponent(Component(Child))
     }
 })
@@ -62,7 +62,7 @@ val buttonCounter = Vue.component("button-counter", Component(ComponentOptions<B
             counter = 0
         }
     }
-    methods = FunctionMap {
+    methods = json {
         this["incrementCounter"] = {
             val self = thisAs<ButtonCounterVue>()
             self.counter++
@@ -83,7 +83,7 @@ val counterEventExample = CounterEventExampleVue(ComponentOptions {
     data = ObjectOrFactory(json<CounterEventExampleVue> {
         total = 0
     })
-    methods = FunctionMap {
+    methods = json {
         this["incrementTotal"] = {
             val self = thisAs<CounterEventExampleVue>()
             self.total++
@@ -110,7 +110,7 @@ val currencyInput = Vue.component("currency-input", Component(ComponentOptions<C
           v-on:blur="formatValue">
       </div>
     """.trimIndent()
-    props = Props(json<PropMap> {
+    props = Props(json<JsonOf<PropConfig?>> {
         this["value"] = PropConfig(json<PropOptions> {
             type = TypeConfig(js.Number)
             default = 0
@@ -124,7 +124,7 @@ val currencyInput = Vue.component("currency-input", Component(ComponentOptions<C
         val self = thisAs<CurrencyInputComponent>()
         self.formatValue()
     }
-    methods = FunctionMap {
+    methods = json {
         this["updateValue"] = {
             value: String ->
             val self = thisAs<CurrencyInputComponent>()
@@ -174,7 +174,7 @@ val app = AppVue(ComponentOptions {
         handling = 0
         discount = 0
     })
-    computed = ComputedMap {
+    computed = json {
         this["total"] = ComputedConfig {
             val self = thisAs<AppVue>()
             (self.price * 100 + self.shipping * 100 + self.handling * 100 - self.discount * 100) / 100
@@ -189,7 +189,7 @@ val MyCheckbox = Vue.component("my-checkbox", Component(ComponentOptions<MyCheck
         prop = "checked"
         event = "change"
     }
-    props = Props(json<PropMap> {
+    props = Props(json<JsonOf<PropConfig?>> {
         this["checked"] = PropConfig(js.Boolean)
         this["value"] = PropConfig(js.String)
     })

@@ -37,7 +37,7 @@ val example2 = Example2Vue(ComponentOptions {
     data = ObjectOrFactory(json<Example2Vue> {
         name = "Vue.js"
     })
-    methods = FunctionMap {
+    methods = json {
         this["greet"] = { event: Event? ->
             val self = thisAs<Example2Vue>()
             alert("Hello ${self.name}!")
@@ -50,7 +50,7 @@ val example2 = Example2Vue(ComponentOptions {
 
 val example3 = Example2Vue(ComponentOptions {
     el = ElementConfig("#example-3")
-    methods = FunctionMap {
+    methods = json {
         this["say"] = { message: String ->
             alert(message)
         }

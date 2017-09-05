@@ -25,7 +25,7 @@ val vm = ExampleVue(ComponentOptions {
             fontSize = "13px"
         }
     })
-    computed = ComputedMap {
+    computed = json {
         this["classObject"] = ComputedConfig<Json> {
             val self = thisAs<ExampleVue>()
             json {

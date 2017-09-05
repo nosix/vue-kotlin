@@ -1,3 +1,5 @@
+@file:Suppress("unused", "UnsafeCastFromDynamic", "NOTHING_TO_INLINE")
+
 package org.musyozoku.vuekt
 
 import org.w3c.dom.Node
@@ -11,7 +13,7 @@ external interface VNode {
     var elm: Node?
     var ns: String?
     var context: Vue?
-    var key: Any? // String | Number
+    var key: Key?
     var componentOptions: VNodeComponentOptions?
     var componentInstance: Vue?
     var parent: VNode?
@@ -22,21 +24,21 @@ external interface VNode {
 }
 
 external interface VNodeData {
-    var key: Any? // String | Number
+    var key: Key?
     var slot: String?
-    var scopedSlots: Any? // { [key: String]: ScopedSlot }
+    var scopedSlots: ScopedSlotMap?
     var ref: String?
     var tag: String?
     var staticClass: String?
     var `class`: Any?
-    var staticStyle: Any? // { [key: String]: Any }
-    var style: Any? // Array<Object> | Object
-    var props: Any? // { [key: String]: Any }
-    var attrs: Any? // { [key: String]: Any }
-    var domProps: Any? // { [key: String]: Any }
-    var hook: Any? // { [key: String]: Function }
-    var on: Any? // { [key: String]: Function | Array<Function> }
-    var nativeOn: Any? // { [key: String]: Function | Array<Function> }
+    var staticStyle: Json? // { [key: String]: Any }
+    var style: OneOrMany<Json>? // Array<Object> | Object
+    var props: Json? // { [key: String]: Any }
+    var attrs: Json? // { [key: String]: Any }
+    var domProps: Json? // { [key: String]: Any }
+    var hook: JsonOf<Function<Any>>? // { [key: String]: Function }
+    var on: JsonOf<OneOrMany<Function<Any>>>? // { [key: String]: Function | Array<Function> }
+    var nativeOn: JsonOf<OneOrMany<Function<Any>>>? // { [key: String]: Function | Array<Function> }
     var transition: Json?
     var show: Boolean?
     var inlineTemplate: InlineTemplate?
@@ -55,7 +57,7 @@ external interface VNodeDirective {
     val oldValue: Any
     val expression: Any
     val arg: String
-    val modifiers: Json // { [key: String]: Boolean }
+    val modifiers: JsonOf<Boolean> // { [key: String]: Boolean }
 }
 
 external interface VNodeComponentOptions {
@@ -66,8 +68,65 @@ external interface VNodeComponentOptions {
     var tag: String?
 }
 
-typealias VNodeChildren = Any // VNodeChildrenArrayContents | [ScopedSlot] | String
+/**
+ * `String | Number`
+ */
+external interface Key
 
-typealias VNodeChildrenArrayContents = Any // { [x: Number]: VNode | String | VNodeChildren }
+inline fun Key(value: String): Key = value.asDynamic()
+inline fun Key(value: Int): Key = value.asDynamic()
 
-typealias ScopedSlot = Any // (props: Any) -> VNodeChildrenArrayContents | String
+inline fun Key.toString(): String = this.asDynamic()
+inline fun Key.toNumber(): Int = this.asDynamic()
+
+/**
+ * `{ [propertyName: String]: ScopedSlot }`
+ */
+external interface ScopedSlotMap : JsonOf<ScopedSlot?>
+
+/**
+ * `(props: Any) -> VNodeChildrenArrayContents | String`
+ */
+external interface ScopedSlot
+
+inline fun ScopedSlot(value: (props: Any) -> VNodeChildrenArrayContents): ScopedSlot = value.asDynamic()
+inline fun ScopedSlot(value: String): ScopedSlot = value.asDynamic()
+
+inline fun ScopedSlot.toFunction(): (props: Any) -> VNodeChildrenArrayContents = this.asDynamic()
+inline fun ScopedSlot.toString(): String = this.asDynamic()
+
+/**
+ * `VNodeChildrenArrayContents | [ScopedSlot] | String`
+ */
+external interface VNodeChildren
+
+inline fun VNodeChildren(value: VNodeChildrenArrayContents): VNodeChildren = value.asDynamic()
+inline fun VNodeChildren(value: Array<ScopedSlot>): VNodeChildren = value.asDynamic()
+inline fun VNodeChildren(value: String): VNodeChildren = value.asDynamic()
+
+inline fun VNodeChildren.toContents(): VNodeChildrenArrayContents = this.asDynamic()
+inline fun VNodeChildren.toScopedSlot(): Array<ScopedSlot> = this.asDynamic()
+inline fun VNodeChildren.toString(): String = this.asDynamic()
+
+/**
+ * `{ [x: Number]: VNode | String | VNodeChildren }`
+ */
+external interface VNodeChildrenArrayContents
+
+inline operator fun VNodeChildrenArrayContents.get(x: Int): Contents = this.asDynamic()[x]
+inline operator fun VNodeChildrenArrayContents.set(x: Int, value: Contents) {
+    this.asDynamic()[x] = value
+}
+
+/**
+ * `VNode | String | VNodeChildren`
+ */
+external interface Contents
+
+inline fun Contents(value: VNode): Contents = value.asDynamic()
+inline fun Contents(value: String): Contents = value.asDynamic()
+inline fun Contents(value: VNodeChildren): Contents = value.asDynamic()
+
+inline fun Contents.toVNode(): VNode = this.asDynamic()
+inline fun Contents.toString(): String = this.asDynamic()
+inline fun Contents.toVNodeChildren(): VNodeChildren = this.asDynamic()
