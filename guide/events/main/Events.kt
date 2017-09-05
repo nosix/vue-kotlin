@@ -1,22 +1,25 @@
-import org.musyozoku.vuekt.Vue
-import org.musyozoku.vuekt.json
-import org.musyozoku.vuekt.thisAs
+import org.musyozoku.vuekt.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.EventTarget
-import kotlin.js.Json
 
-external interface Example1Model : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
     var counter: Int
 }
 
-val example1 = Vue {
+val example1 = Example1Vue(json {
     el = "#example-1"
-    data = json<Example1Model> {
+    data = ObjectOrFactory(json<Example1Vue> {
         counter = 0
-    }
-}
+    })
+})
 
-external interface Example2Model : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class Example2Vue(options: ComponentOptions<Example2Vue>) : Vue {
     var name: String
 }
 
@@ -27,31 +30,31 @@ val EventTarget?.tagName: String
 
 fun EventTarget?.preventDefault(): Unit = this.asDynamic().preventDefault()
 
-val example2 = Vue {
+val example2 = Example2Vue(json {
     el = "#example-2"
-    data = json<Example2Model> {
+    data = ObjectOrFactory(json<Example2Vue> {
         name = "Vue.js"
-    }
+    })
     methods = json {
-        set("greet") { event: Event? ->
-            val self = thisAs<Example2Model>()
+        this["greet"] = { event: Event? ->
+            val self = thisAs<Example2Vue>()
             alert("Hello ${self.name}!")
             event?.let {
                 alert(it.target.tagName)
             }
         }
     }
-}
+})
 
-val example3 = Vue {
+val example3 = Example2Vue(json {
     el = "#example-3"
     methods = json {
-        set("say") { message: String ->
+        this["say"] = { message: String ->
             alert(message)
         }
-        set("warn") { message: String, event: EventTarget? ->
+        this["warn"] = { message: String, event: EventTarget? ->
             event?.preventDefault()
             alert(message)
         }
     }
-}
+})

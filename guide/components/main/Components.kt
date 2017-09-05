@@ -1,84 +1,102 @@
 import org.musyozoku.vuekt.*
 import org.w3c.dom.events.Event
 import kotlin.browser.window
-import kotlin.js.Json
 
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
+    var counter: Int
+    var parentMsg: String
+}
 
-val Child = json<ComponentDefinition> {
+val Child = json<ComponentOptions<ExampleVue>> {
     template = "<div>A custom component!</div>"
 }
 
-val example = Vue {
+val example = ExampleVue(json {
     el = "#example"
     components = json {
-        set("my-component", Child)
+        this["my-component"] = Child
     }
-}
+})
 
-val simpleCounter = Vue.component("simple-counter", json<ComponentDefinition> {
+val simpleCounter = Vue.component("simple-counter", json<ComponentOptions<ExampleVue>> {
     template = """<button v-on:click="counter += 1">{{ counter }}</button>"""
-    data = {
-        json {
-            set("counter", 0)
+    data = ObjectOrFactory {
+        json<ExampleVue> {
+            counter = 0
         }
     }
 })
 
-val example2 = Vue {
+val example2 = ExampleVue(json {
     el = "#example-2"
-}
+})
 
-val child = Vue.component("child", json<ComponentDefinition> {
+val child = Vue.component("child", json<ComponentOptions<ExampleVue>> {
     // JavaScript ではキャメルケース
-    props =  arrayOf("myMessage")
+    props = PropsListOrPropsMap(arrayOf("myMessage"))
     template =  "<span>{{ myMessage }}</span>"
 })
 
-val example3 = Vue {
+val example3 = ExampleVue(json {
     el = "#example-3"
-    data = json {
-        set("parentMsg", "")
-    }
-}
+    data = ObjectOrFactory(json<ExampleVue> {
+        parentMsg = ""
+    })
+})
 
-external interface ButtonCounterModel : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class ButtonCounterVue(options: ComponentOptions<ButtonCounterVue>) : Vue {
     var counter: Int
 }
 
-val buttonCounter = Vue.component("button-counter", json<ComponentDefinition> {
+val buttonCounter = Vue.component("button-counter", json<ComponentOptions<ButtonCounterVue>> {
     template = """<button v-on:click="incrementCounter">{{ counter }}</button>"""
-    data = {
-        json<ButtonCounterModel> {
+    data = ObjectOrFactory {
+        json<ButtonCounterVue> {
             counter = 0
         }
     }
     methods = json {
-        set("incrementCounter") {
-            val self = thisAs<Vue>()
-            self.proxyOf<ButtonCounterModel>().counter++
+        this["incrementCounter"] = {
+            val self = thisAs<ButtonCounterVue>()
+            self.counter++
             self.`$emit`("increment")
         }
     }
 })
 
-external interface CounterEventExampleModel : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class CounterEventExampleVue(options: ComponentOptions<CounterEventExampleVue>) : Vue {
     var total: Int
 }
 
-val counterEventExample = Vue {
+val counterEventExample = CounterEventExampleVue(json {
     el = "#counter-event-example"
-    data = json<CounterEventExampleModel> {
+    data = ObjectOrFactory(json<CounterEventExampleVue> {
         total = 0
-    }
+    })
     methods = json {
-        set("incrementTotal") {
-            val self = thisAs<CounterEventExampleModel>()
+        this["incrementTotal"] = {
+            val self = thisAs<CounterEventExampleVue>()
             self.total++
         }
     }
+})
+
+external class CurrencyInputComponent : Vue {
+    val value: Int
+    val label: String
+    fun formatValue(): String
 }
 
-val currencyInput = Vue.component("currency-input", json<ComponentDefinition> {
+val currencyInput = Vue.component("currency-input", json<ComponentOptions<CurrencyInputComponent>> {
     template = """
       <div>
         <label v-if="label">{{ label }}</label>
@@ -91,24 +109,24 @@ val currencyInput = Vue.component("currency-input", json<ComponentDefinition> {
           v-on:blur="formatValue">
       </div>
     """.trimIndent()
-    props = json {
-        set("value", json {
-            set("type", js("Number"))
-            set("default", 0)
+    props = PropsListOrPropsMap(json<PropMap> {
+        this["value"] = PropOptionsOrConstructor(json<PropOptions> {
+            type = js("Number")
+            default = 0
         })
-        set("label", json {
-            set("type", String)
-            set("default", "")
+        this["label"] = PropOptionsOrConstructor(json<PropOptions> {
+            type = String
+            default = ""
         })
-    }
+    })
     mounted = {
-        val self = thisAs<dynamic>()
+        val self = thisAs<CurrencyInputComponent>()
         self.formatValue()
     }
     methods = json {
-        set("updateValue") {
+        this["updateValue"] = {
             value: String ->
-            val self = thisAs<Vue>()
+            val self = thisAs<CurrencyInputComponent>()
             val trimmedValue = value.trim()
             val formattedValue = trimmedValue.substring(0,
                     if (value.indexOf('.') == -1) value.length else value.indexOf('.') + 3 )
@@ -118,10 +136,10 @@ val currencyInput = Vue.component("currency-input", json<ComponentDefinition> {
             }
             self.`$emit`("input", formattedValue.toIntOrNull() ?: "")
         }
-        set("formatValue") {
-            val self = thisAs<Vue>()
-            val refs: dynamic = self.`$refs`
-            refs.input.value = self.proxyOf<dynamic>().value
+        this["formatValue"] = {
+            val self = thisAs<CurrencyInputComponent>()
+            val element = self.`$refs`["input"].toHTMLElement()
+            element.nodeValue = self.value.toString()
         }
         set("selectAll") {
             event: Event ->
@@ -133,25 +151,28 @@ val currencyInput = Vue.component("currency-input", json<ComponentDefinition> {
     }
 })
 
-external interface AppModel : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class AppVue(options: ComponentOptions<AppVue>) : Vue {
     var price: Int
     var shipping: Int
     var handling: Int
     var discount: Int
 }
 
-val app = Vue {
+val app = AppVue(json {
     el = "#app"
-    data = json<AppModel> {
+    data = ObjectOrFactory(json<AppVue> {
         price = 0
         shipping = 0
         handling = 0
         discount = 0
-    }
+    })
     computed = json {
-        set("total") {
-            val self = thisAs<AppModel>()
+        this["total"] = ComputedOptionsOrFactory {
+            val self = thisAs<AppVue>()
             (self.price * 100 + self.shipping * 100 + self.handling * 100 - self.discount * 100) / 100
         }
     }
-}
+})

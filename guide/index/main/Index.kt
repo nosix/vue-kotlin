@@ -1,11 +1,10 @@
-import org.musyozoku.vuekt.ComponentDefinition
-import org.musyozoku.vuekt.json
-import org.musyozoku.vuekt.Vue
-import org.musyozoku.vuekt.thisAs
+import org.musyozoku.vuekt.*
 import kotlin.js.Date
-import kotlin.js.Json
 
-external interface AppModel : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class AppVue(options: ComponentOptions<AppVue>?) : Vue {
     var message: String
 }
 
@@ -16,12 +15,12 @@ external interface AppModel : Json {
 //      }
 //  })
 
-val app = Vue {
+val app = AppVue(json {
     el = "#app"
-    data = json<AppModel> {
+    data = ObjectOrFactory(json<AppVue> {
         message = "Hello Vue!"
-    }
-}
+    })
+})
 
 //  var app2 = new Vue({
 //      el: '#app-2',
@@ -30,12 +29,12 @@ val app = Vue {
 //      }
 //  })
 
-val app2 = Vue {
+val app2 = AppVue(json {
     el = "#app-2"
-    data = json<AppModel> {
+    data = ObjectOrFactory(json<AppVue> {
         message = "You loaded this page on ${Date()}"
-    }
-}
+    })
+})
 
 //  var app3 = new Vue({
 //      el: '#app-3',
@@ -44,16 +43,19 @@ val app2 = Vue {
 //      }
 //  })
 
-external interface App3Model : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class App3Vue(options: ComponentOptions<App3Vue>?) : Vue {
     var seen: Boolean
 }
 
-val app3 = Vue {
+val app3 = App3Vue(json {
     el = "#app-3"
-    data = json<App3Model> {
+    data = ObjectOrFactory(json<App3Vue> {
         seen = true
-    }
-}
+    })
+})
 
 //  var app4 = new Vue({
 //      el: '#app-4',
@@ -66,22 +68,25 @@ val app3 = Vue {
 //      }
 //  })
 
-external interface App4Model : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class App4Vue(options: ComponentOptions<App4Vue>) : Vue {
     var todos: Array<Text>
 }
 
 class Text(var text: String)
 
-val app4 = Vue {
+val app4 = App4Vue(json {
     el = "#app-4"
-    data = json<App4Model> {
+    data = ObjectOrFactory(json<App4Vue> {
         todos = arrayOf(
                 Text("Learn JavaScript"),
                 Text("Learn Vue"),
                 Text("Build something awesome")
         )
-    }
-}
+    })
+})
 
 //  var app5 = new Vue({
 //      el: '#app-5',
@@ -95,18 +100,18 @@ val app4 = Vue {
 //      }
 //  })
 
-val app5 = Vue {
+val app5 = AppVue(json {
     el = "#app-5"
-    data = json<AppModel> {
+    data = ObjectOrFactory(json<AppVue> {
         message = "Hello Vue.js!"
-    }
+    })
     methods = json {
-        set("reverseMessage") {
-            val self = thisAs<AppModel>()
+        this["reverseMessage"] = {
+            val self = thisAs<AppVue>()
             self.message = self.message.split("").reversed().joinToString("")
         }
     }
-}
+})
 
 //  var app6 = new Vue({
 //      el: '#app-6',
@@ -115,12 +120,12 @@ val app5 = Vue {
 //      }
 //  })
 
-val app6 = Vue {
+val app6 = AppVue(json {
     el = "#app-6"
-    data = json<AppModel> {
+    data = ObjectOrFactory(json<AppVue> {
         message = "Hello Vue!"
-    }
-}
+    })
+})
 
 //  Vue.component('todo-item', {
 //      props: ['todo'],
@@ -138,24 +143,27 @@ val app6 = Vue {
 //      }
 //  })
 
-class Item(var id: Int, var text: String)
-
-external interface App7Model : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class App7Vue(options: ComponentOptions<App7Vue>) : Vue {
     var groceryList: Array<Item>
 }
 
-val TodoItem = Vue.component("todo-item", json<ComponentDefinition> {
-    props = arrayOf("todo")
+class Item(var id: Int, var text: String)
+
+val TodoItem = Vue.component("todo-item", json<ComponentOptions<App7Vue>> {
+    props = PropsListOrPropsMap(arrayOf("todo"))
     template = "<li>{{ todo.text }}</li>"
 })
 
-val app7 = Vue {
+val app7 = App7Vue(json {
     el = "#app-7"
-    data = json<App7Model> {
+    data = ObjectOrFactory(json<App7Vue> {
         groceryList = arrayOf(
                 Item(0, "Vegetables"),
                 Item(1, "Cheese"),
                 Item(2, "Whatever else humans are supposed to eat")
         )
-    }
-}
+    })
+})

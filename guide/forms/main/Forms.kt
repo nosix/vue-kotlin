@@ -1,35 +1,42 @@
+import org.musyozoku.vuekt.ComponentOptions
+import org.musyozoku.vuekt.ObjectOrFactory
 import org.musyozoku.vuekt.Vue
 import org.musyozoku.vuekt.json
-import kotlin.js.Json
 
-external interface Example1Model : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
     var message: String
     var checkedNames: Array<String>
 }
 
-val example1 = Vue {
+val example1 = Example1Vue(json {
     el = "#example-1"
-    data = json<Example1Model> {
+    data = ObjectOrFactory(json<Example1Vue> {
         message = ""
         checkedNames = emptyArray()
-    }
-}
+    })
+})
 
-class OptionItem(val text: String, val value: String)
-
-external interface Example2Model : Json {
+@JsModule("vue")
+@JsNonModule
+@JsName("Vue")
+external class Example2Vue(options: ComponentOptions<Example2Vue>) : Vue {
     var selected: String
     var options: Array<OptionItem>
 }
 
-val example2 = Vue {
+class OptionItem(val text: String, val value: String)
+
+val example2 = Example2Vue(json {
     el = "#example-2"
-    data = json<Example2Model> {
+    data = ObjectOrFactory(json<Example2Vue> {
         selected = "A"
         options = arrayOf(
                 OptionItem("One", "A"),
                 OptionItem("Two", "B"),
                 OptionItem("Three", "C")
         )
-    }
-}
+    })
+})
