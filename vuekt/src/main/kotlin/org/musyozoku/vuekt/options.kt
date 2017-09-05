@@ -11,6 +11,12 @@ import kotlin.js.Promise
  */
 typealias Constructor = Function<Any>
 
+object js {
+    val Number: Constructor = js("Number")
+    val String: Constructor = js("String")
+    val Boolean: Constructor = js("Boolean")
+}
+
 /**
  * `typeof Vue | ComponentOptions | FunctionalComponentOptions`
  */
