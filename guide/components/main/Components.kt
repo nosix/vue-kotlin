@@ -35,7 +35,7 @@ val example2 = ExampleVue(json {
 })
 
 val child = Vue.component("child", json<ComponentOptions<ExampleVue>> {
-    // JavaScript ではキャメルケース
+    // camel-case in JavaScript / JavaScript ではキャメルケース
     props = PropsListOrPropsMap(arrayOf("myMessage"))
     template =  "<span>{{ myMessage }}</span>"
 })
@@ -111,7 +111,7 @@ val currencyInput = Vue.component("currency-input", json<ComponentOptions<Curren
     """.trimIndent()
     props = PropsListOrPropsMap(json<PropMap> {
         this["value"] = PropOptionsOrConstructor(json<PropOptions> {
-            type = js("Number")
+            type = js("Number") // FIXME
             default = 0
         })
         this["label"] = PropOptionsOrConstructor(json<PropOptions> {

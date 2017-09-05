@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>テンプレート構文</title>
+    <title>Template Syntax / テンプレート構文</title>
 </head>
 <body>
 
+<!-- https://vuejs.org/v2/guide/syntax.html -->
 <!-- https://jp.vuejs.org/v2/guide/syntax.html -->
 
-<ul id="example">
+<div id="example">
     {{ message }} -> {{ message | capitalize }}<br>
     <input input="text" v-bind:value="rawId"> -> <input input="text" v-bind:value="rawId | formatId(3)"><br>
     <a :href="url">Vue.js</a><br>
     <a @click="doSomething">do something</a>
-</ul>
+</div>
 
 <script src="https://unpkg.com/vue"></script>
 

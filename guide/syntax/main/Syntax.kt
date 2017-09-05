@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
             }
             set("formatId") {
                 it: Int, digits: Int ->
-                it.asDynamic().toFixed(digits) // JavaScript の関数を実行
+                it.asDynamic().toFixed(digits) // FIXME: JavaScript の関数を実行
             }
         }
         methods = json {
