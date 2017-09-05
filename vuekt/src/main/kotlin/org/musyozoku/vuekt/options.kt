@@ -4,6 +4,38 @@ package org.musyozoku.vuekt
 
 import org.w3c.dom.HTMLElement
 import kotlin.js.Json
+import kotlin.js.Promise
+
+/**
+ * `new (varargs args: Any): Any`
+ */
+typealias Constructor = Function<Any>
+
+/**
+ * `typeof Vue | ComponentOptions | FunctionalComponentOptions`
+ */
+external interface Component
+
+inline fun Component(value: Any): Component = value.asDynamic()
+inline fun <V : Vue> Component(value: ComponentOptions<V>): Component = value.asDynamic()
+inline fun Component(value: FunctionalComponentOptions): Component = value.asDynamic()
+
+inline fun Component.toTypeOfVue(): Any = this.asDynamic()
+inline fun <V : Vue> Component.toComponentOptions(): ComponentOptions<V> = this.asDynamic()
+inline fun Component.toFunctionalComponentOptions(): FunctionalComponentOptions = this.asDynamic()
+
+typealias AsyncComponent = (resolve: (component: Component) -> Unit, reject: (reason: Any?) -> Unit) -> AsyncComponentResult
+
+/**
+ * `Promise<Component> | Component | Unit`
+ */
+external interface AsyncComponentResult
+
+inline fun AsyncComponentResult(value: Promise<Component>): AsyncComponentResult = value.asDynamic()
+inline fun AsyncComponentResult(value: Component): AsyncComponentResult = value.asDynamic()
+
+inline fun AsyncComponentResult.toPromiseComponent(): Promise<Component> = this.asDynamic()
+inline fun AsyncComponentResult.toComponent(): Component = this.asDynamic()
 
 external interface ComponentOptions<V : Vue> {
     // Data
@@ -49,19 +81,38 @@ external interface ComponentOptions<V : Vue> {
     var inheritAttrs: Boolean?
 }
 
-typealias CreateElement = Function<Any> // ... -> VNode
+external interface FunctionalComponentOptions {
+    var name: String?
+    var props: Any? // Array<String> | { [key: String]: PropOptions | Constructor | Array<Constructor> }
+    var functional: Boolean
+    fun render(createElement: CreateElement, context: RenderContext): Any // VNode | Unit
+}
 
-typealias Constructor = Function<Any>
+external interface RenderContext {
+    var props: Any
+    var children: Array<VNode>
+    fun slots(): Any
+    var data: VNodeData
+    var parent: Vue
+    var injections: Any
+}
 
-typealias WatchHandler<T> = (value: T, oldValue: T) -> Unit // V.(value: T, oldValue: T) -> Unit
+/**
+ * `??? -> VNode`
+ */
+typealias CreateElement = Function<Any>
+
+/**
+ * `V.(value: T, oldValue: T) -> Unit`
+ */
+typealias WatchHandler<T> = (value: T, oldValue: T) -> Unit
 
 typealias DirectiveFunction = (el: HTMLElement, binding: VNodeDirective, vnode: VNode, oldVnode: VNode) -> Unit
 
-typealias Component = Any // typeof Vue | ComponentOptions | FunctionalComponentOptions
-
-typealias AsyncComponent = (resolve: (component: Component) -> Unit, reject: (reason: Any?) -> Unit) -> Any // Promise<Component> | Component | Unit
-
-typealias LifecycleHookFunction = () -> Unit // V.() -> Unit
+/**
+ * `V.() -> Unit`
+ */
+typealias LifecycleHookFunction = () -> Unit
 
 external interface PropOptions {
     var type: Any? // Constructor | Array<Constructor> | null
@@ -110,8 +161,8 @@ inline fun <T> ObjectOrFactory<T>.toFactory(): () -> T = this.asDynamic()
  */
 external interface PropListOrPropMap
 
-inline fun PropsListOrPropsMap(value: Array<String>): PropListOrPropMap = value.asDynamic()
-inline fun PropsListOrPropsMap(value: PropMap): PropListOrPropMap = value.asDynamic()
+inline fun PropListOrPropMap(value: Array<String>): PropListOrPropMap = value.asDynamic()
+inline fun PropListOrPropMap(value: PropMap): PropListOrPropMap = value.asDynamic()
 
 inline fun PropListOrPropMap.toPropList(): Array<String> = this.asDynamic()
 inline fun PropListOrPropMap.toPropMap(): PropMap = this.asDynamic()

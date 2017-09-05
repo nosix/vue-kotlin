@@ -38,15 +38,15 @@ val example3 = ExampleVue(json {
     })
 })
 
-val todoItem = Vue.component("todo-item", json<ComponentOptions<ExampleVue>> {
+val todoItem = Vue.component("todo-item", ComponentOrAsyncComponent(Component(json<ComponentOptions<ExampleVue>> {
     template = """
         <li>
           {{ title }}
           <button v-on:click="${'$'}emit('remove')">X</button>
         </li>
         """
-    props = PropsListOrPropsMap(arrayOf("title"))
-})
+    props = PropListOrPropMap(arrayOf("title"))
+})))
 
 class TodoItem(val id: Int, val title: String)
 

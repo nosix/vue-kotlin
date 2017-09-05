@@ -8,6 +8,7 @@ import kotlin.browser.window
 external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
     var counter: Int
     var parentMsg: String
+    var foo: String
 }
 
 val Child = json<ComponentOptions<ExampleVue>> {
@@ -21,24 +22,24 @@ val example = ExampleVue(json {
     }
 })
 
-val simpleCounter = Vue.component("simple-counter", json<ComponentOptions<ExampleVue>> {
+val simpleCounter = Vue.component("simple-counter", ComponentOrAsyncComponent(Component(json<ComponentOptions<ExampleVue>> {
     template = """<button v-on:click="counter += 1">{{ counter }}</button>"""
     data = ObjectOrFactory {
         json<ExampleVue> {
             counter = 0
         }
     }
-})
+})))
 
 val example2 = ExampleVue(json {
     el = "#example-2"
 })
 
-val child = Vue.component("child", json<ComponentOptions<ExampleVue>> {
+val child = Vue.component("child", ComponentOrAsyncComponent(Component(json<ComponentOptions<ExampleVue>> {
     // camel-case in JavaScript / JavaScript ではキャメルケース
-    props = PropsListOrPropsMap(arrayOf("myMessage"))
+    props = PropListOrPropMap(arrayOf("myMessage"))
     template =  "<span>{{ myMessage }}</span>"
-})
+})))
 
 val example3 = ExampleVue(json {
     el = "#example-3"
@@ -54,7 +55,7 @@ external class ButtonCounterVue(options: ComponentOptions<ButtonCounterVue>) : V
     var counter: Int
 }
 
-val buttonCounter = Vue.component("button-counter", json<ComponentOptions<ButtonCounterVue>> {
+val buttonCounter = Vue.component("button-counter", ComponentOrAsyncComponent(Component(json<ComponentOptions<ButtonCounterVue>> {
     template = """<button v-on:click="incrementCounter">{{ counter }}</button>"""
     data = ObjectOrFactory {
         json<ButtonCounterVue> {
@@ -68,7 +69,7 @@ val buttonCounter = Vue.component("button-counter", json<ComponentOptions<Button
             self.`$emit`("increment")
         }
     }
-})
+})))
 
 @JsModule("vue")
 @JsNonModule
@@ -96,7 +97,7 @@ external class CurrencyInputComponent : Vue {
     fun formatValue(): String
 }
 
-val currencyInput = Vue.component("currency-input", json<ComponentOptions<CurrencyInputComponent>> {
+val currencyInput = Vue.component("currency-input", ComponentOrAsyncComponent(Component(json<ComponentOptions<CurrencyInputComponent>> {
     template = """
       <div>
         <label v-if="label">{{ label }}</label>
@@ -109,7 +110,7 @@ val currencyInput = Vue.component("currency-input", json<ComponentOptions<Curren
           v-on:blur="formatValue">
       </div>
     """.trimIndent()
-    props = PropsListOrPropsMap(json<PropMap> {
+    props = PropListOrPropMap(json<PropMap> {
         this["value"] = PropOptionsOrConstructor(json<PropOptions> {
             type = js("Number") // FIXME
             default = 0
@@ -149,7 +150,7 @@ val currencyInput = Vue.component("currency-input", json<ComponentOptions<Curren
             }, 0)
         }
     }
-})
+})))
 
 @JsModule("vue")
 @JsNonModule
@@ -175,4 +176,32 @@ val app = AppVue(json {
             (self.price * 100 + self.shipping * 100 + self.handling * 100 - self.discount * 100) / 100
         }
     }
+})
+
+external class MyCheckboxComponent : Vue
+
+val MyCheckbox = Vue.component("my-checkbox", ComponentOrAsyncComponent(Component(json<ComponentOptions<MyCheckboxComponent>> {
+    model = json {
+        prop = "checked"
+        event = "change"
+    }
+    props = PropListOrPropMap(json<PropMap> {
+        val booleanConstructor: Constructor = js("Boolean") // FIXME
+        this["checked"] = PropOptionsOrConstructor(booleanConstructor)
+        val stringConstructor: Constructor = js("String") // FIXME
+        this["value"] = PropOptionsOrConstructor(stringConstructor)
+    })
+    template = """
+        <ul>
+          <li>checked: {{ checked }}</li>
+          <li>value: {{ value }}</li>
+        </ul>
+    """.trimIndent()
+})))
+
+val example4 = ExampleVue(json {
+    el = "#example-4"
+    data = ObjectOrFactory(json<ExampleVue> {
+        foo = ""
+    })
 })
