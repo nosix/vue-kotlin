@@ -11,7 +11,7 @@ external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
     var checkedNames: Array<String>
 }
 
-val example1 = Example1Vue(json {
+val example1 = Example1Vue(ComponentOptions {
     el = "#example-1"
     data = ObjectOrFactory(json<Example1Vue> {
         message = ""
@@ -29,7 +29,7 @@ external class Example2Vue(options: ComponentOptions<Example2Vue>) : Vue {
 
 class OptionItem(val text: String, val value: String)
 
-val example2 = Example2Vue(json {
+val example2 = Example2Vue(ComponentOptions {
     el = "#example-2"
     data = ObjectOrFactory(json<Example2Vue> {
         selected = "A"

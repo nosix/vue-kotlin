@@ -4,7 +4,7 @@ import kotlin.js.Date
 @JsModule("vue")
 @JsNonModule
 @JsName("Vue")
-external class AppVue(options: ComponentOptions<AppVue>?) : Vue {
+external class AppVue(options: ComponentOptions<AppVue>) : Vue {
     var message: String
 }
 
@@ -15,7 +15,7 @@ external class AppVue(options: ComponentOptions<AppVue>?) : Vue {
 //      }
 //  })
 
-val app = AppVue(json {
+val app = AppVue(ComponentOptions {
     el = "#app"
     data = ObjectOrFactory(json<AppVue> {
         message = "Hello Vue!"
@@ -29,7 +29,7 @@ val app = AppVue(json {
 //      }
 //  })
 
-val app2 = AppVue(json {
+val app2 = AppVue(ComponentOptions {
     el = "#app-2"
     data = ObjectOrFactory(json<AppVue> {
         message = "You loaded this page on ${Date()}"
@@ -46,11 +46,11 @@ val app2 = AppVue(json {
 @JsModule("vue")
 @JsNonModule
 @JsName("Vue")
-external class App3Vue(options: ComponentOptions<App3Vue>?) : Vue {
+external class App3Vue(options: ComponentOptions<App3Vue>) : Vue {
     var seen: Boolean
 }
 
-val app3 = App3Vue(json {
+val app3 = App3Vue(ComponentOptions {
     el = "#app-3"
     data = ObjectOrFactory(json<App3Vue> {
         seen = true
@@ -77,7 +77,7 @@ external class App4Vue(options: ComponentOptions<App4Vue>) : Vue {
 
 class Text(var text: String)
 
-val app4 = App4Vue(json {
+val app4 = App4Vue(ComponentOptions {
     el = "#app-4"
     data = ObjectOrFactory(json<App4Vue> {
         todos = arrayOf(
@@ -100,12 +100,12 @@ val app4 = App4Vue(json {
 //      }
 //  })
 
-val app5 = AppVue(json {
+val app5 = AppVue(ComponentOptions {
     el = "#app-5"
     data = ObjectOrFactory(json<AppVue> {
         message = "Hello Vue.js!"
     })
-    methods = json {
+    methods = FunctionMap {
         this["reverseMessage"] = {
             val self = thisAs<AppVue>()
             self.message = self.message.split("").reversed().joinToString("")
@@ -120,7 +120,7 @@ val app5 = AppVue(json {
 //      }
 //  })
 
-val app6 = AppVue(json {
+val app6 = AppVue(ComponentOptions {
     el = "#app-6"
     data = ObjectOrFactory(json<AppVue> {
         message = "Hello Vue!"
@@ -152,12 +152,12 @@ external class App7Vue(options: ComponentOptions<App7Vue>) : Vue {
 
 class Item(var id: Int, var text: String)
 
-val TodoItem = Vue.component("todo-item", ComponentOrAsyncComponent(Component(json<ComponentOptions<App7Vue>> {
-    props = PropListOrPropMap(arrayOf("todo"))
+val TodoItem = Vue.component("todo-item", Component(ComponentOptions<App7Vue> {
+    props = Props(arrayOf("todo"))
     template = "<li>{{ todo.text }}</li>"
-})))
+}))
 
-val app7 = App7Vue(json {
+val app7 = App7Vue(ComponentOptions {
     el = "#app-7"
     data = ObjectOrFactory(json<App7Vue> {
         groceryList = arrayOf(

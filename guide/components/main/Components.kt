@@ -11,37 +11,37 @@ external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
     var foo: String
 }
 
-val Child = json<ComponentOptions<ExampleVue>> {
+val Child = ComponentOptions<ExampleVue> {
     template = "<div>A custom component!</div>"
 }
 
-val example = ExampleVue(json {
+val example = ExampleVue(ComponentOptions {
     el = "#example"
-    components = json {
-        this["my-component"] = Child
+    components = ComponentMap {
+        this["my-component"] = ComponentOrAsyncComponent(Component(Child))
     }
 })
 
-val simpleCounter = Vue.component("simple-counter", ComponentOrAsyncComponent(Component(json<ComponentOptions<ExampleVue>> {
+val simpleCounter = Vue.component("simple-counter", Component(ComponentOptions<ExampleVue> {
     template = """<button v-on:click="counter += 1">{{ counter }}</button>"""
     data = ObjectOrFactory {
         json<ExampleVue> {
             counter = 0
         }
     }
-})))
+}))
 
-val example2 = ExampleVue(json {
+val example2 = ExampleVue(ComponentOptions {
     el = "#example-2"
 })
 
-val child = Vue.component("child", ComponentOrAsyncComponent(Component(json<ComponentOptions<ExampleVue>> {
+val child = Vue.component("child", Component(ComponentOptions<ExampleVue> {
     // camel-case in JavaScript / JavaScript ではキャメルケース
-    props = PropListOrPropMap(arrayOf("myMessage"))
+    props = Props(arrayOf("myMessage"))
     template =  "<span>{{ myMessage }}</span>"
-})))
+}))
 
-val example3 = ExampleVue(json {
+val example3 = ExampleVue(ComponentOptions {
     el = "#example-3"
     data = ObjectOrFactory(json<ExampleVue> {
         parentMsg = ""
@@ -55,21 +55,21 @@ external class ButtonCounterVue(options: ComponentOptions<ButtonCounterVue>) : V
     var counter: Int
 }
 
-val buttonCounter = Vue.component("button-counter", ComponentOrAsyncComponent(Component(json<ComponentOptions<ButtonCounterVue>> {
+val buttonCounter = Vue.component("button-counter", Component(ComponentOptions<ButtonCounterVue> {
     template = """<button v-on:click="incrementCounter">{{ counter }}</button>"""
     data = ObjectOrFactory {
         json<ButtonCounterVue> {
             counter = 0
         }
     }
-    methods = json {
+    methods = FunctionMap {
         this["incrementCounter"] = {
             val self = thisAs<ButtonCounterVue>()
             self.counter++
             self.`$emit`("increment")
         }
     }
-})))
+}))
 
 @JsModule("vue")
 @JsNonModule
@@ -78,12 +78,12 @@ external class CounterEventExampleVue(options: ComponentOptions<CounterEventExam
     var total: Int
 }
 
-val counterEventExample = CounterEventExampleVue(json {
+val counterEventExample = CounterEventExampleVue(ComponentOptions {
     el = "#counter-event-example"
     data = ObjectOrFactory(json<CounterEventExampleVue> {
         total = 0
     })
-    methods = json {
+    methods = FunctionMap {
         this["incrementTotal"] = {
             val self = thisAs<CounterEventExampleVue>()
             self.total++
@@ -97,7 +97,7 @@ external class CurrencyInputComponent : Vue {
     fun formatValue(): String
 }
 
-val currencyInput = Vue.component("currency-input", ComponentOrAsyncComponent(Component(json<ComponentOptions<CurrencyInputComponent>> {
+val currencyInput = Vue.component("currency-input", Component(ComponentOptions<CurrencyInputComponent> {
     template = """
       <div>
         <label v-if="label">{{ label }}</label>
@@ -110,12 +110,12 @@ val currencyInput = Vue.component("currency-input", ComponentOrAsyncComponent(Co
           v-on:blur="formatValue">
       </div>
     """.trimIndent()
-    props = PropListOrPropMap(json<PropMap> {
-        this["value"] = PropOptionsOrConstructor(json<PropOptions> {
+    props = Props(json<PropMap> {
+        this["value"] = PropConfig(json<PropOptions> {
             type = js("Number") // FIXME
             default = 0
         })
-        this["label"] = PropOptionsOrConstructor(json<PropOptions> {
+        this["label"] = PropConfig(json<PropOptions> {
             type = String
             default = ""
         })
@@ -124,7 +124,7 @@ val currencyInput = Vue.component("currency-input", ComponentOrAsyncComponent(Co
         val self = thisAs<CurrencyInputComponent>()
         self.formatValue()
     }
-    methods = json {
+    methods = FunctionMap {
         this["updateValue"] = {
             value: String ->
             val self = thisAs<CurrencyInputComponent>()
@@ -132,8 +132,8 @@ val currencyInput = Vue.component("currency-input", ComponentOrAsyncComponent(Co
             val formattedValue = trimmedValue.substring(0,
                     if (value.indexOf('.') == -1) value.length else value.indexOf('.') + 3 )
             if (formattedValue != value) {
-                val refs: dynamic = self.`$refs`
-                refs.input.value = formattedValue
+                val element = self.`$refs`["input"].toHTMLElement()
+                element.nodeValue = formattedValue
             }
             self.`$emit`("input", formattedValue.toIntOrNull() ?: "")
         }
@@ -146,11 +146,11 @@ val currencyInput = Vue.component("currency-input", ComponentOrAsyncComponent(Co
             event: Event ->
             window.setTimeout({
                 val target: dynamic = event.target
-                target.select()
+                target.select() // FIXME
             }, 0)
         }
     }
-})))
+}))
 
 @JsModule("vue")
 @JsNonModule
@@ -162,7 +162,7 @@ external class AppVue(options: ComponentOptions<AppVue>) : Vue {
     var discount: Int
 }
 
-val app = AppVue(json {
+val app = AppVue(ComponentOptions {
     el = "#app"
     data = ObjectOrFactory(json<AppVue> {
         price = 0
@@ -170,8 +170,8 @@ val app = AppVue(json {
         handling = 0
         discount = 0
     })
-    computed = json {
-        this["total"] = ComputedOptionsOrFactory {
+    computed = ComputedMap {
+        this["total"] = ComputedConfig {
             val self = thisAs<AppVue>()
             (self.price * 100 + self.shipping * 100 + self.handling * 100 - self.discount * 100) / 100
         }
@@ -180,16 +180,16 @@ val app = AppVue(json {
 
 external class MyCheckboxComponent : Vue
 
-val MyCheckbox = Vue.component("my-checkbox", ComponentOrAsyncComponent(Component(json<ComponentOptions<MyCheckboxComponent>> {
+val MyCheckbox = Vue.component("my-checkbox", Component(ComponentOptions<MyCheckboxComponent> {
     model = json {
         prop = "checked"
         event = "change"
     }
-    props = PropListOrPropMap(json<PropMap> {
+    props = Props(json<PropMap> {
         val booleanConstructor: Constructor = js("Boolean") // FIXME
-        this["checked"] = PropOptionsOrConstructor(booleanConstructor)
+        this["checked"] = PropConfig(booleanConstructor)
         val stringConstructor: Constructor = js("String") // FIXME
-        this["value"] = PropOptionsOrConstructor(stringConstructor)
+        this["value"] = PropConfig(stringConstructor)
     })
     template = """
         <ul>
@@ -197,9 +197,9 @@ val MyCheckbox = Vue.component("my-checkbox", ComponentOrAsyncComponent(Componen
           <li>value: {{ value }}</li>
         </ul>
     """.trimIndent()
-})))
+}))
 
-val example4 = ExampleVue(json {
+val example4 = ExampleVue(ComponentOptions {
     el = "#example-4"
     data = ObjectOrFactory(json<ExampleVue> {
         foo = ""

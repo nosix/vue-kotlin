@@ -15,7 +15,7 @@ external interface Styles {
     var fontSize: String
 }
 
-val vm = ExampleVue(json {
+val vm = ExampleVue(ComponentOptions {
     el = "#example"
     data = ObjectOrFactory(json<ExampleVue> {
         isActive = true
@@ -25,8 +25,8 @@ val vm = ExampleVue(json {
             fontSize = "13px"
         }
     })
-    computed = json {
-        this["classObject"] = ComputedOptionsOrFactory<Json> {
+    computed = ComputedMap {
+        this["classObject"] = ComputedConfig<Json> {
             val self = thisAs<ExampleVue>()
             json {
                 set("active", self.isActive && self.error == null)

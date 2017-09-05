@@ -9,7 +9,7 @@ external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
     var counter: Int
 }
 
-val example1 = Example1Vue(json {
+val example1 = Example1Vue(ComponentOptions {
     el = "#example-1"
     data = ObjectOrFactory(json<Example1Vue> {
         counter = 0
@@ -28,14 +28,16 @@ external fun alert(message: String)
 val EventTarget?.tagName: String
     get() = this.asDynamic().tagName as String
 
-fun EventTarget?.preventDefault(): Unit = this.asDynamic().preventDefault()
+fun EventTarget?.preventDefault() {
+    this.asDynamic().preventDefault()
+}
 
-val example2 = Example2Vue(json {
+val example2 = Example2Vue(ComponentOptions {
     el = "#example-2"
     data = ObjectOrFactory(json<Example2Vue> {
         name = "Vue.js"
     })
-    methods = json {
+    methods = FunctionMap {
         this["greet"] = { event: Event? ->
             val self = thisAs<Example2Vue>()
             alert("Hello ${self.name}!")
@@ -46,9 +48,9 @@ val example2 = Example2Vue(json {
     }
 })
 
-val example3 = Example2Vue(json {
+val example3 = Example2Vue(ComponentOptions {
     el = "#example-3"
-    methods = json {
+    methods = FunctionMap {
         this["say"] = { message: String ->
             alert(message)
         }
