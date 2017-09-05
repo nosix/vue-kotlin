@@ -132,15 +132,19 @@ val currencyInput = Vue.component("currency-input", Component(ComponentOptions<C
             val formattedValue = trimmedValue.substring(0,
                     if (value.indexOf('.') == -1) value.length else value.indexOf('.') + 3 )
             if (formattedValue != value) {
-                val element = self.`$refs`["input"].toHTMLElement()
-                element.nodeValue = formattedValue
+                self.`$refs`["input"]?.let {
+                    val element = it.toHTMLElement()
+                    element.nodeValue = formattedValue
+                }
             }
             self.`$emit`("input", formattedValue.toIntOrNull() ?: "")
         }
         this["formatValue"] = {
             val self = thisAs<CurrencyInputComponent>()
-            val element = self.`$refs`["input"].toHTMLElement()
-            element.nodeValue = self.value.toString()
+            self.`$refs`["input"]?.let {
+                val element = it.toHTMLElement()
+                element.nodeValue = self.value.toString()
+            }
         }
         set("selectAll") {
             event: Event ->
