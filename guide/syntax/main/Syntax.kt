@@ -6,29 +6,31 @@ import org.musyozoku.vuekt.*
 @JsNonModule
 @JsName("Vue")
 external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
+    var msg: String
+    var rawHtml: String
+    var dynamicId: String
+    var isButtonDisabled: Boolean
+    var number: Int
+    var ok: Boolean
     var message: String
-    var rawId: Int
+    var id: String
     var url: String
 }
 
 fun main(args: Array<String>) {
-    ExampleVue(ComponentOptions {
+    val vm = ExampleVue(ComponentOptions {
         el = ElementConfig("#example")
         data = ObjectOrFactory(json<ExampleVue> {
+            msg = "Hi"
+            rawHtml = """<input type="text" name="username" value="taro">"""
+            dynamicId = "id-0101"
+            isButtonDisabled = true
+            number = 1
+            ok = true
             message = "hello"
-            rawId = 1
+            id = "1"
             url = "https://jp.vuejs.org/"
         })
-        filters = json {
-            this["capitalize"] = {
-                it: String ->
-                it.capitalize()
-            }
-            this["formatId"] = {
-                it: Int, digits: Int ->
-                it.asDynamic().toFixed(digits) // FIXME: JavaScript の関数を実行
-            }
-        }
         methods = json {
             this["doSomething"] = {
                 val self = thisAs<ExampleVue>()
@@ -36,4 +38,6 @@ fun main(args: Array<String>) {
             }
         }
     })
+
+    vm.msg = "Oh!"
 }
