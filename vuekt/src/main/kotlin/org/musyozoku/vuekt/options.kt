@@ -142,7 +142,7 @@ external interface DirectiveOptions {
 external interface ObjectOrFactory<T>
 
 inline fun <T> ObjectOrFactory(value: T): ObjectOrFactory<T> = value.asDynamic()
-inline fun <T> ObjectOrFactory(value: () -> T): ObjectOrFactory<T> = value.asDynamic()
+inline fun <T> ObjectOrFactory(factory: () -> T): ObjectOrFactory<T> = factory.asDynamic()
 
 inline fun <T> ObjectOrFactory<T>.toObject(): T = this.asDynamic()
 inline fun <T> ObjectOrFactory<T>.toFactory(): () -> T = this.asDynamic()
@@ -152,20 +152,20 @@ inline fun <T> ObjectOrFactory<T>.toFactory(): () -> T = this.asDynamic()
  */
 external interface Props
 
-inline fun Props(value: Array<String>): Props = value.asDynamic()
-inline fun Props(value: JsonOf<PropConfig?>): Props = value.asDynamic()
+inline fun Props(propNames: Array<String>): Props = propNames.asDynamic()
+inline fun Props(propConfig: JsonOf<PropConfig?>): Props = propConfig.asDynamic()
 
-inline fun Props.toList(): Array<String> = this.asDynamic()
-inline fun Props.toMap(): JsonOf<PropConfig?> = this.asDynamic()
+inline fun Props.toNames(): Array<String> = this.asDynamic()
+inline fun Props.toConfig(): JsonOf<PropConfig?> = this.asDynamic()
 
 /**
  * `PropOptions | Constructor | Array<Constructor>`
  */
 external interface PropConfig
 
-inline fun PropConfig(value: PropOptions): PropConfig = value.asDynamic()
-inline fun PropConfig(value: Constructor): PropConfig = value.asDynamic()
-inline fun PropConfig(value: Array<Constructor>): PropConfig = value.asDynamic()
+inline fun PropConfig(options: PropOptions): PropConfig = options.asDynamic()
+inline fun PropConfig(constructor: Constructor): PropConfig = constructor.asDynamic()
+inline fun PropConfig(constructors: Array<Constructor>): PropConfig = constructors.asDynamic()
 
 inline fun PropConfig.toOptions(): PropOptions = this.asDynamic()
 inline fun PropConfig.toConstructor(): Constructor = this.asDynamic()
@@ -176,8 +176,8 @@ inline fun PropConfig.toConstructorList(): Array<Constructor> = this.asDynamic()
  */
 external interface ComputedConfig<T>
 
-inline fun <T> ComputedConfig(value: () -> T): ComputedConfig<T> = value.asDynamic()
-inline fun <T> ComputedConfig(value: ComputedOptions<T>): ComputedConfig<T> = value.asDynamic()
+inline fun <T> ComputedConfig(factory: () -> T): ComputedConfig<T> = factory.asDynamic()
+inline fun <T> ComputedConfig(options: ComputedOptions<T>): ComputedConfig<T> = options.asDynamic()
 
 inline fun <T> ComputedConfig<T>.toFactory(): () -> T = this.asDynamic()
 inline fun <T> ComputedConfig<T>.toOptions(): ComputedOptions<T> = this.asDynamic()
@@ -187,11 +187,11 @@ inline fun <T> ComputedConfig<T>.toOptions(): ComputedOptions<T> = this.asDynami
  */
 external interface Watcher
 
-inline fun Watcher(value: String): Watcher = value.asDynamic()
-inline fun <T> Watcher(value: WatchHandler<T>): Watcher = value.asDynamic()
-inline fun <T> Watcher(value: WatchHandlerOptions<T>): Watcher = value.asDynamic()
+inline fun Watcher(methodName: String): Watcher = methodName.asDynamic()
+inline fun <T> Watcher(handler: WatchHandler<T>): Watcher = handler.asDynamic()
+inline fun <T> Watcher(options: WatchHandlerOptions<T>): Watcher = options.asDynamic()
 
-inline fun Watcher.toName(): String = this.asDynamic()
+inline fun Watcher.toMethodName(): String = this.asDynamic()
 inline fun <T> Watcher.toHandler(): WatchHandler<T> = this.asDynamic()
 inline fun <T> Watcher.toOptions(): WatchHandlerOptions<T> = this.asDynamic()
 
@@ -207,8 +207,8 @@ external interface WatchHandlerOptions<T> : WatchOptions {
  */
 external interface ElementConfig
 
-inline fun ElementConfig(value: String): ElementConfig = value.asDynamic()
-inline fun ElementConfig(value: HTMLElement): ElementConfig = value.asDynamic()
+inline fun ElementConfig(selector: String): ElementConfig = selector.asDynamic()
+inline fun ElementConfig(element: HTMLElement): ElementConfig = element.asDynamic()
 
 inline fun ElementConfig.toSelector(): String = this.asDynamic()
 inline fun ElementConfig.toElement(): HTMLElement = this.asDynamic()
@@ -233,8 +233,8 @@ typealias LifecycleHookFunction = () -> Unit
  */
 external interface DirectiveConfig
 
-inline fun DirectiveConfig(value: DirectiveOptions): DirectiveConfig = value.asDynamic()
-inline fun DirectiveConfig(value: DirectiveFunction): DirectiveConfig = value.asDynamic()
+inline fun DirectiveConfig(options: DirectiveOptions): DirectiveConfig = options.asDynamic()
+inline fun DirectiveConfig(function: DirectiveFunction): DirectiveConfig = function.asDynamic()
 
 inline fun DirectiveConfig.toOptions(): DirectiveOptions = this.asDynamic()
 inline fun DirectiveConfig.toFunction(): DirectiveFunction = this.asDynamic()
@@ -244,8 +244,8 @@ inline fun DirectiveConfig.toFunction(): DirectiveFunction = this.asDynamic()
  */
 external interface ComponentOrAsyncComponent
 
-inline fun ComponentOrAsyncComponent(value: Component): ComponentOrAsyncComponent = value.asDynamic()
-inline fun ComponentOrAsyncComponent(value: AsyncComponent): ComponentOrAsyncComponent = value.asDynamic()
+inline fun ComponentOrAsyncComponent(component: Component): ComponentOrAsyncComponent = component.asDynamic()
+inline fun ComponentOrAsyncComponent(component: AsyncComponent): ComponentOrAsyncComponent = component.asDynamic()
 
 inline fun ComponentOrAsyncComponent.toComponent(): Component = this.asDynamic()
 inline fun ComponentOrAsyncComponent.toAsyncComponent(): Component = this.asDynamic()
@@ -267,8 +267,8 @@ inline fun Delimiter(begin: String, end: String) = arrayOf(begin, end)
  */
 external interface TypeConfig
 
-inline fun TypeConfig(value: Constructor): TypeConfig = value.asDynamic()
-inline fun TypeConfig(value: Array<Constructor>): TypeConfig = value.asDynamic()
+inline fun TypeConfig(constructor: Constructor): TypeConfig = constructor.asDynamic()
+inline fun TypeConfig(constructors: Array<Constructor>): TypeConfig = constructors.asDynamic()
 
 inline fun TypeConfig.toConstructor(): Constructor = this.asDynamic()
 inline fun TypeConfig.toConstructorList(): Array<Constructor> = this.asDynamic()

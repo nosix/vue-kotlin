@@ -126,10 +126,10 @@ external interface CompileResult {
  */
 external interface Ref
 
-inline fun Ref(value: Vue): Ref = value.asDynamic()
-inline fun Ref(value: HTMLElement): Ref = value.asDynamic()
-inline fun Ref(value: Array<Vue>): Ref = value.asDynamic()
-inline fun Ref(value: Array<HTMLElement>): Ref = value.asDynamic()
+inline fun Ref(vm: Vue): Ref = vm.asDynamic()
+inline fun Ref(element: HTMLElement): Ref = element.asDynamic()
+inline fun Ref(vms: Array<Vue>): Ref = vms.asDynamic()
+inline fun Ref(elements: Array<HTMLElement>): Ref = elements.asDynamic()
 
 inline fun Ref.toVue(): Vue = this.asDynamic()
 inline fun Ref.toHTMLElement(): HTMLElement = this.asDynamic()
