@@ -8,6 +8,8 @@ external class AppVue(options: ComponentOptions<AppVue>) : Vue {
     var message: String
 }
 
+//  https://vuejs.org/v2/guide/#Declarative-Rendering
+//
 //  var app = new Vue({
 //      el: '#app',
 //      data: {
@@ -22,6 +24,8 @@ val app = AppVue(ComponentOptions {
     })
 })
 
+// Try: input `index.app.message = 'Hi'` on browser console.
+
 //  var app2 = new Vue({
 //      el: '#app-2',
 //      data: {
@@ -35,6 +39,8 @@ val app2 = AppVue(ComponentOptions {
         message = "You loaded this page on ${Date()}"
     })
 })
+
+// Try: input `index.app2.message = 'some new message'` on browser console.
 
 //  var app3 = new Vue({
 //      el: '#app-3',
@@ -56,6 +62,8 @@ val app3 = App3Vue(ComponentOptions {
         seen = true
     })
 })
+
+// Try: input `index.app3.seen = false` on browser console.
 
 //  var app4 = new Vue({
 //      el: '#app-4',
@@ -87,6 +95,8 @@ val app4 = App4Vue(ComponentOptions {
         )
     })
 })
+
+// Try: input `index.app4.todos.push({ text: 'New item' })` on browser console.
 
 //  var app5 = new Vue({
 //      el: '#app-5',
