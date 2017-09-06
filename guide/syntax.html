@@ -1,17 +1,54 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html lang="ja" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Template Syntax / テンプレート構文</title>
+    <style>
+        #id-0101 {
+          color: #ff0000;
+        }
+        #list-1 {
+          color: #ff0000;
+        }
+    </style>
 </head>
 <body>
 
-<!-- https://vuejs.org/v2/guide/syntax.html -->
-<!-- https://jp.vuejs.org/v2/guide/syntax.html -->
-
 <div id="example">
-    {{ message }} -> {{ message | capitalize }}<br>
-    <input input="text" v-bind:value="rawId"> -> <input input="text" v-bind:value="rawId | formatId(3)"><br>
+    <!-- https://vuejs.org/v2/guide/syntax.html#Text -->
+    <!-- https://jp.vuejs.org/v2/guide/syntax.html#テキスト -->
+    <h1>Text</h1>
+    <span>Message: {{ msg }}</span><br>
+    <span v-once>This will never change: {{ msg }}</span><br>
+
+    <!-- https://vuejs.org/v2/guide/syntax.html#Raw-HTML -->
+    <!-- https://jp.vuejs.org/v2/guide/syntax.html#生の-HTML -->
+    <h1>Raw HTML</h1>
+    <span>{{ rawHtml }}</span><br>
+    <div v-html="rawHtml"></div><br>
+
+    <!-- https://vuejs.org/v2/guide/syntax.html#Attributes -->
+    <!-- https://jp.vuejs.org/v2/guide/syntax.html#属性 -->
+    <h1>Attributes</h1>
+    <div v-bind:id="dynamicId">Dynamic ID</div><br>
+    <button v-bind:disabled="isButtonDisabled">Button</button><br>
+
+    <!-- https://vuejs.org/v2/guide/syntax.html#Using-JavaScript-Expressions -->
+    <!-- https://jp.vuejs.org/v2/guide/syntax.html#JavaScript-式の使用 -->
+    <h1>Using JavaScript Expressions</h1>
+    {{ number + 1 }}<br>
+    {{ ok ? 'YES' : 'NO' }}<br>
+    {{ message.split('').reverse().join('') }}<br>
+    <div v-bind:id="'list-' + id">List ID</div><br>
+
+    <!-- https://vuejs.org/v2/guide/syntax.html#Modifiers -->
+    <!-- https://jp.vuejs.org/v2/guide/syntax.html#修飾子 -->
+    <h1>Modifiers</h1>
+    <form v-on:submit.prevent="onSubmit"></form><!-- `event.preventDefault()` is called -->
+
+    <!-- https://vuejs.org/v2/guide/syntax.html#Shorthands -->
+    <!-- https://jp.vuejs.org/v2/guide/syntax.html#省略記法 -->
+    <h1>Shorthands</h1>
     <a :href="url">Vue.js</a><br>
     <a @click="doSomething">do something</a>
 </div>
