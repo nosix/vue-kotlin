@@ -10,23 +10,74 @@
         .text-danger {
           color: #ff0000;
         }
+        p.active {
+          background-color: #ffaaaa;
+        }
+        p.boo {
+          color: #0000ff;
+        }
     </style>
 </head>
 <body>
 
-<!-- https://vuejs.org/v2/guide/class-and-style.html -->
-<!-- https://jp.vuejs.org/v2/guide/class-and-style.html -->
+<h1>Binding HTML Classes</h1>
 
-<div id="example">
-    <div v-bind:class="classObject">Hello</div>
-    <div v-bind:style="styleObject">World</div>
+<!-- https://vuejs.org/v2/guide/class-and-style.html#Object-Syntax -->
+<!-- https://jp.vuejs.org/v2/guide/class-and-style.html#オブジェクト構文 -->
+
+<h2>Object Syntax</h2>
+<div id="example1">
+    <div v-bind:class="{ active: isActive }">{ active: isActive }</div>
+    <div class="static"
+         v-bind:class="{ active: isActive, 'text-danger': hasError }">{ active: isActive, 'text-danger': hasError }</div>
+    <div v-bind:class="classObject">classObject</div>
 </div>
 
-<!-- Try following code on Chrome console:
-vm = require('class-and-style').vm
+<!-- Try following code on browser console:
+vm = require('class-and-style').example1
 vm.isActive = false
+vm.hasError = true
 vm.error = {type: 'fatal'}
 -->
+
+<!-- https://vuejs.org/v2/guide/class-and-style.html#Array-Syntax -->
+<!-- https://jp.vuejs.org/v2/guide/class-and-style.html#配列構文 -->
+
+<h2>Array Syntax</h2>
+<div id="example2">
+    <div v-bind:class="[activeClass, errorClass]">[activeClass, errorClass]</div>
+    <div v-bind:class="[isActive ? activeClass : '', errorClass]">[isActive ? activeClass : '', errorClass]</div>
+    <div v-bind:class="[{ active: isActive }, errorClass]">[{ active: isActive }, errorClass]</div>
+</div>
+
+<!-- Try following code on browser console:
+vm = require('class-and-style').example2
+vm.isActive = true
+vm.activeClass = ''
+vm.errorClass = ''
+-->
+
+<!-- https://vuejs.org/v2/guide/class-and-style.html#With-Components -->
+<!-- https://jp.vuejs.org/v2/guide/class-and-style.html#コンポーネントにおいて -->
+
+<h2>With Components</h2>
+<div id="example3">
+    <my-component class="baz boo">baz boo</my-component>
+    <my-component v-bind:class="{ active: isActive }">{ active: isActive }</my-component>
+</div>
+
+<h1>Binding Inline Styles</h1>
+
+<!-- https://vuejs.org/v2/guide/class-and-style.html#Object-Syntax-1 -->
+<!-- https://jp.vuejs.org/v2/guide/class-and-style.html#オブジェクト構文-1 -->
+
+<h2>Object Syntax</h2>
+<div id="example4">
+    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">
+        { color: activeColor, fontSize: fontSize + 'px' }</div>
+    <div v-bind:style="styleObject"></div>
+    <div v-bind:style="[baseStyles, overridingStyles]">[baseStyles, overridingStyles]</div>
+</div>
 
 <script src="require-config.js"></script>
 <script src="build/js/require.js"></script>
