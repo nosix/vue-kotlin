@@ -13,6 +13,10 @@
     <li v-for="item in items">{{ item.message }}</li>
 </ul>
 
+<!-- Try following code on browser console:
+vm = require('list').example1
+vm.items.push({ message: 'Buz' })
+ -->
 <ul id="example-2">
     <li v-for="(item, index) in items">
         {{ parentMessage }} - {{ index }} - {{ item.message }}
@@ -28,6 +32,23 @@
     </li>
 </ul>
 
+<!-- https://vuejs.org/v2/guide/list.html#Object-Change-Detection-Caveats -->
+<!-- https://jp.vuejs.org/v2/guide/list.html#オブジェクトの変更検出の注意 -->
+
+<div id="example3">{{ userProfile }}</div>
+
+<!-- https://vuejs.org/v2/guide/list.html#Displaying-Filtered-Sorted-Results -->
+<!-- https://jp.vuejs.org/v2/guide/list.html#フィルタ-ソートされた結果の表示 -->
+
+<div id="example4">
+    <ol>
+        <li v-for="n in evenNumbers">{{ n }}</li>
+    </ol>
+    <ol>
+        <li v-for="n in even(numbers)">{{ n }}</li>
+    </ol>
+</div>
+
 <!-- https://vuejs.org/v2/guide/list.html#v-for-with-a-Component -->
 <!-- https://jp.vuejs.org/v2/guide/list.html#コンポーネントと-v-for -->
 
@@ -36,15 +57,11 @@
            v-on:keyup.enter="addNewTodo"
            placeholder="Add a todo">
     <ul>
-        <!-- FIXME: todos can not be used.
-             MutableList has properties other than array. -->
         <li is="todo-item"
-            v-for="(todo, index) in todo_array"
+            v-for="(todo, index) in todos"
             v-bind:key="todo.id"
             v-bind:title="todo.title"
-            v-on:remove="removeTodo(index)"></li>
-        <!-- FIXME: todos.removeAt(index) can not be used.
-             A suffix is appended to the function name on Kotlin standard library. -->
+            v-on:remove="todos.splice(index, 1)"></li>
     </ul>
 </div>
 

@@ -1,6 +1,6 @@
-// Vue 2.x [https://vuejs.org/v2/api/]
+@file:Suppress("unused", "UnsafeCastFromDynamic", "NOTHING_TO_INLINE")
 
-@file:Suppress("NOTHING_TO_INLINE", "UnsafeCastFromDynamic", "unused")
+// See also: Vue 2.x [https://vuejs.org/v2/api/]
 
 package org.musyozoku.vuekt
 
@@ -36,7 +36,7 @@ external open class Vue(options: ComponentOptions<Vue>? = definedExternally) {
 
         fun nextTick(callback: () -> Unit, context: Array<Any>? = definedExternally)
         fun nextTick(): Promise<Unit>
-        fun <T> set(target: Json, key: String, value: T): T
+        fun <T> set(target: Any, key: String, value: T): T
         fun <T> set(target: Array<T>, key: Int, value: T): T
         fun delete(target: Json, key: String)
         fun <T> delete(target: Array<T>, key: Int)
@@ -80,7 +80,7 @@ external open class Vue(options: ComponentOptions<Vue>? = definedExternally) {
             callback: WatchHandler<T>,
             options: WatchOptions? = definedExternally): () -> Unit
 
-    fun <T> `$set`(target: Json, key: String, value: T): T
+    fun <T> `$set`(target: Any, key: String, value: T): T
     fun <T> `$set`(target: Array<T>, key: Int, value: T): T
     fun `$delete`(target: Json, key: String)
     fun <T> `$delete`(target: Array<T>, key: Int)
