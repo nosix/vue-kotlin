@@ -113,7 +113,7 @@ external interface VueConfig {
     val errorHandler: (err: Error, vm: Vue, info: String) -> Unit
     val warnHandler: (msg: String, vm: Vue, trace: String) -> Unit
     val ignoredElements: Array<String>
-    val keyCodes: Json // { [key: String]: Number }
+    val keyCodes: JsonOf<Int> // { [key: String]: Number }
 }
 
 external interface CompileResult {
