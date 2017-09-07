@@ -141,7 +141,7 @@ external interface DirectiveOptions {
  */
 external interface ObjectOrFactory<T>
 
-inline fun <T> ObjectOrFactory(value: T): ObjectOrFactory<T> = value.asDynamic()
+inline fun <T> ObjectOrFactory(json: T): ObjectOrFactory<T> = json.asDynamic()
 inline fun <T> ObjectOrFactory(factory: () -> T): ObjectOrFactory<T> = factory.asDynamic()
 
 inline fun <T> ObjectOrFactory<T>.toObject(): T = this.asDynamic()

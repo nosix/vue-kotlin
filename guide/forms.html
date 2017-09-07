@@ -6,16 +6,28 @@
 </head>
 <body>
 
+<h1>Basic Usage</h1>
+
 <div id="example-1">
     <!-- https://vuejs.org/v2/guide/forms.html#Text -->
     <!-- https://jp.vuejs.org/v2/guide/forms.html#テキスト -->
-
+    <h2>Text</h2>
     <input v-model="message" placeholder="edit me">
     <p>Message is: {{ message }}</p>
 
+    <!-- https://vuejs.org/v2/guide/forms.html#Multiline-text -->
+    <!-- https://jp.vuejs.org/v2/guide/forms.html#複数行テキスト -->
+    <h2>Multiline text</h2>
+    <span>Multiline message is:</span>
+    <p style="white-space: pre-line">{{ message }}</p>
+    <textarea v-model="message" placeholder="add multiple lines"></textarea>
+
     <!-- https://vuejs.org/v2/guide/forms.html#Checkbox -->
     <!-- https://jp.vuejs.org/v2/guide/forms.html#チェックボックス -->
-
+    <h2>Checkbox</h2>
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <label for="checkbox">{{ checked }}</label>
+    <br>
     <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
     <label for="jack">Jack</label>
     <input type="checkbox" id="john" value="John" v-model="checkedNames">
@@ -24,12 +36,21 @@
     <label for="mike">Mike</label>
     <br>
     <span>Checked names: {{ checkedNames }}</span>
-</div>
 
-<!-- https://vuejs.org/v2/guide/forms.html#Select -->
-<!-- https://jp.vuejs.org/v2/guide/forms.html#選択 -->
+    <!-- https://vuejs.org/v2/guide/forms.html#Radio -->
+    <!-- https://jp.vuejs.org/v2/guide/forms.html#ラジオ -->
+    <h2>Radio</h2>
+    <input type="radio" id="one" value="One" v-model="picked">
+    <label for="one">One</label>
+    <br>
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <label for="two">Two</label>
+    <br>
+    <span>Picked: {{ picked }}</span>
 
-<div id="example-2">
+    <!-- https://vuejs.org/v2/guide/forms.html#Select -->
+    <!-- https://jp.vuejs.org/v2/guide/forms.html#選択 -->
+    <h2>Select</h2>
     <select v-model="selected">
         <option disabled value="">Please select one</option>
         <option>A</option>
@@ -38,12 +59,67 @@
     </select>
     <span>Selected: {{ selected }}</span>
     <br>
+    <select v-model="multiSelected" multiple>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <br>
+    <span>Selected: {{ multiSelected }}</span>
+    <br>
     <select v-model="selected">
         <option v-for="option in options" v-bind:value="option.value">
             {{ option.text }}
         </option>
     </select>
     <span>Selected: {{ selected }}</span>
+</div>
+
+<h1>Value Bindings</h1>
+
+<div id="example-2">
+    <!-- https://vuejs.org/v2/guide/forms.html#Checkbox-1 -->
+    <!-- https://jp.vuejs.org/v2/guide/forms.html#チェックボックス-1 -->
+    <h2>Checkbox</h2>
+    <input
+            type="checkbox"
+            v-model="toggle"
+            v-bind:true-value="a"
+            v-bind:false-value="b">
+    <span>Selected: {{ toggle }}</span>
+
+    <!-- https://vuejs.org/v2/guide/forms.html#Radio-1 -->
+    <!-- https://jp.vuejs.org/v2/guide/forms.html#ラジオ-1 -->
+    <h2>Radio</h2>
+    <input type="radio" v-model="pick" v-bind:value="a">
+    <input type="radio" v-model="pick" v-bind:value="b">
+    <br>
+    <span>Picked: {{ pick }}</span>
+
+    <!-- https://vuejs.org/v2/guide/forms.html#Select-Options -->
+    <!-- https://jp.vuejs.org/v2/guide/forms.html#選択オプション -->
+    <h2>Select Options</h2>
+    <select v-model="selected">
+        <!-- inline object literal -->
+        <option v-bind:value="{ number: 123 }">123</option>
+        <option v-bind:value="{ number: 456 }">456</option>
+    </select>
+    <br>
+    <span>Selected: {{ selected }}</span>
+</div>
+
+<h1>Modifiers</h1>
+
+<!-- https://vuejs.org/v2/guide/forms.html#Modifiers -->
+<!-- https://jp.vuejs.org/v2/guide/forms.html#修飾子 -->
+
+<div id="example-3">
+    <input v-model.lazy="msg" >
+    <input v-model.number="age" type="number">
+    <input v-model.trim="msg">
+    <br>
+    <pre>msg: '{{ msg }}'</pre>
+    <span>age: {{ age }}</span>
 </div>
 
 <script src="require-config.js"></script>
