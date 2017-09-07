@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE", "UnsafeCastFromDynamic", "unused")
+@file:Suppress("unused", "UnsafeCastFromDynamic", "NOTHING_TO_INLINE")
 
 package org.musyozoku.vuekt
 
