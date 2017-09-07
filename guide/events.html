@@ -32,6 +32,27 @@
     </button>
 </div>
 
+<!-- https://vuejs.org/v2/guide/events.html#Key-Modifiers -->
+<!-- https://jp.vuejs.org/v2/guide/events.html#キー修飾子 -->
+
+<div id="example-4">
+    <!-- only call vm.submit() when the keyCode is 13 -->
+    <!-- keyCode が 13 のときだけ、vm.submit() が呼ばれます  -->
+    <input v-on:keyup.13="submit">
+
+    <!-- same as above -->
+    <!-- 上記と同じです -->
+    <input v-on:keyup.enter="submit">
+
+    <!-- also works for shorthand -->
+    <!-- 省略記法も同様に動作します -->
+    <input @keyup.enter="submit">
+
+    <!-- only call vm.submit() when the key is F1 -->
+    <!-- key が F1 のときだけ、vm.submit() が呼ばれます  -->
+    <input v-on:keyup.f1="submit">
+</div>
+
 <script src="require-config.js"></script>
 <script src="build/js/require.js"></script>
 <script>require(['events'])</script>

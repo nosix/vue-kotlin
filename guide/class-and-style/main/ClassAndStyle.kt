@@ -73,7 +73,7 @@ val example2 = Example2Vue(ComponentOptions {
 //    template: '<p class="foo bar">Hi</p>'
 //  })
 
-external class MyComponent(options: ComponentOptions<MyComponent>) : Vue
+external class MyComponent : Vue
 
 val myComponent = Vue.component("my-component", Component(ComponentOptions<MyComponent> {
     template = """<p class="foo bar">Hi, my component</p>"""
