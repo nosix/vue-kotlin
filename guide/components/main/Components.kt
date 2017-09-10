@@ -125,7 +125,7 @@ external class ExampleComponent : Vue
 val exampleComponent = Vue.component("example", Component(ComponentOptions<ExampleComponent> {
     props = Props(propConfig = json {
         this["propA"] = PropConfig(js.Number)
-        this["propB"] = PropConfig(arrayOf(js.String, js.Number))
+        this["propB"] = PropConfig(constructors = arrayOf(js.String, js.Number))
         this["propC"] = PropConfig(PropOptions<String> {
             type = TypeConfig(js.String)
             required = true
@@ -335,11 +335,22 @@ val MyCheckbox = Vue.component("my-checkbox", Component(ComponentOptions<MyCheck
         this["checked"] = PropConfig(js.Boolean)
         this["value"] = PropConfig(js.String)
     })
+    methods = json {
+        this["update"] = {
+            event: Event ->
+            val self = thisAs<MyCheckboxComponent>()
+            val target = event.target as? HTMLInputElement
+            target?.let {
+                println(it.checked)
+                self.`$emit`("change", it.checked)
+            }
+        }
+    }
     template = """
-        <ul>
-          <li>checked: {{ checked }}</li>
-          <li>value: {{ value }}</li>
-        </ul>
+        <div>
+          <input type="checkbox" v-bind:checked="checked" v-on:change="update">
+          <span>{{ value }}</span>
+        </div>
     """.trimIndent()
 }))
 
@@ -347,12 +358,12 @@ val MyCheckbox = Vue.component("my-checkbox", Component(ComponentOptions<MyCheck
 @JsNonModule
 @JsName(vue.CLASS)
 external class Example4Vue(options: ComponentOptions<Example4Vue>) : Vue {
-    var foo: String
+    var foo: Boolean
 }
 
 val example4 = Example4Vue(ComponentOptions {
     el = ElementConfig("#example-4")
     data = ObjectOrFactory(json<Example4Vue> {
-        foo = ""
+        foo = true
     })
 })

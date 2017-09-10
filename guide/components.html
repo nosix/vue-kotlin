@@ -59,7 +59,9 @@
 <!-- https://jp.vuejs.org/v2/guide/components.html#コンポーネントの-v-model-のカスタマイズ -->
 
 <div id="example-4">
-    <my-checkbox v-model="foo" value="some value"></my-checkbox>
+    <my-checkbox v-model="foo" value="some value"></my-checkbox><!-- FIXME not working -->
+    <my-checkbox :checked="foo" @change="val => { foo = val }" value="some value"></my-checkbox>
+    <span>{{ foo }}</span>
 </div>
 
 <script src="require-config.js"></script>
