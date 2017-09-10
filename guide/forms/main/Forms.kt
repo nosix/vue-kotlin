@@ -1,8 +1,8 @@
 import org.musyozoku.vuekt.*
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
     var message: String
     var checked: Boolean
@@ -47,9 +47,9 @@ val example1 = Example1Vue(ComponentOptions {
     })
 })
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class Example2Vue(options: ComponentOptions<Example2Vue>) : Vue {
     var toggle: String
     var a: String
@@ -69,9 +69,9 @@ val example2 = Example2Vue(ComponentOptions {
     })
 })
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class Example3Vue(options: ComponentOptions<Example3Vue>) : Vue {
     var msg: String
     var age: Int

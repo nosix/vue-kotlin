@@ -1,8 +1,8 @@
 import org.musyozoku.vuekt.*
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
     var parentMessage: String
     var items: Array<Item>
@@ -131,9 +131,9 @@ fun replace() {
 // m.splice1()
 // m.replace()
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class Example3Vue(options: ComponentOptions<Example3Vue>) : Vue {
     var userProfile: UserProfile
 }
@@ -174,9 +174,9 @@ fun setAge2() {
 // m.setAge2()
 // m.resetUserProfile()
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class Example4Vue(options: ComponentOptions<Example4Vue>) : Vue {
     var numbers: Array<Int>
 }
@@ -271,9 +271,9 @@ val todoItem = Vue.component("todo-item", Component(ComponentOptions<TodoItemCom
 
 class TodoItem(val id: Int, val title: String)
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class TodoListVue(options: ComponentOptions<TodoListVue>) : Vue {
     var newTodoText: String
     var todos: Array<TodoItem>

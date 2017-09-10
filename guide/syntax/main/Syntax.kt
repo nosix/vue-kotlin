@@ -2,9 +2,9 @@
 
 import org.musyozoku.vuekt.*
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
     var msg: String
     var rawHtml: String

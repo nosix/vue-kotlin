@@ -2,9 +2,9 @@ import org.musyozoku.vuekt.*
 import org.w3c.dom.events.Event
 import kotlin.browser.window
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
     var counter: Int
     var parentMsg: String
@@ -48,9 +48,9 @@ val example3 = ExampleVue(ComponentOptions {
     })
 })
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class ButtonCounterVue(options: ComponentOptions<ButtonCounterVue>) : Vue {
     var counter: Int
 }
@@ -71,9 +71,9 @@ val buttonCounter = Vue.component("button-counter", Component(ComponentOptions<B
     }
 }))
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class CounterEventExampleVue(options: ComponentOptions<CounterEventExampleVue>) : Vue {
     var total: Int
 }
@@ -156,9 +156,9 @@ val currencyInput = Vue.component("currency-input", Component(ComponentOptions<C
     }
 }))
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class AppVue(options: ComponentOptions<AppVue>) : Vue {
     var price: Int
     var shipping: Int

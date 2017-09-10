@@ -9,9 +9,9 @@ import org.w3c.dom.events.Event
 //    }
 //  })
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
     var counter: Int
 }
@@ -46,9 +46,9 @@ val example1 = Example1Vue(ComponentOptions {
 //// JavaScript からメソッドを呼び出すこともできます
 //example2.greet() // => 'Hello Vue.js!'
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class Example2Vue(options: ComponentOptions<Example2Vue>) : Vue {
     var name: String
 }

@@ -30,9 +30,9 @@ import kotlin.browser.document
 //      // このコールバックは `vm.a` の値が変わる時に呼ばれます
 //  })
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class ExampleVue(options: ComponentOptions<ExampleVue>?) : Vue {
     var a: Int
 }
