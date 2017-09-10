@@ -22,13 +22,10 @@
     <simple-counter></simple-counter>
 </div>
 
-<!-- https://vuejs.org/v2/guide/components.html#camelCase-vs-kebab-case -->
-<!-- https://jp.vuejs.org/v2/guide/components.html#キャメルケース-vs-ケバブケース -->
+<!-- https://vuejs.org/v2/guide/components.html#Dynamic-Props -->
+<!-- https://jp.vuejs.org/v2/guide/components.html#動的なプロパティ -->
 
 <div id="example-3">
-    <!-- kebab-case in HTML / HTML ではケバブケース -->
-    <child my-message="hello!"></child>
-    <br>
     <input v-model="parentMsg">
     <child v-bind:my-message="parentMsg"></child>
 </div>
@@ -57,6 +54,9 @@
     <currency-input label="Discount" v-model="discount"></currency-input>
     <p>Total: ${{ total }}</p>
 </div>
+
+<!-- https://vuejs.org/v2/guide/components.html#Customizing-Component-v-model -->
+<!-- https://jp.vuejs.org/v2/guide/components.html#コンポーネントの-v-model-のカスタマイズ -->
 
 <div id="example-4">
     <my-checkbox v-model="foo" value="some value"></my-checkbox>
