@@ -1,9 +1,9 @@
 import org.musyozoku.vuekt.*
 import kotlin.js.Date
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class AppVue(options: ComponentOptions<AppVue>) : Vue {
     var message: String
 }
@@ -49,9 +49,9 @@ val app2 = AppVue(ComponentOptions {
 //      }
 //  })
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class App3Vue(options: ComponentOptions<App3Vue>) : Vue {
     var seen: Boolean
 }
@@ -76,9 +76,9 @@ val app3 = App3Vue(ComponentOptions {
 //      }
 //  })
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class App4Vue(options: ComponentOptions<App4Vue>) : Vue {
     var todos: Array<Text>
 }
@@ -153,9 +153,9 @@ val app6 = AppVue(ComponentOptions {
 //      }
 //  })
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class App7Vue(options: ComponentOptions<App7Vue>) : Vue {
     var groceryList: Array<Item>
 }

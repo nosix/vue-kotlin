@@ -7,6 +7,11 @@ package org.musyozoku.vuekt
 import org.w3c.dom.HTMLElement
 import kotlin.js.*
 
+object vue {
+    const val MODULE = "vue"
+    const val CLASS = "Vue"
+}
+
 /**
  * `??? -> VNode`
  */
@@ -16,16 +21,17 @@ typealias CreateElement = Function<VNode>
  * Example:
  *
  * ```
- * @JsModule("vue")
+ * @JsModule(vue.MODULE)
  * @JsNonModule
- * @JsName("Vue")
+ * @JsName(vue.CLASS)
  * external class MyVue(options: ComponentOptions<MyVue>) : Vue {
  *     var message: String
  * }
  * ```
  */
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
+@JsName(vue.CLASS)
 external open class Vue(options: ComponentOptions<Vue>? = definedExternally) {
 
     companion object {

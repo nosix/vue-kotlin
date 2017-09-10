@@ -4,26 +4,26 @@ import org.musyozoku.vuekt.*
 @JsModule("axios")
 external val axios: dynamic
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
     var message: String
     val reversedMessage: String
 }
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class DemoVue(options: ComponentOptions<DemoVue>) : Vue {
     var firstName: String
     var lastName: String
     var fullName: String
 }
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class WatchExampleVue(options: ComponentOptions<WatchExampleVue>) : Vue {
     var question: String
     var answer: String

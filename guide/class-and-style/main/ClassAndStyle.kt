@@ -19,9 +19,9 @@ import kotlin.js.Json
 //    }
 //  }
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
     var isActive: Boolean
     var hasError: Boolean
@@ -51,9 +51,9 @@ val example1 = Example1Vue(ComponentOptions {
 //    errorClass: 'text-danger'
 //  }
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class Example2Vue(options: ComponentOptions<Example2Vue>) : Vue {
     var isActive: Boolean
     var activeClass: String
@@ -79,9 +79,9 @@ val myComponent = Vue.component("my-component", Component(ComponentOptions<MyCom
     template = """<p class="foo bar">Hi, my component</p>"""
 }))
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class Example3Vue(options: ComponentOptions<Example3Vue>) : Vue {
     var isActive: Boolean
 }
@@ -105,9 +105,9 @@ val example3 = Example3Vue(ComponentOptions {
 //    }
 //  }
 
-@JsModule("vue")
+@JsModule(vue.MODULE)
 @JsNonModule
-@JsName("Vue")
+@JsName(vue.CLASS)
 external class Example4Vue(options: ComponentOptions<Example4Vue>) : Vue {
     var activeColor: String
     var fontSize: Int
