@@ -12,9 +12,13 @@ import kotlin.js.Promise
 typealias Constructor = Function<Any>
 
 object js {
-    val Number: Constructor = js("Number")
     val String: Constructor = js("String")
+    val Number: Constructor = js("Number")
     val Boolean: Constructor = js("Boolean")
+    val Function: Constructor = js("Function")
+    val Object: Constructor = js("Object")
+    val Array: Constructor = js("Array")
+    val Symbol: Constructor = js("Symbol")
 }
 
 /**
@@ -103,11 +107,11 @@ external interface RenderContext {
     var injections: Any
 }
 
-external interface PropOptions {
+external interface PropOptions<T> {
     var type: TypeConfig?
     var required: Boolean?
-    var default: Any?
-    var validator: ((value: Any) -> Boolean)?
+    var default: T?
+    var validator: ((value: T) -> Boolean)?
 }
 
 external interface ComputedOptions<T> {
@@ -163,11 +167,11 @@ inline fun Props.toConfig(): JsonOf<PropConfig?> = this.asDynamic()
  */
 external interface PropConfig
 
-inline fun PropConfig(options: PropOptions): PropConfig = options.asDynamic()
+inline fun <T> PropConfig(options: PropOptions<T>): PropConfig = options.asDynamic()
 inline fun PropConfig(constructor: Constructor): PropConfig = constructor.asDynamic()
 inline fun PropConfig(constructors: Array<Constructor>): PropConfig = constructors.asDynamic()
 
-inline fun PropConfig.toOptions(): PropOptions = this.asDynamic()
+inline fun <T> PropConfig.toOptions(): PropOptions<T> = this.asDynamic()
 inline fun PropConfig.toConstructor(): Constructor = this.asDynamic()
 inline fun PropConfig.toConstructorList(): Array<Constructor> = this.asDynamic()
 
