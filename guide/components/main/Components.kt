@@ -25,7 +25,7 @@ val Child = ComponentOptions<MyComponent> {
 val example = Vue(ComponentOptions {
     el = ElementConfig("#example")
     components = json {
-        this["my-component"] = ComponentOrAsyncComponent(Component(Child))
+        this["my-component"] = ComponentConfig(Component(Child))
     }
 })
 
@@ -374,7 +374,7 @@ val example4 = Example4Vue(ComponentOptions {
 val example5 = Vue(ComponentOptions {
     el = ElementConfig("#example-5")
     components = json {
-        this["my-component"] = ComponentOrAsyncComponent(Component(ComponentOptions<MyComponent> {
+        this["my-component"] = ComponentConfig(Component(ComponentOptions<MyComponent> {
             template = """
               <div>
                 <h2>I'm the child title</h2>
@@ -396,7 +396,7 @@ external class AppLayoutComponent : Vue
 val example6 = Vue(ComponentOptions {
     el = ElementConfig("#example-6")
     components = json {
-        this["app-layout"] = ComponentOrAsyncComponent(Component(ComponentOptions<AppLayoutComponent> {
+        this["app-layout"] = ComponentConfig(Component(ComponentOptions<AppLayoutComponent> {
             template = """
               <div class="container">
                 <header>
@@ -434,7 +434,7 @@ val example7 = Example7Vue(ComponentOptions {
         items = arrayOf(AwesomeItem("foo"), AwesomeItem("bar"))
     })
     components = json {
-        this["my-awesome-list"] = ComponentOrAsyncComponent(Component(ComponentOptions<MyAwesomeListComponent> {
+        this["my-awesome-list"] = ComponentConfig(Component(ComponentOptions<MyAwesomeListComponent> {
             template = """
                 <ul>
                   <slot name="item"
@@ -467,13 +467,13 @@ val example8 = Example8Vue(ComponentOptions {
         currentView = "home"
     })
     components = json {
-        this["home"] = ComponentOrAsyncComponent(Component(ComponentOptions<ViewComponent> {
+        this["home"] = ComponentConfig(Component(ComponentOptions<ViewComponent> {
             template = "<div>Home View</div>"
         }))
-        this["posts"] = ComponentOrAsyncComponent(Component(ComponentOptions<ViewComponent> {
+        this["posts"] = ComponentConfig(Component(ComponentOptions<ViewComponent> {
             template = "<div>Posts View</div>"
         }))
-        this["archive"] = ComponentOrAsyncComponent(Component(ComponentOptions<ViewComponent> {
+        this["archive"] = ComponentConfig(Component(ComponentOptions<ViewComponent> {
             template = "<div>Archive View</div>"
         }))
     }
@@ -485,7 +485,7 @@ val example8 = Example8Vue(ComponentOptions {
 val example9Parent = Vue(ComponentOptions {
     el = ElementConfig("#example-9")
     components = json {
-        this["user-profile"] = ComponentOrAsyncComponent(Component(ComponentOptions<MyComponent> {
+        this["user-profile"] = ComponentConfig(Component(ComponentOptions<MyComponent> {
             template = "<div>User Profile</div>"
         }))
     }

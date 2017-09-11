@@ -26,9 +26,9 @@ object js {
  */
 external interface Component
 
-inline fun Component(value: Any): Component = value.asDynamic() // TODO change Any
-inline fun <V : Vue> Component(value: ComponentOptions<V>): Component = value.asDynamic()
-inline fun Component(value: FunctionalComponentOptions): Component = value.asDynamic()
+inline fun Component(typeOfVue: Any): Component = typeOfVue.asDynamic() // TODO change Any
+inline fun <V : Vue> Component(options: ComponentOptions<V>): Component = options.asDynamic()
+inline fun Component(functionalOptions: FunctionalComponentOptions): Component = functionalOptions.asDynamic()
 
 inline fun Component.toTypeOfVue(): Any = this.asDynamic() // TODO change Any
 inline fun <V : Vue> Component.toComponentOptions(): ComponentOptions<V> = this.asDynamic()
@@ -72,7 +72,7 @@ external interface ComponentOptions<V : Vue> {
     var destroyed: LifecycleHookFunction?
     // Assets
     var directives: JsonOf<DirectiveConfig?>? // { [key: String]: DirectiveOptions | DirectiveFunction }
-    var components: JsonOf<ComponentOrAsyncComponent?>? // { [key: String]: Component | AsyncComponent }
+    var components: JsonOf<ComponentConfig?>? // { [key: String]: Component | AsyncComponent }
     var transitions: JsonOf<Json>? // { [key: String]: Object }
     var filters: JsonOf<Function<Any>?>? // { [key: String]: Function }
     // Composition
@@ -244,13 +244,13 @@ inline fun DirectiveConfig.toFunction(): DirectiveFunction = this.asDynamic()
 /**
  * `Component | AsyncComponent`
  */
-external interface ComponentOrAsyncComponent
+external interface ComponentConfig
 
-inline fun ComponentOrAsyncComponent(component: Component): ComponentOrAsyncComponent = component.asDynamic()
-inline fun ComponentOrAsyncComponent(asyncComponent: AsyncComponent): ComponentOrAsyncComponent = asyncComponent.asDynamic()
+inline fun ComponentConfig(component: Component): ComponentConfig = component.asDynamic()
+inline fun ComponentConfig(asyncComponent: AsyncComponent): ComponentConfig = asyncComponent.asDynamic()
 
-inline fun ComponentOrAsyncComponent.toComponent(): Component = this.asDynamic()
-inline fun ComponentOrAsyncComponent.toAsyncComponent(): Component = this.asDynamic()
+inline fun ComponentConfig.toComponent(): Component = this.asDynamic()
+inline fun ComponentConfig.toAsyncComponent(): AsyncComponent = this.asDynamic()
 
 external interface ModelOptions {
     var prop: String?
