@@ -367,3 +367,154 @@ val example4 = Example4Vue(ComponentOptions {
         foo = true
     })
 })
+
+// https://vuejs.org/v2/guide/components.html#Single-Slot
+// https://jp.vuejs.org/v2/guide/components.html#単一スロット
+
+val example5 = Vue(ComponentOptions {
+    el = ElementConfig("#example-5")
+    components = json {
+        this["my-component"] = ComponentOrAsyncComponent(Component(ComponentOptions<MyComponent> {
+            template = """
+              <div>
+                <h2>I'm the child title</h2>
+                <slot>
+                  This will only be displayed if there is no content
+                  to be distributed.
+                </slot>
+              </div>
+              """
+        }))
+    }
+})
+
+// https://vuejs.org/v2/guide/components.html#Named-Slots
+// https://jp.vuejs.org/v2/guide/components.html#名前付きスロット
+
+external class AppLayoutComponent : Vue
+
+val example6 = Vue(ComponentOptions {
+    el = ElementConfig("#example-6")
+    components = json {
+        this["app-layout"] = ComponentOrAsyncComponent(Component(ComponentOptions<AppLayoutComponent> {
+            template = """
+              <div class="container">
+                <header>
+                  <slot name="header"></slot>
+                </header>
+                <main>
+                  <slot></slot>
+                </main>
+                <footer>
+                  <slot name="footer"></slot>
+                </footer>
+              </div>
+              """
+        }))
+    }
+})
+
+// https://vuejs.org/v2/guide/components.html#Scoped-Slots
+// https://jp.vuejs.org/v2/guide/components.html#スコープ付きスロット
+
+@JsModule(vue.MODULE)
+@JsNonModule
+@JsName(vue.CLASS)
+external class Example7Vue(options: ComponentOptions<Example7Vue>) : Vue {
+    var items: Array<AwesomeItem>
+}
+
+class AwesomeItem(val text: String)
+
+external class MyAwesomeListComponent : Vue
+
+val example7 = Example7Vue(ComponentOptions {
+    el = ElementConfig("#example-7")
+    data = ObjectOrFactory(json<Example7Vue> {
+        items = arrayOf(AwesomeItem("foo"), AwesomeItem("bar"))
+    })
+    components = json {
+        this["my-awesome-list"] = ComponentOrAsyncComponent(Component(ComponentOptions<MyAwesomeListComponent> {
+            template = """
+                <ul>
+                  <slot name="item"
+                    v-for="item in items"
+                    :text="item.text">
+                    <!-- fallback content here -->
+                  </slot>
+                </ul>
+                """
+            props = Props(arrayOf("items"))
+        }))
+    }
+})
+
+// https://vuejs.org/v2/guide/components.html#Dynamic-Components
+// https://jp.vuejs.org/v2/guide/components.html#動的コンポーネント
+
+@JsModule(vue.MODULE)
+@JsNonModule
+@JsName(vue.CLASS)
+external class Example8Vue(options: ComponentOptions<Example8Vue>) : Vue {
+    var currentView: String
+}
+
+external class ViewComponent : Vue
+
+val example8 = Example8Vue(ComponentOptions {
+    el = ElementConfig("#example-8")
+    data = ObjectOrFactory(json<Example8Vue> {
+        currentView = "home"
+    })
+    components = json {
+        this["home"] = ComponentOrAsyncComponent(Component(ComponentOptions<ViewComponent> {
+            template = "<div>Home View</div>"
+        }))
+        this["posts"] = ComponentOrAsyncComponent(Component(ComponentOptions<ViewComponent> {
+            template = "<div>Posts View</div>"
+        }))
+        this["archive"] = ComponentOrAsyncComponent(Component(ComponentOptions<ViewComponent> {
+            template = "<div>Archive View</div>"
+        }))
+    }
+})
+
+// https://vuejs.org/v2/guide/components.html#Child-Component-Refs
+// https://jp.vuejs.org/v2/guide/components.html#子コンポーネントの参照
+
+val example9Parent = Vue(ComponentOptions {
+    el = ElementConfig("#example-9")
+    components = json {
+        this["user-profile"] = ComponentOrAsyncComponent(Component(ComponentOptions<MyComponent> {
+            template = "<div>User Profile</div>"
+        }))
+    }
+})
+
+val example9Child = example9Parent.`$refs`["profile"]
+
+// Try following code on browser console:
+// require('components').example9Child
+
+//  Vue.component('async-example', function (resolve, reject) {
+//    setTimeout(function () {
+//      // Pass the component definition to the resolve callback
+//      resolve({
+//        template: '<div>I am async!</div>'
+//      })
+//    }, 1000)
+//  })
+
+val asyncExample = Vue.component("async-example") {
+    resolve, _ ->
+    window.setTimeout({
+        resolve(Component(ComponentOptions<MyComponent> {
+            template = "<div>I am async!</div>"
+        }))
+    }, 1000)
+    AsyncComponentResult(void)
+}
+
+val example10 = Vue(ComponentOptions {
+    el = ElementConfig("#example-10")
+})
