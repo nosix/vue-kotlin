@@ -47,7 +47,7 @@ inline fun AsyncComponentResult(void: Void): AsyncComponentResult = void.asDynam
 
 external interface ComponentOptions<V : Vue> {
     // Data
-    var data: ObjectOrFactory<V>? // Object | V.() -> Object
+    var data: Data<V>? // Object | V.() -> Object
     var props: Props?
     var propsData: Json?
     var computed: JsonOf<ComputedConfig<*>>? // { [key: String]: V.() -> Any | ComputedOptions }
@@ -76,7 +76,7 @@ external interface ComponentOptions<V : Vue> {
     var transitions: JsonOf<Json>? // { [key: String]: Object }
     var filters: JsonOf<Function<Any>?>? // { [key: String]: Function }
     // Composition
-    var provide: ObjectOrFactory<Json>? // Object | () -> Object
+    var provide: Data<Json>? // Object | () -> Object
     var inject: Any? // Array<String> | { [key: String]: String | Symbol }
     var parent: Vue?
     var mixins: Array<Any>? // Array<ComponentOptions | typeof Vue>
@@ -141,13 +141,13 @@ external interface DirectiveOptions {
 /**
  * `T | () -> T`
  */
-external interface ObjectOrFactory<T>
+external interface Data<T>
 
-inline fun <T> ObjectOrFactory(json: T): ObjectOrFactory<T> = json.asDynamic()
-inline fun <T> ObjectOrFactory(factory: () -> T): ObjectOrFactory<T> = factory.asDynamic()
+inline fun <T> Data(json: T): Data<T> = json.asDynamic()
+inline fun <T> Data(factory: () -> T): Data<T> = factory.asDynamic()
 
-inline fun <T> ObjectOrFactory<T>.toObject(): T = this.asDynamic()
-inline fun <T> ObjectOrFactory<T>.toFactory(): () -> T = this.asDynamic()
+inline fun <T> Data<T>.toObject(): T = this.asDynamic()
+inline fun <T> Data<T>.toFactory(): () -> T = this.asDynamic()
 
 /**
  * `Array<String> | { [propertyName: String]: PropOptions | Constructor | Array<Constructor> }`

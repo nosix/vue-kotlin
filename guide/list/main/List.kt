@@ -23,7 +23,7 @@ class Item(val message: String)
 
 val example1 = ExampleVue(ComponentOptions {
     el = ElementConfig("#example-1")
-    data = ObjectOrFactory(json<ExampleVue> {
+    data = Data(json = json {
         items = arrayOf(Item("Foo"), Item("Bar"))
     })
 })
@@ -41,7 +41,7 @@ val example1 = ExampleVue(ComponentOptions {
 
 val example2 = ExampleVue(ComponentOptions {
     el = ElementConfig("#example-2")
-    data = ObjectOrFactory(json<ExampleVue> {
+    data = Data(json = json {
         parentMessage = "Parent"
         items = arrayOf(Item("Foo"), Item("Bar"))
     })
@@ -65,7 +65,7 @@ class Person(
 
 val repeatObjectVue = ExampleVue(ComponentOptions {
     el = ElementConfig("#repeat-object")
-    data = ObjectOrFactory(json<ExampleVue> {
+    data = Data(json = json {
         `object` = Person("John", "Doe", 30)
     })
 })
@@ -150,7 +150,7 @@ class UserProfile(var name: String)
 
 val example3 = Example3Vue(ComponentOptions {
     el = ElementConfig("#example3")
-    data = ObjectOrFactory(json<Example3Vue> {
+    data = Data(json = json {
         userProfile = UserProfile("Anika")
     })
 })
@@ -201,7 +201,7 @@ external class Example4Vue(options: ComponentOptions<Example4Vue>) : Vue {
 
 val example4 = Example4Vue(ComponentOptions {
     el = ElementConfig("#example4")
-    data = ObjectOrFactory(json<Example4Vue> {
+    data = Data(json = json {
         numbers = arrayOf(1, 2, 3, 4, 5)
     })
     computed = json {
@@ -282,7 +282,7 @@ external class TodoListVue(options: ComponentOptions<TodoListVue>) : Vue {
 
 val todoListExample = TodoListVue(ComponentOptions {
     el = ElementConfig("#todo-list-example")
-    data = ObjectOrFactory(json<TodoListVue> {
+    data = Data(json = json {
         newTodoText = ""
         todos = arrayOf(
                 TodoItem(1, "Do the dishes"),

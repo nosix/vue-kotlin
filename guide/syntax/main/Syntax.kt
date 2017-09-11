@@ -20,7 +20,7 @@ external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
 fun main(args: Array<String>) {
     val vm = ExampleVue(ComponentOptions {
         el = ElementConfig("#example")
-        data = ObjectOrFactory(json<ExampleVue> {
+        data = Data(json = json {
             msg = "Hi"
             rawHtml = """<input type="text" name="username" value="taro">"""
             dynamicId = "id-0101"
