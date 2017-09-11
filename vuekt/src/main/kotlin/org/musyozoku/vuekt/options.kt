@@ -37,15 +37,13 @@ inline fun Component.toFunctionalComponentOptions(): FunctionalComponentOptions 
 typealias AsyncComponent = (resolve: (component: Component) -> Unit, reject: (reason: Any?) -> Unit) -> AsyncComponentResult
 
 /**
- * `Promise<Component> | Component | Unit`
+ * `Promise<Component> | Component | void`
  */
 external interface AsyncComponentResult
 
-inline fun AsyncComponentResult(value: Promise<Component>): AsyncComponentResult = value.asDynamic()
-inline fun AsyncComponentResult(value: Component): AsyncComponentResult = value.asDynamic()
-
-inline fun AsyncComponentResult.toPromiseComponent(): Promise<Component> = this.asDynamic()
-inline fun AsyncComponentResult.toComponent(): Component = this.asDynamic()
+inline fun AsyncComponentResult(promise: Promise<Component>): AsyncComponentResult = promise.asDynamic()
+inline fun AsyncComponentResult(component: Component): AsyncComponentResult = component.asDynamic()
+inline fun AsyncComponentResult(void: Void): AsyncComponentResult = void.asDynamic()
 
 external interface ComponentOptions<V : Vue> {
     // Data
@@ -249,7 +247,7 @@ inline fun DirectiveConfig.toFunction(): DirectiveFunction = this.asDynamic()
 external interface ComponentOrAsyncComponent
 
 inline fun ComponentOrAsyncComponent(component: Component): ComponentOrAsyncComponent = component.asDynamic()
-inline fun ComponentOrAsyncComponent(component: AsyncComponent): ComponentOrAsyncComponent = component.asDynamic()
+inline fun ComponentOrAsyncComponent(asyncComponent: AsyncComponent): ComponentOrAsyncComponent = asyncComponent.asDynamic()
 
 inline fun ComponentOrAsyncComponent.toComponent(): Component = this.asDynamic()
 inline fun ComponentOrAsyncComponent.toAsyncComponent(): Component = this.asDynamic()

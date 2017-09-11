@@ -64,6 +64,70 @@
     <span>{{ foo }}</span>
 </div>
 
+<!-- https://vuejs.org/v2/guide/components.html#Single-Slot -->
+<!-- https://jp.vuejs.org/v2/guide/components.html#単一スロット -->
+
+<div id="example-5">
+    <h1>I'm the parent title</h1>
+    <my-component>
+        <p>This is some original content</p>
+        <p>This is some more original content</p>
+    </my-component>
+</div>
+
+<!-- https://vuejs.org/v2/guide/components.html#Named-Slots -->
+<!-- https://jp.vuejs.org/v2/guide/components.html#名前付きスロット -->
+
+<div id="example-6">
+    <app-layout>
+        <h1 slot="header">Here might be a page title</h1>
+        <p>A paragraph for the main content.</p>
+        <p>And another one.</p>
+        <p slot="footer">Here's some contact info</p>
+    </app-layout>
+</div>
+
+<!-- https://vuejs.org/v2/guide/components.html#Scoped-Slots -->
+<!-- https://jp.vuejs.org/v2/guide/components.html#スコープ付きスロット -->
+
+<div id="example-7">
+    <my-awesome-list :items="items">
+        <!-- scoped slot can be named too -->
+        <template slot="item" scope="props">
+            <li class="my-fancy-item">{{ props.text }}</li>
+        </template>
+    </my-awesome-list>
+</div>
+
+<!-- https://vuejs.org/v2/guide/components.html#Dynamic-Components -->
+<!-- https://jp.vuejs.org/v2/guide/components.html#動的コンポーネント -->
+
+<div id="example-8">
+    <input type="radio" value="home" v-model="currentView">
+    <input type="radio" value="posts" v-model="currentView">
+    <input type="radio" value="archive" v-model="currentView">
+    <component v-bind:is="currentView">
+        <!-- component changes when vm.currentView changes! -->
+        <!-- vm.currentview が変更されると、中身が変更されます! -->
+    </component>
+</div>
+
+<!-- https://vuejs.org/v2/guide/components.html#Child-Component-Refs -->
+<!-- https://jp.vuejs.org/v2/guide/components.html#子コンポーネントの参照 -->
+
+<div id="example-9">
+    <div id="parent">
+        <user-profile ref="profile"></user-profile>
+    </div>
+</div>
+
+<!-- https://vuejs.org/v2/guide/components.html#Async-Components -->
+<!-- https://jp.vuejs.org/v2/guide/components.html#非同期コンポーネント -->
+
+<div id="example-10">
+    <async-example></async-example>
+</div>
+
 <script src="require-config.js"></script>
 <script src="build/js/require.js"></script>
 <script>require(['components'])</script>

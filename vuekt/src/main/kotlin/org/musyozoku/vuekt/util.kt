@@ -13,6 +13,16 @@ external val `this`: dynamic
 inline fun <T : Any> thisAs(): T = `this`
 
 /**
+ * Type of `void 0`
+ */
+external interface Void
+
+/**
+ * Constant of `void 0`
+ */
+val void: Void = js("void 0")
+
+/**
  * `{ [propertyName: String]: T }`
  */
 external interface JsonOf<T>
