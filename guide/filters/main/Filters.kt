@@ -22,7 +22,7 @@ external class ExampleVue(options: ComponentOptions<ExampleVue>) : Vue {
 
 val vm = ExampleVue(ComponentOptions {
     el = ElementConfig("#example")
-    data = ObjectOrFactory(json<ExampleVue> {
+    data = Data(json = json {
         message = "hello"
         rawId = 1
         arg2 = ".txt"

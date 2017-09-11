@@ -51,7 +51,7 @@ external class SimpleCounterComponent : Vue {
 
 val simpleCounter = Vue.component("simple-counter", Component(ComponentOptions<SimpleCounterComponent> {
     template = """<button v-on:click="counter += 1">{{ counter }}</button>"""
-    data = ObjectOrFactory {
+    data = Data {
         json<SimpleCounterComponent> {
             counter = 0
         }
@@ -83,7 +83,7 @@ external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
 
 val example3 = Example1Vue(ComponentOptions {
     el = ElementConfig("#example-3")
-    data = ObjectOrFactory(json<Example1Vue> {
+    data = Data(json = json {
         parentMsg = ""
     })
 })
@@ -171,7 +171,7 @@ external class ButtonCounterComponent : Vue {
 
 val buttonCounter = Vue.component("button-counter", Component(ComponentOptions<ButtonCounterComponent> {
     template = """<button v-on:click="incrementCounter">{{ counter }}</button>"""
-    data = ObjectOrFactory {
+    data = Data {
         json<ButtonCounterComponent> {
             counter = 0
         }
@@ -206,7 +206,7 @@ external class CounterEventExampleVue(options: ComponentOptions<CounterEventExam
 
 val counterEventExample = CounterEventExampleVue(ComponentOptions {
     el = ElementConfig("#counter-event-example")
-    data = ObjectOrFactory(json<CounterEventExampleVue> {
+    data = Data(json = json {
         total = 0
     })
     methods = json {
@@ -297,7 +297,7 @@ external class AppVue(options: ComponentOptions<AppVue>) : Vue {
 
 val app = AppVue(ComponentOptions {
     el = ElementConfig("#app")
-    data = ObjectOrFactory(json<AppVue> {
+    data = Data(json = json {
         price = 0
         shipping = 0
         handling = 0
@@ -363,7 +363,7 @@ external class Example4Vue(options: ComponentOptions<Example4Vue>) : Vue {
 
 val example4 = Example4Vue(ComponentOptions {
     el = ElementConfig("#example-4")
-    data = ObjectOrFactory(json<Example4Vue> {
+    data = Data(json = json {
         foo = true
     })
 })
@@ -430,7 +430,7 @@ external class MyAwesomeListComponent : Vue
 
 val example7 = Example7Vue(ComponentOptions {
     el = ElementConfig("#example-7")
-    data = ObjectOrFactory(json<Example7Vue> {
+    data = Data(json = json {
         items = arrayOf(AwesomeItem("foo"), AwesomeItem("bar"))
     })
     components = json {
@@ -463,7 +463,7 @@ external class ViewComponent : Vue
 
 val example8 = Example8Vue(ComponentOptions {
     el = ElementConfig("#example-8")
-    data = ObjectOrFactory(json<Example8Vue> {
+    data = Data(json = json {
         currentView = "home"
     })
     components = json {

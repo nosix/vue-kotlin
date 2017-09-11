@@ -18,7 +18,7 @@ external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
 
 val example1 = Example1Vue(ComponentOptions {
     el = ElementConfig("#example-1")
-    data = ObjectOrFactory(json<Example1Vue> {
+    data = Data(json = json {
         counter = 0
     })
 })
@@ -57,7 +57,7 @@ external fun alert(message: String)
 
 val example2 = Example2Vue(ComponentOptions {
     el = ElementConfig("#example-2")
-    data = ObjectOrFactory(json<Example2Vue> {
+    data = Data(json = json {
         name = "Vue.js"
     })
     methods = json {

@@ -43,7 +43,7 @@ fun main(args: Array<String>) {
     }
     val vm = ExampleVue(ComponentOptions {
         el = ElementConfig("#example")
-        this.data = ObjectOrFactory(data)
+        this.data = Data(data)
 
         // https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks
         // https://jp.vuejs.org/v2/guide/instance.html#インスタンスライフサイクルフック

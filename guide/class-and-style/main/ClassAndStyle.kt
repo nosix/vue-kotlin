@@ -30,7 +30,7 @@ external class Example1Vue(options: ComponentOptions<Example1Vue>) : Vue {
 
 val example1 = Example1Vue(ComponentOptions {
     el = ElementConfig("#example1")
-    data = ObjectOrFactory(json<Example1Vue> {
+    data = Data(json = json {
         isActive = true
         hasError = false
         error = null
@@ -62,7 +62,7 @@ external class Example2Vue(options: ComponentOptions<Example2Vue>) : Vue {
 
 val example2 = Example2Vue(ComponentOptions {
     el = ElementConfig("#example2")
-    data = ObjectOrFactory(json<Example2Vue> {
+    data = Data(json = json {
         isActive = false
         activeClass = "active"
         errorClass = "text-danger"
@@ -88,7 +88,7 @@ external class Example3Vue(options: ComponentOptions<Example3Vue>) : Vue {
 
 val example3 = Example3Vue(ComponentOptions {
     el = ElementConfig("#example3")
-    data = ObjectOrFactory(json<Example3Vue> {
+    data = Data(json = json {
         isActive = true
     })
 })
@@ -123,7 +123,7 @@ external interface Styles {
 
 val example4 = Example4Vue(ComponentOptions {
     el = ElementConfig("#example4")
-    data = ObjectOrFactory(json<Example4Vue> {
+    data = Data(json = json {
         activeColor = "red"
         fontSize = 30
         styleObject = json {

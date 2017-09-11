@@ -50,7 +50,7 @@ fun main(args: Array<String>) {
 
     val example = ExampleVue(ComponentOptions {
         el = ElementConfig("#example")
-        data = ObjectOrFactory(json<ExampleVue> {
+        data = Data(json = json {
             message = "Hello"
         })
         computed = json {
@@ -93,7 +93,7 @@ fun main(args: Array<String>) {
 
     val demo = DemoVue(ComponentOptions {
         el = ElementConfig("#demo")
-        data = ObjectOrFactory(json<DemoVue> {
+        data = Data(json = json {
             firstName = "Foo"
             lastName = "Bar"
         })
@@ -165,7 +165,7 @@ fun main(args: Array<String>) {
 
     WatchExampleVue(ComponentOptions {
         el = ElementConfig("#watch-example")
-        data = ObjectOrFactory(json<WatchExampleVue> {
+        data = Data(json = json {
             question = ""
             answer = "I cannot give you an answer until you ask a question!"
         })

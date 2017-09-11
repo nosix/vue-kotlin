@@ -32,7 +32,7 @@ class OptionItem(val text: String, val value: String)
 
 val example1 = Example1Vue(ComponentOptions {
     el = ElementConfig("#example-1")
-    data = ObjectOrFactory(json<Example1Vue> {
+    data = Data(json = json {
         message = ""
         checked = false
         checkedNames = emptyArray()
@@ -60,7 +60,7 @@ external class Example2Vue(options: ComponentOptions<Example2Vue>) : Vue {
 
 val example2 = Example2Vue(ComponentOptions {
     el = ElementConfig("#example-2")
-    data = ObjectOrFactory(json<Example2Vue> {
+    data = Data(json = json {
         toggle = ""
         a = "a is selected"
         b = "b is selected"
@@ -79,7 +79,7 @@ external class Example3Vue(options: ComponentOptions<Example3Vue>) : Vue {
 
 val example3 = Example3Vue(ComponentOptions {
     el = ElementConfig("#example-3")
-    data = ObjectOrFactory(json<Example3Vue> {
+    data = Data(json = json {
         msg = ""
         age = 0
     })
