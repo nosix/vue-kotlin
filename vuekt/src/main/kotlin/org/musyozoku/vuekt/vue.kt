@@ -18,7 +18,7 @@ object vue {
 typealias CreateElement = Function<VNode>
 
 /**
- * Example:
+ * # Example
  *
  * ```
  * @JsModule(vue.MODULE)
@@ -27,6 +27,20 @@ typealias CreateElement = Function<VNode>
  * external class MyVue(options: ComponentOptions<MyVue>) : Vue {
  *     var message: String
  * }
+ *
+ * MyVue(ComponentOptions {
+ *     ...
+ * })
+ * ```
+ *
+ * # Example Component
+ *
+ * ```
+ * external class MyComponent : Vue
+ *
+ * Vue.component("my-component", Component(ComponentOptions<MyComponent> {
+ *     ...
+ * })
  * ```
  */
 @JsModule(vue.MODULE)
