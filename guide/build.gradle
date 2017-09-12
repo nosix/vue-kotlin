@@ -1,6 +1,6 @@
 apply plugin: 'org.jetbrains.kotlin.frontend'
 
-// skip tasks
+// Skip tasks
 classes.enabled = false
 jar.enabled = false
 
@@ -9,13 +9,19 @@ ext {
 }
 
 repositories {
-    flatDir {
-        dirs vuektLibDir
-    }
+    mavenLocal()
 }
 
+// Task dependencies
+def publishVuektTask = tasks.getByPath(':vuekt:publishToMavenLocal')
+def buildVuektTask = tasks.getByPath(':vuekt:build')
+
+build.dependsOn publishVuektTask
+build.mustRunAfter buildVuektTask
+build.mustRunAfter publishVuektTask
+
+// Kotlin module dependencies
 dependencies {
-    compile 'org.musyozoku:vuekt:1.0-SNAPSHOT'
     compile project(':guide:index')
     compile project(':guide:instance')
     compile project(':guide:syntax')
@@ -29,8 +35,11 @@ dependencies {
 }
 
 compileKotlin2Js {
+
+    mkdir(jsDir)
+
     kotlinOptions {
-        outputFile = "$buildDir/../webpack.config.js" // dummy setting
+        outputFile = "${project.projectDir.path}/webpack.config.js" // dummy setting
     }
 }
 
@@ -59,14 +68,12 @@ kotlinFrontend {
 
 subprojects {
 
-    // skip tasks
+    // Skip tasks
     classes.enabled = false
     jar.enabled = false
 
     repositories {
-        flatDir {
-            dirs vuektLibDir
-        }
+        mavenLocal()
     }
 
     dependencies {
@@ -79,16 +86,14 @@ subprojects {
     }
 
     compileKotlin2Js {
-        afterEvaluate { project ->
-            kotlinOptions {
-                outputFile = "$buildDir/${project.name}.js"
-                moduleKind = "umd"
-                sourceMap = false
-            }
+        kotlinOptions {
+            outputFile = "$buildDir/${project.name}.js"
+            moduleKind = "umd"
+            sourceMap = true
         }
     }
 
-    build.doLast {
+    compileKotlin2Js.doLast {
         copy {
             from buildDir
             into jsDir

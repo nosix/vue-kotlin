@@ -4,13 +4,13 @@ var path = require('path')
 
 module.exports = {
   entry: {
-    vendor: ['vue', 'vuekt'],
-    computed: '../computed/build/computed.js',
-    'class-and-style': '../class-and-style/build/class-and-style.js',
-    list: '../list/build/list.js',
-    events: '../events/build/events.js',
-    forms: '../forms/build/forms.js',
-    components: '../components/build/components.js'
+    computed: 'computed',
+    'class-and-style': 'class-and-style',
+    list: 'list',
+    events: 'events',
+    forms: 'forms',
+    components: 'components',
+    vendor: ['vue', 'vuekt']
   },
   output: {
     publicPath: '/build/',

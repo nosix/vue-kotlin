@@ -22,27 +22,8 @@ buildscript {
     }
 }
 
-configure(':guide') {
-    apply plugin: 'kotlin2js'
-
-    // skip all task
-    tasks.each { task -> task.enabled = false }
-
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        compile project(':vuekt')
-    }
-}
-
 subprojects {
     apply plugin: 'kotlin2js'
-
-    ext {
-        vuektLibDir = "${project(':vuekt').buildDir}/libs"
-    }
 
     repositories {
         jcenter()
