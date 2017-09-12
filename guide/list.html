@@ -14,7 +14,7 @@
 </ul>
 
 <!-- Try following code on browser console:
-vm = require('list').example1
+vm = main.example1
 vm.items.push({ message: 'Buz' })
  -->
 <ul id="example-2">
@@ -65,9 +65,8 @@ vm.items.push({ message: 'Buz' })
     </ul>
 </div>
 
-<script src="require-config.js"></script>
-<script src="build/js/require.js"></script>
-<script>require(['list'])</script>
+<script src="build/bundle/vendor.js"></script>
+<script src="build/bundle/list.js"></script>
 
 </body>
 </html>
