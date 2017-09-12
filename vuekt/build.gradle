@@ -1,8 +1,10 @@
+apply plugin: 'com.moowork.node'
+apply plugin: 'maven-publish'
+
 group 'org.musyozoku'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'com.moowork.node'
-
+// Skip tasks
 compileJava.enabled = false
 processResources.enabled = false
 
@@ -24,6 +26,14 @@ compileKotlin2Js {
     kotlinOptions {
         outputFile = "$buildDir/js/${project.name}.js"
         moduleKind = "umd"
-        sourceMap = false
+        sourceMap = true
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
     }
 }
