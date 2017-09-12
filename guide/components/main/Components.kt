@@ -494,7 +494,7 @@ val example9Parent = Vue(ComponentOptions {
 val example9Child = example9Parent.`$refs`["profile"]
 
 // Try following code on browser console:
-// require('components').example9Child
+// main.example9Child
 
 //  Vue.component('async-example', function (resolve, reject) {
 //    setTimeout(function () {

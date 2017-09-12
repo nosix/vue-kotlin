@@ -3,6 +3,9 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'com.moowork.node'
 
+compileJava.enabled = false
+processResources.enabled = false
+
 node {
     download = true
 }

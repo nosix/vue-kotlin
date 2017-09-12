@@ -1,8 +1,67 @@
+apply plugin: 'org.jetbrains.kotlin.frontend'
+
+// skip tasks
+classes.enabled = false
+jar.enabled = false
+
 ext {
-    outputDir = "$buildDir/js/"
+    jsDir = "$buildDir/js/"
+}
+
+repositories {
+    flatDir {
+        dirs vuektLibDir
+    }
+}
+
+dependencies {
+    compile 'org.musyozoku:vuekt:1.0-SNAPSHOT'
+    compile project(':guide:index')
+    compile project(':guide:instance')
+    compile project(':guide:syntax')
+    compile project(':guide:computed')
+    compile project(':guide:class-and-style')
+    compile project(':guide:list')
+    compile project(':guide:events')
+    compile project(':guide:forms')
+    compile project(':guide:components')
+    compile project(':guide:filters')
+}
+
+compileKotlin2Js {
+    kotlinOptions {
+        outputFile = "$buildDir/../webpack.config.js" // dummy setting
+    }
+}
+
+kotlinFrontend {
+    downloadNodeJsVersion = "8.4.0"
+
+    npm {
+        dependency('vue', '2.4.2')
+        dependency('axios', '0.12.0')
+
+//        dependency("css-loader", "*")
+//        dependency("style-loader", "*")
+//
+//        devDependency("karma")
+//        devDependency("vue-template-compiler")
+
+//        devDependency("vue-loader", "*")
+//        devDependency("vue-hot-reload-api", "*")
+//        devDependency("vue-html-loader", "*")
+    }
+
+    webpackBundle {
+        webpackConfigFile = "${project.projectDir.path}/webpack.config.js"
+    }
 }
 
 subprojects {
+
+    // skip tasks
+    classes.enabled = false
+    jar.enabled = false
 
     repositories {
         flatDir {
@@ -32,40 +91,11 @@ subprojects {
     build.doLast {
         copy {
             from buildDir
-            into outputDir
+            into jsDir
             include '*.js'
             include '*.map'
         }
 
         delete buildDir
-    }
-}
-
-repositories {
-    flatDir {
-        dirs vuektLibDir
-    }
-}
-
-dependencies {
-    compile 'org.webjars:requirejs:2.3.3'
-    compile 'org.webjars:vue:2.1.3'
-    compile 'org.musyozoku:vuekt:1.0-SNAPSHOT'
-}
-
-build.doLast() {
-    // Copy *.js from jar into build directory
-    configurations.compile.each { File file ->
-        copy {
-            includeEmptyDirs = false
-
-            from zipTree(file.absolutePath)
-            into outputDir
-            include '**/*.js'
-            eachFile { details ->
-                def names = details.path.split('/')
-                details.path = names.getAt(names.length - 1)
-            }
-        }
     }
 }

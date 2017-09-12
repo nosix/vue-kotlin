@@ -34,7 +34,7 @@
 </div>
 
 <!-- Try following code on browser console:
-vm = require('class-and-style').example1
+vm = main.example1
 vm.isActive = false
 vm.hasError = true
 vm.error = {type: 'fatal'}
@@ -51,7 +51,7 @@ vm.error = {type: 'fatal'}
 </div>
 
 <!-- Try following code on browser console:
-vm = require('class-and-style').example2
+vm = main.example2
 vm.isActive = true
 vm.activeClass = ''
 vm.errorClass = ''
@@ -79,9 +79,8 @@ vm.errorClass = ''
     <div v-bind:style="[baseStyles, overridingStyles]">[baseStyles, overridingStyles]</div>
 </div>
 
-<script src="require-config.js"></script>
-<script src="build/js/require.js"></script>
-<script>require(['class-and-style'])</script>
+<script src="build/bundle/vendor.js"></script>
+<script src="build/bundle/class-and-style.js"></script>
 
 </body>
 </html>

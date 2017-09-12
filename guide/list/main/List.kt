@@ -118,7 +118,7 @@ fun replace() {
 }
 
 // Try following code on browser console:
-// m = require('list')
+// m = main
 // m.push()
 // m.pop()
 // m.shift()
@@ -168,7 +168,7 @@ fun setAge2() {
 }
 
 // Try following code on browser console:
-// m = require('list')
+// m = main
 // m.setAge1()
 // m.resetUserProfile()
 // m.setAge2()
