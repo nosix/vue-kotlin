@@ -10,7 +10,7 @@ In development...
 Build the project.
 
 ```$shell
-$ ./gradlew build
+$ ./gradlew bundle
 ```
 
 Open the following in a browser.
