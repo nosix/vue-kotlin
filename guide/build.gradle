@@ -30,6 +30,18 @@ dependencies {
     compile project(':guide:filters')
 }
 
+compileKotlin2Js {
+    kotlinOptions {
+        sourceMap = true
+    }
+}
+
+compileTestKotlin2Js {
+    kotlinOptions {
+        sourceMap = true
+    }
+}
+
 kotlinFrontend {
     downloadNodeJsVersion = "8.4.0"
     sourceMaps = true
