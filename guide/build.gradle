@@ -4,17 +4,13 @@ apply plugin: 'org.jetbrains.kotlin.frontend'
 classes.enabled = false
 jar.enabled = false
 
-ext {
-    jsDir = "$buildDir/js/"
-}
-
 repositories {
     mavenLocal()
 }
 
 // Task dependencies
-def publishVuektTask = tasks.getByPath(':vuekt:publishToMavenLocal')
 def buildVuektTask = tasks.getByPath(':vuekt:build')
+def publishVuektTask = tasks.getByPath(':vuekt:publishToMavenLocal')
 
 build.dependsOn publishVuektTask
 build.mustRunAfter buildVuektTask
@@ -34,17 +30,9 @@ dependencies {
     compile project(':guide:filters')
 }
 
-compileKotlin2Js {
-
-    mkdir(jsDir)
-
-    kotlinOptions {
-        outputFile = "${project.projectDir.path}/webpack.config.js" // dummy setting
-    }
-}
-
 kotlinFrontend {
     downloadNodeJsVersion = "8.4.0"
+    sourceMaps = true
 
     npm {
         dependency('vue', '2.4.2')
@@ -53,16 +41,16 @@ kotlinFrontend {
 //        dependency("css-loader", "*")
 //        dependency("style-loader", "*")
 //
-//        devDependency("karma")
 //        devDependency("vue-template-compiler")
-
 //        devDependency("vue-loader", "*")
 //        devDependency("vue-hot-reload-api", "*")
 //        devDependency("vue-html-loader", "*")
     }
 
     webpackBundle {
-        webpackConfigFile = "${project.projectDir.path}/webpack.config.js"
+        publicPath = "/"
+        port = 8088
+        stats = "errors-only"
     }
 }
 
@@ -87,20 +75,8 @@ subprojects {
 
     compileKotlin2Js {
         kotlinOptions {
-            outputFile = "$buildDir/${project.name}.js"
-            moduleKind = "umd"
+            moduleKind = "commonjs"
             sourceMap = true
         }
-    }
-
-    compileKotlin2Js.doLast {
-        copy {
-            from buildDir
-            into jsDir
-            include '*.js'
-            include '*.map'
-        }
-
-        delete buildDir
     }
 }
