@@ -6,6 +6,10 @@ Object.assign(config.module, {
         options: {
           esModule: false
         }
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
       }
     ],
 })

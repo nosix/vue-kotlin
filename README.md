@@ -7,7 +7,7 @@ In development...
 
 ## Trial
 
-Build the project.
+Generate bundle files.
 
 ```$shell
 $ ./gradlew bundle
@@ -24,3 +24,21 @@ Open the following in a browser.
 - `guide/forms.html`
 - `guide/components.html`
 - `guide/filters.html`
+- `single-file/build/bundle/greeting.html`
+
+Run webpack-dev-server.
+
+```$shell
+$ ./gradlew -t single-file:run
+```
+
+Open `http://localhost:8088/` on the browser.
+
+HMR (Hot Module Replacement) is enabled.
+(Edit `greeting/main/greeting.kt`, `greeting-component/main/GreetingComponent.kt` or/and `greeting-component/vue/main/ComponentVueImple.kt`)
+
+Stop webpack-dev-server.
+
+```$shell
+$ ./gradlew single-file:stop
+```
