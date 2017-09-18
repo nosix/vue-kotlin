@@ -20,6 +20,10 @@
             <option value="$PROJECT_DIR$/guide/instance" />
             <option value="$PROJECT_DIR$/guide/list" />
             <option value="$PROJECT_DIR$/guide/syntax" />
+            <option value="$PROJECT_DIR$/single-file" />
+            <option value="$PROJECT_DIR$/single-file/greeting" />
+            <option value="$PROJECT_DIR$/single-file/greeting-component" />
+            <option value="$PROJECT_DIR$/single-file/greeting-component/vue" />
             <option value="$PROJECT_DIR$/vuekt" />
           </set>
         </option>
@@ -44,6 +48,10 @@
             <option value="$PROJECT_DIR$/guide/instance" />
             <option value="$PROJECT_DIR$/guide/list" />
             <option value="$PROJECT_DIR$/guide/syntax" />
+            <option value="$PROJECT_DIR$/single-file" />
+            <option value="$PROJECT_DIR$/single-file/greeting" />
+            <option value="$PROJECT_DIR$/single-file/greeting-component" />
+            <option value="$PROJECT_DIR$/single-file/greeting-component/vue" />
             <option value="$PROJECT_DIR$/vuekt" />
           </set>
         </option>

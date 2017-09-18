@@ -1,6 +1,6 @@
 {
   "name": "Vue.kt",
-  "version": "2.4.2",
+  "version": "2.4.4",
   "description": "Vue.kt that is Vue.js in Kotlin",
   "author": "nosix",
   "homepage": "https://github.com/nosix/vue-kotlin",
@@ -10,7 +10,7 @@
     "url": "git+https://git@github.com/nosix/vue-kotlin.git"
   },
   "devDependencies": {
-    "vue": "2.4.2",
+    "vue": "2.4.4",
     "ts2kt": "0.0.14"
   }
 }

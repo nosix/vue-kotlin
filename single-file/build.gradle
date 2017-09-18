@@ -1,0 +1,117 @@
+apply plugin: 'kotlin2js'
+apply plugin: 'org.jetbrains.kotlin.frontend'
+
+ext {
+    enableSourceMap = false
+}
+
+// Skip tasks
+classes.enabled = false
+jar.enabled = false
+
+dependencies {
+    compile project(':single-file:greeting')
+    compile project(':single-file:greeting-component')
+    compile project(':single-file:greeting-component:vue')
+}
+
+compileKotlin2Js {
+    kotlinOptions {
+        sourceMap = enableSourceMap
+    }
+}
+
+compileTestKotlin2Js {
+    kotlinOptions {
+        sourceMap = enableSourceMap
+    }
+}
+
+kotlinFrontend {
+    downloadNodeJsVersion = node_version
+    sourceMaps = enableSourceMap
+
+    npm {
+        dependency('vue', vue_version)
+
+//        dependency("style-loader", "*")
+
+//        dependency('vue-loader', '12.2.2')
+        dependency('vue-loader', '13.0.2')
+        dependency('vue-template-compiler', vue_version)
+        dependency('style-loader', '*')
+        dependency('css-loader', '*')
+//        dependency('vue-style-loader', '3.0.3')
+//        dependency("vue-html-loader", "*")
+
+//        devDependency("vue-hot-reload-api", "*")
+    }
+
+    webpackBundle {
+        publicPath = "/"
+        port = 8088
+        stats = "errors-only"
+    }
+}
+
+def vueProjects = getSubprojects().findAll { it.name == 'vue' }
+
+configure(vueProjects) {
+
+    apply plugin: 'kotlin'
+    apply plugin: 'application'
+
+    mainClassName = 'VueFileBuilder'
+
+    // Skip tasks
+    classes.enabled = false
+    jar.enabled = false
+
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        compile('azadev.kotlin:aza-kotlin-css:1.0') {
+            exclude module: 'kotlin-stdlib'
+            exclude module: 'kotlin-runtime'
+        }
+    }
+
+    sourceSets {
+        main.kotlin.srcDirs += "main"
+    }
+}
+
+configure(subprojects - vueProjects) {
+
+    apply plugin: 'kotlin2js'
+
+    // Skip tasks
+    classes.enabled = false
+    jar.enabled = false
+
+    // Kotlin/JS library dependencies
+    dependencies {
+        compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
+    }
+
+    sourceSets {
+        main.kotlin.srcDirs += "main"
+        test.kotlin.srcDirs += "test"
+    }
+
+    compileKotlin2Js {
+        kotlinOptions {
+            moduleKind = "commonjs"
+            sourceMap = enableSourceMap
+        }
+    }
+}
+
+// Task dependencies
+def buildVuektTask = tasks.getByPath(':vuekt:build')
+def publishVuektTask = tasks.getByPath(':vuekt:publishToMavenLocal')
+def generateVueFileTask = tasks.getByPath(':single-file:greeting-component:vue:run')
+
+packages.dependsOn(buildVuektTask)
+packages.dependsOn(publishVuektTask)
+packages.dependsOn(generateVueFileTask)
+packages.mustRunAfter(publishVuektTask)
