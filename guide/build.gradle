@@ -1,22 +1,10 @@
+apply plugin: 'kotlin2js'
 apply plugin: 'org.jetbrains.kotlin.frontend'
 
 // Skip tasks
 classes.enabled = false
 jar.enabled = false
 
-repositories {
-    mavenLocal()
-}
-
-// Task dependencies
-def buildVuektTask = tasks.getByPath(':vuekt:build')
-def publishVuektTask = tasks.getByPath(':vuekt:publishToMavenLocal')
-
-build.dependsOn publishVuektTask
-build.mustRunAfter buildVuektTask
-build.mustRunAfter publishVuektTask
-
-// Kotlin module dependencies
 dependencies {
     compile project(':guide:index')
     compile project(':guide:instance')
@@ -43,20 +31,12 @@ compileTestKotlin2Js {
 }
 
 kotlinFrontend {
-    downloadNodeJsVersion = "8.4.0"
+    downloadNodeJsVersion = node_version
     sourceMaps = true
 
     npm {
-        dependency('vue', '2.4.2')
+        dependency('vue', vue_version)
         dependency('axios', '0.12.0')
-
-//        dependency("css-loader", "*")
-//        dependency("style-loader", "*")
-//
-//        devDependency("vue-template-compiler")
-//        devDependency("vue-loader", "*")
-//        devDependency("vue-hot-reload-api", "*")
-//        devDependency("vue-html-loader", "*")
     }
 
     webpackBundle {
@@ -68,14 +48,13 @@ kotlinFrontend {
 
 subprojects {
 
+    apply plugin: 'kotlin2js'
+
     // Skip tasks
     classes.enabled = false
     jar.enabled = false
 
-    repositories {
-        mavenLocal()
-    }
-
+    // Kotlin/JS library dependencies
     dependencies {
         compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
     }
@@ -92,3 +71,11 @@ subprojects {
         }
     }
 }
+
+// Task dependencies
+def buildVuektTask = tasks.getByPath(':vuekt:build')
+def publishVuektTask = tasks.getByPath(':vuekt:publishToMavenLocal')
+
+packages.dependsOn(buildVuektTask)
+packages.dependsOn(publishVuektTask)
+packages.mustRunAfter(publishVuektTask)

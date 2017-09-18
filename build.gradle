@@ -1,7 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.1.4-3'
-    ext.gradle_node_version = '1.2.0'
-    ext.kotlin_frontend_version = '0.0.21'
+
+    ext {
+        kotlin_version = '1.1.4-3'
+        gradle_node_version = '1.2.0'
+        kotlin_frontend_version = '0.0.21'
+        node_version = '8.5.0'
+        vue_version = '2.4.4'
+    }
 
     repositories {
         jcenter()
@@ -22,14 +27,9 @@ buildscript {
     }
 }
 
-subprojects {
-    apply plugin: 'kotlin2js'
-
+allprojects {
     repositories {
         jcenter()
-    }
-
-    dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+        mavenLocal() // for vuekt
     }
 }
