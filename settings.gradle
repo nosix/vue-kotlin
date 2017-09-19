@@ -1,5 +1,10 @@
 rootProject.name = 'vue-kotlin'
-include 'vuekt', 'guide'
+
+include 'vuekt'
+include 'vuekt-js2vue'
+include 'vuekt-plugin'
+
+include 'guide'
 include 'guide:index'
 include 'guide:instance'
 include 'guide:syntax'
@@ -10,5 +15,7 @@ include 'guide:events'
 include 'guide:forms'
 include 'guide:components'
 include 'guide:filters'
+
+include 'single-file'
 include 'single-file:greeting'
 include 'single-file:greeting-component'

@@ -1,0 +1,35 @@
+apply plugin: 'kotlin2js'
+apply plugin: 'maven-publish'
+
+group 'org.musyozoku'
+version '1.0-SNAPSHOT'
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
+    compile 'xyz.nulldev:aza-kotlin-css-js:1.0'
+}
+
+compileKotlin2Js {
+    kotlinOptions {
+        outputFile = "$buildDir/js/${project.name}.js"
+        moduleKind = "umd"
+        sourceMap = true
+    }
+}
+
+// Publish library
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+// Skip tasks
+compileJava.enabled = false
+processResources.enabled = false
+
+// Task dependencies
+build.dependsOn(tasks.getByPath(':vuekt:publishToMavenLocal'))
