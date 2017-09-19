@@ -12,7 +12,6 @@ jar.enabled = false
 dependencies {
     compile project(':single-file:greeting')
     compile project(':single-file:greeting-component')
-    compile project(':single-file:greeting-component:vue')
 }
 
 compileKotlin2Js {
@@ -49,33 +48,16 @@ kotlinFrontend {
     }
 }
 
-def vueProjects = getSubprojects().findAll { it.name == 'vue' }
+task js2vue(type: Exec) { // TODO to plugin
 
-configure(vueProjects) {
-
-    apply plugin: 'kotlin'
-    apply plugin: 'application'
-
-    mainClassName = 'VueFileBuilder'
-
-    // Skip tasks
-    classes.enabled = false
-    jar.enabled = false
-
-    dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-        compile('azadev.kotlin:aza-kotlin-css:1.0') {
-            exclude module: 'kotlin-stdlib'
-            exclude module: 'kotlin-runtime'
-        }
-    }
-
-    sourceSets {
-        main.kotlin.srcDirs += "main"
-    }
+    executable "node"
+    args("greeting-component_main.js")
+    workingDir "$projectDir/greeting-component/build/classes/main"
+    environment("NODE_PATH", "$buildDir/node_modules")
+    environment("PATH", "~/.gradle/nodejs/node-v8.5.0-darwin-x64/bin") // TODO use kotlin-frontend-plugin setting
 }
 
-configure(subprojects - vueProjects) {
+subprojects {
 
     apply plugin: 'kotlin2js'
 
@@ -86,6 +68,7 @@ configure(subprojects - vueProjects) {
     // Kotlin/JS library dependencies
     dependencies {
         compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
+        compile 'xyz.nulldev:aza-kotlin-css-js:1.0'
     }
 
     sourceSets {
@@ -102,11 +85,9 @@ configure(subprojects - vueProjects) {
 }
 
 // Task dependencies
-def buildVuektTask = tasks.getByPath(':vuekt:build')
 def publishVuektTask = tasks.getByPath(':vuekt:publishToMavenLocal')
-def generateVueFileTask = tasks.getByPath(':single-file:greeting-component:vue:run')
 
-packages.dependsOn(buildVuektTask)
 packages.dependsOn(publishVuektTask)
-packages.dependsOn(generateVueFileTask)
-packages.mustRunAfter(publishVuektTask)
+tasks.js2vue.dependsOn(tasks.compileKotlin2Js)
+tasks.bundle.dependsOn(tasks.js2vue)
+tasks.run.dependsOn(tasks.js2vue)

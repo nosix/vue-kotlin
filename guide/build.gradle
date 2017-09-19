@@ -73,9 +73,6 @@ subprojects {
 }
 
 // Task dependencies
-def buildVuektTask = tasks.getByPath(':vuekt:build')
 def publishVuektTask = tasks.getByPath(':vuekt:publishToMavenLocal')
 
-packages.dependsOn(buildVuektTask)
 packages.dependsOn(publishVuektTask)
-packages.mustRunAfter(publishVuektTask)

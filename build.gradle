@@ -29,7 +29,7 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenLocal() // for vuekt, aza-kotlin-css-js (use https://github.com/nosix/Aza-Kotlin-CSS-JS)
         jcenter()
-        mavenLocal() // for vuekt
     }
 }
