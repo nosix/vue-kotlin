@@ -1,0 +1,49 @@
+buildscript {
+
+    ext {
+        kotlin_version = '1.1.4-3'
+        kotlin_frontend_version = '0.0.21'
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'kotlin'
+apply plugin: 'maven-publish'
+
+group 'org.musyozoku'
+version '1.0-SNAPSHOT'
+
+repositories {
+    jcenter()
+    maven {
+        // kotlin-frontend-plugin
+        url "https://dl.bintray.com/kotlin/kotlin-eap"
+    }
+}
+
+dependencies {
+    compile gradleApi()
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version") {
+        exclude module: "kotlin-compiler-embeddable"
+    }
+    compile("org.jetbrains.kotlin:kotlin-frontend-plugin:$kotlin_frontend_version") {
+        exclude module: "kotlin-compiler-embeddable"
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}

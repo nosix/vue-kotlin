@@ -1,5 +1,6 @@
 apply plugin: 'kotlin2js'
 apply plugin: 'org.jetbrains.kotlin.frontend'
+apply plugin: 'org.musyozoku.vuekt'
 
 ext {
     enableSourceMap = false
@@ -48,15 +49,6 @@ kotlinFrontend {
     }
 }
 
-task js2vue(type: Exec) { // TODO to plugin
-
-    executable "node"
-    args("greeting-component_main.js")
-    workingDir "$projectDir/greeting-component/build/classes/main"
-    environment("NODE_PATH", "$buildDir/node_modules")
-    environment("PATH", "~/.gradle/nodejs/node-v8.5.0-darwin-x64/bin") // TODO use kotlin-frontend-plugin setting
-}
-
 subprojects {
 
     apply plugin: 'kotlin2js'
@@ -68,6 +60,7 @@ subprojects {
     // Kotlin/JS library dependencies
     dependencies {
         compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
+        compile "org.musyozoku:vuekt-js2vue:1.0-SNAPSHOT"
         compile 'xyz.nulldev:aza-kotlin-css-js:1.0'
     }
 
@@ -85,9 +78,5 @@ subprojects {
 }
 
 // Task dependencies
-def publishVuektTask = tasks.getByPath(':vuekt:publishToMavenLocal')
-
-packages.dependsOn(publishVuektTask)
-tasks.js2vue.dependsOn(tasks.compileKotlin2Js)
-tasks.bundle.dependsOn(tasks.js2vue)
-tasks.run.dependsOn(tasks.js2vue)
+packages.dependsOn(tasks.getByPath(':vuekt:publishToMavenLocal'))
+packages.dependsOn(tasks.getByPath(':vuekt-js2vue:publishToMavenLocal'))

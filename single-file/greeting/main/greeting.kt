@@ -1,7 +1,7 @@
 import org.musyozoku.vuekt.*
 
 @JsModule("greeting-component.vue")
-external val GreetingComponent: Component
+external val GreetingComponent: Component = definedExternally
 
 val vm = Vue(ComponentOptions {
     el = ElementConfig("#app")

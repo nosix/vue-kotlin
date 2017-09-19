@@ -3,6 +3,9 @@ import azadev.kotlin.css.fontSize
 import azadev.kotlin.css.textAlign
 import org.musyozoku.vuekt.Data
 import org.musyozoku.vuekt.Vue
+import org.musyozoku.vuekt.js2vue.ComponentOptionsBuilder
+import org.musyozoku.vuekt.js2vue.ComponentVue
+import org.musyozoku.vuekt.js2vue.StyleBuilder
 import org.musyozoku.vuekt.json
 
 external class GreetingComponent : Vue {

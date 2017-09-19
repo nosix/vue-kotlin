@@ -18,18 +18,21 @@ buildscript {
             // gradle-node-plugin
             url "https://plugins.gradle.org/m2/"
         }
+        // vuekt-plugin
+        mavenLocal()
     }
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:$kotlin_frontend_version"
         classpath "com.moowork.gradle:gradle-node-plugin:$gradle_node_version"
+        classpath "org.musyozoku:vuekt-plugin:1.0-SNAPSHOT"
     }
 }
 
 allprojects {
     repositories {
-        mavenLocal() // for vuekt, aza-kotlin-css-js (use https://github.com/nosix/Aza-Kotlin-CSS-JS)
+        mavenLocal() // for vuekt, vuekt-js2vue, aza-kotlin-css-js (use https://github.com/nosix/Aza-Kotlin-CSS-JS)
         jcenter()
     }
 }

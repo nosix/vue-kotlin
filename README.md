@@ -7,6 +7,12 @@ In development...
 
 ## Trial
 
+Publish plugin to local repository.
+
+```
+$ ./gradlew --project-dir=vuekt-plugin publishToMavenLocal
+```
+
 Generate bundle files.
 
 ```$shell
