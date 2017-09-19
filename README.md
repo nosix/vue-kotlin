@@ -35,7 +35,7 @@ $ ./gradlew -t single-file:run
 Open `http://localhost:8088/` on the browser.
 
 HMR (Hot Module Replacement) is enabled.
-(Edit `greeting/main/greeting.kt`, `greeting-component/main/GreetingComponent.kt` or/and `greeting-component/vue/main/ComponentVueImple.kt`)
+(Edit `greeting/main/greeting.kt` and/or `greeting-component/main/GreetingComponent.kt`)
 
 Stop webpack-dev-server.
 
