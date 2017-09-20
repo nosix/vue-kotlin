@@ -53,8 +53,8 @@
             <option value="$PROJECT_DIR$/single-file/greeting" />
             <option value="$PROJECT_DIR$/single-file/greeting-component" />
             <option value="$PROJECT_DIR$/vuekt" />
-            <option value="$PROJECT_DIR$/vuekt-" />
             <option value="$PROJECT_DIR$/vuekt-js2vue" />
+            <option value="$PROJECT_DIR$/vuekt-plugin" />
           </set>
         </option>
         <option name="useAutoImport" value="true" />

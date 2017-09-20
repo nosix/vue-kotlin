@@ -61,7 +61,7 @@ subprojects {
     dependencies {
         compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
         compile "org.musyozoku:vuekt-js2vue:1.0-SNAPSHOT"
-        compile 'xyz.nulldev:aza-kotlin-css-js:1.0'
+        compile 'xyz.nulldev:aza-kotlin-css-js:1.01'
     }
 
     sourceSets {

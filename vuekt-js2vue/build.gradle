@@ -7,7 +7,7 @@ version '1.0-SNAPSHOT'
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
-    compile 'xyz.nulldev:aza-kotlin-css-js:1.0'
+    compile 'xyz.nulldev:aza-kotlin-css-js:1.01'
 }
 
 compileKotlin2Js {
