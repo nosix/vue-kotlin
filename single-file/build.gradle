@@ -59,9 +59,9 @@ subprojects {
 
     // Kotlin/JS library dependencies
     dependencies {
-        compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
-        compile "org.musyozoku:vuekt-js2vue:1.0-SNAPSHOT"
-        compile 'xyz.nulldev:aza-kotlin-css-js:1.01'
+        compile "org.musyozoku:vuekt:$vuekt_version"
+        compile "org.musyozoku:vuekt-js2vue:$vuekt_js2vue_version"
+        compile "xyz.nulldev:aza-kotlin-css-js:$aza_kotlin_css_version"
     }
 
     sourceSets {
@@ -78,5 +78,10 @@ subprojects {
 }
 
 // Task dependencies
-packages.dependsOn(tasks.getByPath(':vuekt:publishToMavenLocal'))
-packages.dependsOn(tasks.getByPath(':vuekt-js2vue:publishToMavenLocal'))
+def publishVuektTask = tasks.getByPath(':vuekt:publishToMavenLocal')
+def publishVuektJs2VueTask = tasks.getByPath(':vuekt-js2vue:publishToMavenLocal')
+
+packages.dependsOn(publishVuektTask)
+packages.dependsOn(publishVuektJs2VueTask)
+packages.mustRunAfter(publishVuektTask)
+packages.mustRunAfter(publishVuektJs2VueTask)

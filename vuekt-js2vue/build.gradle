@@ -1,13 +1,14 @@
 apply plugin: 'kotlin2js'
 apply plugin: 'maven-publish'
+apply plugin: 'maven'
 
-group 'org.musyozoku'
-version '1.0-SNAPSHOT'
+group group_id
+version vuekt_js2vue_version
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile "org.musyozoku:vuekt:1.0-SNAPSHOT"
-    compile 'xyz.nulldev:aza-kotlin-css-js:1.01'
+    compile "org.musyozoku:vuekt:$vuekt_version"
+    compile "xyz.nulldev:aza-kotlin-css-js:$aza_kotlin_css_version"
 }
 
 compileKotlin2Js {
@@ -18,7 +19,17 @@ compileKotlin2Js {
     }
 }
 
-// Publish library
+// Skip tasks
+compileJava.enabled = false
+processResources.enabled = false
+
+// Task dependencies
+def publishVuektTask = tasks.getByPath(':vuekt:publishToMavenLocal')
+
+build.dependsOn(publishVuektTask)
+build.mustRunAfter(publishVuektTask)
+
+// for publishToMavenLocal task
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -27,9 +38,25 @@ publishing {
     }
 }
 
-// Skip tasks
-compileJava.enabled = false
-processResources.enabled = false
-
-// Task dependencies
-build.dependsOn(tasks.getByPath(':vuekt:publishToMavenLocal'))
+// for uploadArchives task (distribute with GitHub)
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file:${releaseDir}/${project.name}")
+            pom.groupId = group
+            pom.artifactId = project.name
+            pom.version = version
+            pom.project {
+                inceptionYear '2017'
+                packaging 'jar'
+                licenses {
+                    license {
+                        name licence_name
+                        url licence_url
+                        distribution 'repo'
+                    }
+                }
+            }
+        }
+    }
+}

@@ -3,8 +3,8 @@ apply plugin: 'com.moowork.node'
 apply plugin: 'maven-publish'
 apply plugin: 'maven'
 
-group 'org.musyozoku'
-version '1.0-SNAPSHOT'
+group group_id
+version vuekt_version
 
 // Skip tasks
 compileJava.enabled = false
@@ -58,8 +58,8 @@ uploadArchives {
                 packaging 'jar'
                 licenses {
                     license {
-                        name licenceName
-                        url licenceUrl
+                        name licence_name
+                        url licence_url
                         distribution 'repo'
                     }
                 }

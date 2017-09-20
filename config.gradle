@@ -1,0 +1,27 @@
+ext {
+    group_id = 'org.musyozoku'
+    vuekt_version = '1.0-SNAPSHOT'
+    vuekt_js2vue_version = '1.0-SNAPSHOT'
+    vuekt_plugin_version = '1.0-SNAPSHOT'
+
+    kotlin_version = '1.1.4-3'
+    gradle_node_version = '1.2.0'
+    kotlin_frontend_version = '0.0.21'
+    node_version = '8.5.0'
+    vue_version = '2.4.4'
+    aza_kotlin_css_version = '1.01'
+
+    licence_name = 'The Apache Software License, Version 2.0'
+    licence_url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+
+    def version = getProperty('version')
+    if (version != 'unspecified') {
+        vuekt_version = version
+        vuekt_js2vue_version = version
+        vuekt_plugin_version = version
+    }
+}
+
+// Note:
+//   `gradle.properties` can not be used.
+//   `vuekt-plugin` project and `vue-kotlin` project depend on each other and can not be built.

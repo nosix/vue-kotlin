@@ -1,8 +1,9 @@
 buildscript {
 
+    apply from: '../config.gradle'
+
     ext {
-        kotlin_version = '1.1.4-3'
-        kotlin_frontend_version = '0.0.21'
+        releaseDir = "$projectDir/../release"
     }
 
     repositories {
@@ -19,8 +20,8 @@ apply plugin: 'kotlin'
 apply plugin: 'maven-publish'
 apply plugin: 'maven'
 
-group 'org.musyozoku'
-version '1.0-SNAPSHOT'
+group group_id
+version vuekt_plugin_version
 
 repositories {
     jcenter()
@@ -63,8 +64,8 @@ uploadArchives {
                 packaging 'jar'
                 licenses {
                     license {
-                        name licenceName
-                        url licenceUrl
+                        name licence_name
+                        url licence_url
                         distribution 'repo'
                     }
                 }
