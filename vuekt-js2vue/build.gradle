@@ -42,7 +42,7 @@ publishing {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "file:${releaseDir}/${project.name}")
+            repository(url: "file:$releaseDir")
             pom.groupId = group
             pom.artifactId = project.name
             pom.version = version

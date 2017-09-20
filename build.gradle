@@ -16,8 +16,19 @@ buildscript {
             // gradle-node-plugin
             url "https://plugins.gradle.org/m2/"
         }
-        // vuekt-plugin
-        mavenLocal()
+        if (releaseTest) {
+            println('Using remote packages...')
+
+            maven {
+                // vue-kotlin released packages
+                url "https://nosix.github.io/vue-kotlin/release"
+            }
+        } else {
+            println('Using local packages...')
+
+            // vuekt-plugin
+            mavenLocal()
+        }
     }
 
     dependencies {
@@ -30,7 +41,12 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenLocal() // for vuekt, vuekt-js2vue
+        if (releaseTest) {
+            // vue-kotlin released packages
+            url "https://nosix.github.io/vue-kotlin/release"
+        } else {
+            mavenLocal() // for vuekt, vuekt-js2vue
+        }
         jcenter()
     }
 }
