@@ -33,6 +33,7 @@ Open the following in a browser.
 - `single-file/build/bundle/greeting.html`
 
 Run webpack-dev-server.
+(`-t` is option for [continuous build](https://docs.gradle.org/current/userguide/continuous_build.html))
 
 ```$shell
 $ ./gradlew -t single-file:run
@@ -62,7 +63,7 @@ $ ./gradlew single-file:stop
 
     kotlin-frontend-plugin does not update node_modules.
     
-    Please try the following script:
+    Please try the following command:
     ```
     $ ./gradlew clean
     ```
