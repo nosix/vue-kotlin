@@ -56,9 +56,6 @@ uploadArchives {
     repositories {
         mavenDeployer {
             repository(url: "file:$releaseDir")
-            pom.groupId = group
-            pom.artifactId = project.name
-            pom.version = version
             pom.project {
                 inceptionYear '2017'
                 packaging 'jar'
