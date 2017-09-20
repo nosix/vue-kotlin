@@ -73,11 +73,11 @@ external interface VNodeComponentOptions {
  */
 external interface Key
 
-inline fun Key(value: String): Key = value.asDynamic()
-inline fun Key(value: Int): Key = value.asDynamic()
+inline fun Key(name: String): Key = name.asDynamic()
+inline fun Key(index: Int): Key = index.asDynamic()
 
-inline fun Key.toString(): String = this.asDynamic()
-inline fun Key.toNumber(): Int = this.asDynamic()
+inline fun Key.toName(): String = this.asDynamic()
+inline fun Key.toIndex(): Int = this.asDynamic()
 
 /**
  * `{ [propertyName: String]: ScopedSlot }`
@@ -89,24 +89,24 @@ external interface ScopedSlotMap : JsonOf<ScopedSlot?>
  */
 external interface ScopedSlot
 
-inline fun ScopedSlot(value: (props: Any) -> VNodeChildrenArrayContents): ScopedSlot = value.asDynamic()
-inline fun ScopedSlot(value: String): ScopedSlot = value.asDynamic()
+inline fun ScopedSlot(func: (props: Any) -> VNodeChildrenArrayContents): ScopedSlot = func.asDynamic()
+inline fun ScopedSlot(value: String): ScopedSlot = value.asDynamic() // TODO change parameter name
 
 inline fun ScopedSlot.toFunction(): (props: Any) -> VNodeChildrenArrayContents = this.asDynamic()
-inline fun ScopedSlot.toString(): String = this.asDynamic()
+inline fun ScopedSlot.toString(): String = this.asDynamic() // TODO change method name
 
 /**
  * `VNodeChildrenArrayContents | [ScopedSlot] | String`
  */
 external interface VNodeChildren
 
-inline fun VNodeChildren(value: VNodeChildrenArrayContents): VNodeChildren = value.asDynamic()
-inline fun VNodeChildren(value: Array<ScopedSlot>): VNodeChildren = value.asDynamic()
-inline fun VNodeChildren(value: String): VNodeChildren = value.asDynamic()
+inline fun VNodeChildren(contents: VNodeChildrenArrayContents): VNodeChildren = contents.asDynamic()
+inline fun VNodeChildren(scopedSlot: Array<ScopedSlot>): VNodeChildren = scopedSlot.asDynamic()
+inline fun VNodeChildren(value: String): VNodeChildren = value.asDynamic() // TODO change parameter name
 
 inline fun VNodeChildren.toContents(): VNodeChildrenArrayContents = this.asDynamic()
 inline fun VNodeChildren.toScopedSlot(): Array<ScopedSlot> = this.asDynamic()
-inline fun VNodeChildren.toString(): String = this.asDynamic()
+inline fun VNodeChildren.toString(): String = this.asDynamic() // TODO change method name
 
 /**
  * `{ [x: Number]: VNode | String | VNodeChildren }`
@@ -123,10 +123,10 @@ inline operator fun VNodeChildrenArrayContents.set(x: Int, value: Contents) {
  */
 external interface Contents
 
-inline fun Contents(value: VNode): Contents = value.asDynamic()
-inline fun Contents(value: String): Contents = value.asDynamic()
-inline fun Contents(value: VNodeChildren): Contents = value.asDynamic()
+inline fun Contents(node: VNode): Contents = node.asDynamic()
+inline fun Contents(value: String): Contents = value.asDynamic() // TODO change parameter name
+inline fun Contents(children: VNodeChildren): Contents = children.asDynamic()
 
 inline fun Contents.toVNode(): VNode = this.asDynamic()
-inline fun Contents.toString(): String = this.asDynamic()
+inline fun Contents.toString(): String = this.asDynamic() // TODO change method name
 inline fun Contents.toVNodeChildren(): VNodeChildren = this.asDynamic()
