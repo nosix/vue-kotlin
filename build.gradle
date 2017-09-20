@@ -42,8 +42,10 @@ buildscript {
 allprojects {
     repositories {
         if (releaseTest) {
-            // vue-kotlin released packages
-            url "https://nosix.github.io/vue-kotlin/release"
+            maven {
+                // vue-kotlin released packages
+                url "https://nosix.github.io/vue-kotlin/release"
+            }
         } else {
             mavenLocal() // for vuekt, vuekt-js2vue
         }
