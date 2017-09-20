@@ -6,6 +6,7 @@ import org.musyozoku.vuekt.Vue
 import org.musyozoku.vuekt.js2vue.ComponentOptionsBuilder
 import org.musyozoku.vuekt.js2vue.ComponentVue
 import org.musyozoku.vuekt.js2vue.StyleBuilder
+import org.musyozoku.vuekt.js2vue.translate
 import org.musyozoku.vuekt.json
 
 external class GreetingComponent : Vue {
@@ -13,8 +14,6 @@ external class GreetingComponent : Vue {
 }
 
 class GreetingComponentVue : ComponentVue<GreetingComponent> {
-
-    override val name: String = "greeting-component"
 
     override val template: String = """<p>{{ greeting }} World!</p>"""
 
@@ -33,3 +32,6 @@ class GreetingComponentVue : ComponentVue<GreetingComponent> {
         }
     }
 }
+
+@Suppress("unused")
+val options = translate(GreetingComponentVue())

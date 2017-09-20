@@ -48,3 +48,21 @@ Stop webpack-dev-server.
 ```$shell
 $ ./gradlew single-file:stop
 ```
+
+## Troubleshooting
+
+1. Execution failed for task webpack-bundle: `node webpack.js failed`
+
+    Please try the following script:
+    ```
+    $ bin/webpack.sh
+    ```
+
+1. Changing `vuekt` and/or `vuekt-js2vue` don't update `guide` and `single-file` project.
+
+    kotlin-frontend-plugin does not update node_modules.
+    
+    Please try the following script:
+    ```
+    $ ./gradlew clean
+    ```
