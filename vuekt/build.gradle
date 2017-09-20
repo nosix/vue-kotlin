@@ -1,6 +1,7 @@
 apply plugin: 'kotlin2js'
 apply plugin: 'com.moowork.node'
 apply plugin: 'maven-publish'
+apply plugin: 'maven'
 
 group 'org.musyozoku'
 version '1.0-SNAPSHOT'
@@ -35,10 +36,34 @@ compileKotlin2Js {
     }
 }
 
+// for publishToMavenLocal task
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+        }
+    }
+}
+
+// for uploadArchives task (distribute with GitHub)
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file:${releaseDir}/${project.name}")
+            pom.groupId = group
+            pom.artifactId = project.name
+            pom.version = version
+            pom.project {
+                inceptionYear '2017'
+                packaging 'jar'
+                licenses {
+                    license {
+                        name licenceName
+                        url licenceUrl
+                        distribution 'repo'
+                    }
+                }
+            }
         }
     }
 }
