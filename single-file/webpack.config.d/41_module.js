@@ -4,7 +4,7 @@ Object.assign(config.module, {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          esModule: false
+          esModule: false // required for Kotlin/JS
         }
       },
       {
