@@ -7,7 +7,6 @@ Object.assign(config.resolve, {
 })
 
 config.resolveLoader = {
-      modules: [require('path').join(__dirname, 'node_modules')],
-//      extensions: ['.js', '.json'],
-//      mainFields: ['loader', 'main']
+    // required because `module not found` occurs on some loaders
+    modules: [require('path').join(__dirname, 'node_modules')]
 }
