@@ -1,3 +1,5 @@
+[English](./README.md)
+
 # vue-kotlin
 Kotlin での Vue.js の使用を支援するライブラリとツール
 
