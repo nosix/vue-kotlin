@@ -1,4 +1,4 @@
-[日本語/Japanese](./README_ja.md)
+English | [日本語/Japanese](./README_ja.md)
 
 # vue-kotlin
 Libraries and tools supporting the use of Vue.js in Kotlin.
