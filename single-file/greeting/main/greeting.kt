@@ -9,7 +9,7 @@ external class AppVue(options: ComponentOptions<AppVue>) : Vue {
     var message: String
 }
 
-val vm = Vue(ComponentOptions {
+val vm = AppVue(ComponentOptions {
     el = ElementConfig("#app")
     data = Data(json<AppVue> {
         message = "Vue & Kotlin"
