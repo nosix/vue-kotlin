@@ -95,6 +95,22 @@ subprojects {
 }
 ```
 
+optional vuekt-plugin settings:
+
+```groovy
+vue {
+    targetPattern = ".*-component_main\\.js"
+    configFile = "01_js2vue.js"
+}
+```
+
+- targetPattern
+    - vuekt-plugin searches targetPattern for JavaScript files generated from ComponentVue
+    - JavaScript files generate vue files
+- configFile
+    - vuekt-plugin generate additional webpack config in webpack.config.d directory
+    - This config is required when bundling
+
 ### Project structure
 
 For example:
@@ -211,6 +227,18 @@ module.exports = require('greeting-component_main.js').options
 ```
 
 `options` in the component is used in the vue file.
+
+### Data flow
+
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vQIrWUsJ0aY3VlbUkyvkIdA6Z4yikCmfxxPr_nYKUKZsbmiG0WV8qR_tEY4SFgA8LMwZoKh2QMuU90Z/pub?w=960&amp;h=720">
+
+- `greeting-component_main.js` and `greeting-component.vue` are named from `GreetingComponentVue`
+    - Camel case is converted to kebab case
+    - `Vue` is removed
+    - You can change the name by overriding ComponentVue::name property
+        - default is `this::class.js.name.replace("([A-Z])".toRegex(), "-$1").toLowerCase().replace("vue", "").trim('-')`
+- vuekt-js2vue finds `*-component_main.js`
+    - You can change the pattern by setting targetPattern in build.gradle
 
 ## Trial
 
