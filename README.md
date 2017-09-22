@@ -199,7 +199,7 @@ class GreetingComponentVue : ComponentVue<GreetingComponent> {
 }
 
 @Suppress("unused")
-val options = translate(GreetingComponentVue()) // required, used by vuekt-js2vue 
+val options = translate(GreetingComponentVue()) // required, used by bundling
 ```
 
 CSS library: [null-dev/Aza-Kotlin-CSS-JS](https://github.com/null-dev/Aza-Kotlin-CSS-JS)
@@ -233,10 +233,10 @@ module.exports = require('greeting-component_main.js').options
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQIrWUsJ0aY3VlbUkyvkIdA6Z4yikCmfxxPr_nYKUKZsbmiG0WV8qR_tEY4SFgA8LMwZoKh2QMuU90Z/pub?w=960&amp;h=720">
 
 - `greeting-component_main.js` and `greeting-component.vue` are named from `GreetingComponentVue`
+    - `Vue` of prefix/suffix is removed
     - Camel case is converted to kebab case
-    - `Vue` is removed
     - You can change the name by overriding ComponentVue::name property
-        - default is `this::class.js.name.replace("([A-Z])".toRegex(), "-$1").toLowerCase().replace("vue", "").trim('-')`
+        - default is `this::class.js.name.replace("^Vue|Vue$".toRegex(), "").replace("([A-Z])".toRegex(), "-$1").toLowerCase().trim('-')`
 - vuekt-js2vue finds `*-component_main.js`
     - You can change the pattern by setting targetPattern in build.gradle
 
