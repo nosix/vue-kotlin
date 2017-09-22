@@ -20,7 +20,7 @@ interface ComponentVue<V : Vue> {
      * Default: if class name is `FooBarComponentVue`, then base name is `foo-bar-component`.
      */
     val name: String get() = this::class.js.name
-            .replace("([A-Z])".toRegex(), "-$1").toLowerCase().replace("vue", "").trim('-')
+            .replace("^Vue|Vue$".toRegex(), "").replace("([A-Z])".toRegex(), "-$1").toLowerCase().trim('-')
 
     /**
      * Output vue file name.
