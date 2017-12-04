@@ -12,7 +12,7 @@ dependencies {
     compile project(':guide:computed')
     compile project(':guide:class-and-style')
     compile project(':guide:list')
-    compile project(':guide:events')
+    compile project(':guide:events_')
     compile project(':guide:forms')
     compile project(':guide:components')
     compile project(':guide:filters')

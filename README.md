@@ -101,7 +101,7 @@ optional vuekt-plugin settings:
 
 ```groovy
 vue {
-    targetPattern = ".*-component_main\\.js"
+    targetPattern = ".*-component\\.js"
     configFile = "01_js2vue.js"
 }
 ```
@@ -209,7 +209,7 @@ CSS library: [null-dev/Aza-Kotlin-CSS-JS](https://github.com/null-dev/Aza-Kotlin
 
 Two files are generated:
 
-- greeting-component_main.js (kotlin2js generated)
+- greeting-component.js (kotlin2js generated)
 - greeting-component.vue (js2vue generated)
 
 Generated vue file (greeting-component.vue):
@@ -224,7 +224,7 @@ p{font-size:2em;text-align:center}
 </style>
 
 <script>
-module.exports = require('greeting-component_main.js').options
+module.exports = require('greeting-component.js').options
 </script>
 ```
 
@@ -234,12 +234,12 @@ module.exports = require('greeting-component_main.js').options
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQIrWUsJ0aY3VlbUkyvkIdA6Z4yikCmfxxPr_nYKUKZsbmiG0WV8qR_tEY4SFgA8LMwZoKh2QMuU90Z/pub?w=960&amp;h=720">
 
-- `greeting-component_main.js` and `greeting-component.vue` are named from `GreetingComponentVue`
+- `greeting-component.js` and `greeting-component.vue` are named from `GreetingComponentVue`
     - `Vue` of prefix/suffix is removed
     - Camel case is converted to kebab case
     - You can change the name by overriding ComponentVue::name property
         - default is `this::class.js.name.replace("^Vue|Vue$".toRegex(), "").replace("([A-Z])".toRegex(), "-$1").toLowerCase().trim('-')`
-- vuekt-js2vue finds `*-component_main.js`
+- vuekt-js2vue finds `*-component.js`
     - You can change the pattern by setting targetPattern in build.gradle
 
 ## Trial
@@ -268,7 +268,7 @@ Try production build (minify is still)
     - `guide/computed.html`
     - `guide/class-and-style.html`
     - `guide/list.html`
-    - `guide/events.html`
+    - `guide/events_.html`
     - `guide/forms.html`
     - `guide/components.html`
     - `guide/filters.html`

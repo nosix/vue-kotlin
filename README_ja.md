@@ -101,7 +101,7 @@ subprojects {
 
 ```groovy
 vue {
-    targetPattern = ".*-component_main\\.js"
+    targetPattern = ".*-component\\.js"
     configFile = "01_js2vue.js"
 }
 ```
@@ -209,7 +209,7 @@ CSS library: [null-dev/Aza-Kotlin-CSS-JS](https://github.com/null-dev/Aza-Kotlin
 
 ２つのファイルが生成される:
 
-- greeting-component_main.js (kotlin2js が生成)
+- greeting-component.js (kotlin2js が生成)
 - greeting-component.vue (js2vue が生成)
 
 生成された vue ファイル (greeting-component.vue):
@@ -224,7 +224,7 @@ p{font-size:2em;text-align:center}
 </style>
 
 <script>
-module.exports = require('greeting-component_main.js').options
+module.exports = require('greeting-component.js').options
 </script>
 ```
 
@@ -234,12 +234,12 @@ module.exports = require('greeting-component_main.js').options
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQIrWUsJ0aY3VlbUkyvkIdA6Z4yikCmfxxPr_nYKUKZsbmiG0WV8qR_tEY4SFgA8LMwZoKh2QMuU90Z/pub?w=960&amp;h=720">
 
-- `greeting-component_main.js` と `greeting-component.vue` は `GreetingComponentVue` から名付けられます
+- `greeting-component.js` と `greeting-component.vue` は `GreetingComponentVue` から名付けられます
     - 前置/後置の `Vue` は削除されます
     - キャメルケースはケバブケースに変換されます
     - ComponentVue::name プロパティをオーバーライドすることで名前を変更できます
         - デフォルト: `this::class.js.name.replace("^Vue|Vue$".toRegex(), "").replace("([A-Z])".toRegex(), "-$1").toLowerCase().trim('-')`
-- vuekt-js2vue は `*-component_main.js` を探します
+- vuekt-js2vue は `*-component.js` を探します
     - build.gradle の targetPattern を設定することで検索パターンを変更できます
 
 ## 試行方法
@@ -268,7 +268,7 @@ module.exports = require('greeting-component_main.js').options
     - `guide/computed.html`
     - `guide/class-and-style.html`
     - `guide/list.html`
-    - `guide/events.html`
+    - `guide/events_.html`
     - `guide/forms.html`
     - `guide/components.html`
     - `guide/filters.html`

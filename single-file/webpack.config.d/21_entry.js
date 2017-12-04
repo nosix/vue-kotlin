@@ -1,6 +1,6 @@
 // Multiple entries example
 config.entry = {
-    'greeting': 'greeting_main',
+    'greeting': 'greeting',
     'vue': 'vue',
     'vuekt': 'vuekt'
 }

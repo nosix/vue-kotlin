@@ -5,7 +5,7 @@ open class VuePluginExtension {
     /**
      * Files to match this pattern translate to vue file.
      */
-    var targetPattern = """.*-component_main\.js"""
+    var targetPattern = """.*-component\.js"""
 
     /**
      * Name of the file generated as `webpack.config.d/$configFile`

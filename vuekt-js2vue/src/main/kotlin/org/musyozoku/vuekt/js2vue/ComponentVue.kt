@@ -32,9 +32,9 @@ interface ComponentVue<V : Vue> {
     /**
      * Input script name
      *
-     * Default: `${name}_main.js`
+     * Default: `${name}.js`
      */
-    val inputFile: String get() = "${name}_main.js"
+    val inputFile: String get() = "$name.js"
 
     /**
      * Vue template.
