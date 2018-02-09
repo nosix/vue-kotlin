@@ -4,7 +4,7 @@ ext {
     vuekt_js2vue_version = '1.0-SNAPSHOT'
     vuekt_plugin_version = '1.0-SNAPSHOT'
 
-    kotlin_version = '1.2.0'
+    kotlin_version = '1.2.21'
     gradle_node_version = '1.2.0'
     kotlin_frontend_version = '0.0.25'
     node_version = '8.5.0'
