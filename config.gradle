@@ -6,7 +6,7 @@ ext {
 
     kotlin_version = '1.2.21'
     gradle_node_version = '1.2.0'
-    kotlin_frontend_version = '0.0.25'
+    kotlin_frontend_version = '0.0.27'
     node_version = '8.5.0'
     vue_version = '2.4.4'
     aza_kotlin_css_version = '1.01'
