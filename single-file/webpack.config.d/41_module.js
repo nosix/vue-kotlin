@@ -10,6 +10,13 @@ Object.assign(config.module, {
       {
         test: /\.html$/,
         loader: 'html-loader'
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          'css-loader'
+        ]
       }
     ],
 })

@@ -4,11 +4,11 @@ ext {
     vuekt_js2vue_version = '1.0-SNAPSHOT'
     vuekt_plugin_version = '1.0-SNAPSHOT'
 
-    kotlin_version = '1.2.21'
+    kotlin_version = '1.3.21'
     gradle_node_version = '1.2.0'
-    kotlin_frontend_version = '0.0.27'
-    node_version = '8.5.0'
-    vue_version = '2.4.4'
+    kotlin_frontend_version = '0.0.45'
+    node_version = '11.10.0'
+    vue_version = '2.6.7'
     aza_kotlin_css_version = '1.01'
 
     licence_name = 'The Apache Software License, Version 2.0'
