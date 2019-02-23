@@ -37,6 +37,8 @@ kotlinFrontend {
     npm {
         dependency('vue', vue_version)
         dependency('axios', '0.12.0')
+
+        devDependency('webpack', '4.29.5')
     }
 
     webpackBundle {

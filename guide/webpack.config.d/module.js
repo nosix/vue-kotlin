@@ -1,6 +1,18 @@
 Object.assign(config.module, {
-    loaders: [
-      { test: /\.vue$/, loader: 'vue-loader' },
-      { test: /\.css$/, loader: 'style-loader!css-loader' }
-    ]
+    rules: [
+        {
+            test: /\.vue$/,
+            loader: 'vue-loader',
+            options: {
+                esModule: false // required for Kotlin/JS
+            }
+        },
+        {
+            test: /\.css$/,
+            use: [
+                'vue-style-loader',
+                'css-loader'
+            ]
+        }
+    ],
 })
