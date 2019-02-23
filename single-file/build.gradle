@@ -33,12 +33,14 @@ kotlinFrontend {
 
     npm {
         dependency('vue', vue_version)
-
+        
+        devDependency('webpack', '3.6.0')
+        devDependency('webpack-dev-server', '2.9.0')
         devDependency('vue-loader', '13.0.2')
         devDependency('vue-template-compiler', vue_version)
-        devDependency('css-loader', '*')
+        devDependency('css-loader', '0.28.7')
         devDependency('js-beautify', '1.6.14') // TODO remove
-        devDependency('html-webpack-plugin', '2.30.1')
+        devDependency('html-webpack-plugin', '3.2.0')
     }
 
     webpackBundle {
